@@ -10,7 +10,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="About us"
         android:textSize="32sp"
-        android:text="About us" />
+        android:textStyle="bold" />
 
 </FrameLayout>
