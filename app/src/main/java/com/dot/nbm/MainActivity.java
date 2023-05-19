@@ -10,12 +10,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] labels = new String[]{"QoS", "About Us", "Contributions", "Test"};
+    private String[] tab_labels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tab_labels = new String[]{getString(R.string.qos_tab_name), getString(R.string.about_us_tab_name), getString(R.string.setting_tab_name)};
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
@@ -35,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        getSupportActionBar().setElevation(0);
 
-        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            tab.setText(labels[position]);
-        }).attach();
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(tab_labels[position])).attach();
 // set default position to 1 instead of default 0
         viewPager2.setCurrentItem(1, false);
     }

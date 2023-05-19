@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="About us"
+        android:text="@string/about_us_tab_name"
         android:textSize="32sp"
         android:textStyle="bold" />
 

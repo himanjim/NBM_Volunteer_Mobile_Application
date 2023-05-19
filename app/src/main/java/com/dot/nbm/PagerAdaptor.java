@@ -21,9 +21,7 @@ public class PagerAdaptor extends FragmentStateAdapter {
             case 1:
                 return new AboutFragment(); // chats fragment
             case 2:
-                return new ContributionsFragment(); // status fragment
-            case 3:
-                return new BestOperatorFragment();
+                return new SettingsFragment(); // status fragment
         }
         return new QoSFragment(); //chats fragment
     }
