@@ -1,6 +1,9 @@
 package com.dot.nbm;
 
+import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
+
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
@@ -17,9 +20,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
@@ -29,18 +38,82 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class QoSFragment extends Fragment {
+
+    private FusedLocationProviderClient fusedLocationClient;
+
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("signalStrength", getSignalStrength(getContext()));
+//        Log.d("signalStrength", getSignalStrength(getContext()));
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        if (ContextCompat.checkSelfPermission(
+                getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            // You can use the API that requires the permission.
+            Log.d("signalStrengthCaptured", getSignalStrength(getContext()));
+//            Log.d("locationCaptured", fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null));
+        }
+//        else if (shouldShowRequestPermissionRationale()) {
+//            // In an educational UI, explain to the user why your app requires this
+//            // permission for a specific feature to behave as expected, and what
+//            // features are disabled if it's declined. In this UI, include a
+//            // "cancel" or "no thanks" button that lets the user continue
+//            // using your app without granting the permission.
+//            showInContextUI(...);
+//        }
+        else {
+            // You can directly ask for the permission.
+            // The registered ActivityResultCallback gets the result of this request.
+            requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
+        }
+
+
         return inflater.inflate(R.layout.fragment_qo_s, container, false);
     }
+
+    private ActivityResultLauncher<String[]> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts
+                            .RequestMultiplePermissions(), result -> {
+                        Boolean fineLocationGranted = result.get(
+                                android.Manifest.permission.ACCESS_FINE_LOCATION);
+                        Boolean coarseLocationGranted = result.get(
+                                android.Manifest.permission.ACCESS_COARSE_LOCATION);
+                        if (fineLocationGranted != null && fineLocationGranted) {
+                            // Precise location access granted.
+                        } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                            // Only approximate location access granted.
+                        } else {
+                            // No location access granted.
+                        }
+                    }
+            );
+
+
+    // Register the permissions callback, which handles the user's response to the
+// system permissions dialog. Save the return value, an instance of
+// ActivityResultLauncher, as an instance variable.
+//    private ActivityResultLauncher<String> requestPermissionLauncher =
+//            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+//                if (isGranted) {
+//                    Log.d("signalStrengthCaptured", getSignalStrength(getContext()));
+//                } else {
+//                    // Explain to the user that the feature is unavailable because the
+//                    // features requires a permission that the user has denied. At the
+//                    // same time, respect the user's decision. Don't link to system
+//                    // settings in an effort to convince the user to change their
+//                    // decision.
+//                }
+//            });
 
     private static String getSignalStrength(Context context) throws SecurityException {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String strength = null;
         List<CellInfo> cellInfos = telephonyManager.getAllCellInfo();   //This will give info of all sims present inside your mobile
         if(cellInfos != null) {
+            Log.d("cellInfos", cellInfos.toString());
             for (int i = 0 ; i < cellInfos.size() ; i++) {
                 if (cellInfos.get(i).isRegistered()) {
                     if (cellInfos.get(i) instanceof CellInfoWcdma) {
