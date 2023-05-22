@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -26,6 +27,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -39,7 +42,11 @@ import java.util.List;
  */
 public class QoSFragment extends Fragment {
 
+    MainActivityViewModel mainActivityViewModel;
+
     private FusedLocationProviderClient fusedLocationClient;
+
+
 
     @Nullable
     @Override
@@ -49,11 +56,24 @@ public class QoSFragment extends Fragment {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
+        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_qo_s,container,false);
+
+        TextView operatorNameTextView = layout.findViewById(R.id.operatorNameTextView);
+        TextView technologyTextView = layout.findViewById(R.id.technologyTextView);
+        TextView signalStrengthTextView = layout.findViewById(R.id.signalStrengthTextView);
+
         if (ContextCompat.checkSelfPermission(
                 getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             // You can use the API that requires the permission.
-            Log.d("signalStrengthCaptured", getSignalStrength(getContext()));
+            MainActivityViewModel signalViewModel = getSignalStrength(getContext());
+            operatorNameTextView.setText(signalViewModel.getOperator());
+            technologyTextView.setText(signalViewModel.getTechnology());
+            signalStrengthTextView.setText(String.valueOf(signalViewModel.getSignalStrength()));
+
+            Log.d("signalStrengthCaptured", String.valueOf(signalViewModel.getSignalStrength()));
 //            Log.d("locationCaptured", fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null));
         }
 //        else if (shouldShowRequestPermissionRationale()) {
@@ -108,11 +128,13 @@ public class QoSFragment extends Fragment {
 //                }
 //            });
 
-    private static String getSignalStrength(Context context) throws SecurityException {
+    private static MainActivityViewModel getSignalStrength(Context context) throws SecurityException {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String strength = null;
         List<CellInfo> cellInfos = telephonyManager.getAllCellInfo();   //This will give info of all sims present inside your mobile
+        MainActivityViewModel signalViewModel = null;
         if(cellInfos != null) {
+            signalViewModel = new MainActivityViewModel();
             Log.d("cellInfos", cellInfos.toString());
             for (int i = 0 ; i < cellInfos.size() ; i++) {
                 if (cellInfos.get(i).isRegistered()) {
@@ -127,6 +149,10 @@ public class QoSFragment extends Fragment {
                     } else if (cellInfos.get(i) instanceof CellInfoLte) {
                         CellInfoLte cellInfoLte = (CellInfoLte) cellInfos.get(i);
                         CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
+
+                        signalViewModel.setSignalStrength(cellSignalStrengthLte.getDbm());
+                        signalViewModel.setOperator((String) cellInfoLte.getCellIdentity().getMobileNetworkOperator());
+                        signalViewModel.setTechnology("4G");
                         strength = String.valueOf(cellSignalStrengthLte.getDbm());
                     } else if (cellInfos.get(i) instanceof CellInfoCdma) {
                         CellInfoCdma cellInfoCdma = (CellInfoCdma) cellInfos.get(i);
@@ -136,6 +162,6 @@ public class QoSFragment extends Fragment {
                 }
             }
         }
-        return strength;
+        return signalViewModel;
     }
 }
