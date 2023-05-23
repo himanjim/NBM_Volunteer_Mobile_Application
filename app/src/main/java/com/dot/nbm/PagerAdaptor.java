@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.dot.nbm.fragments.AboutFragment;
+import com.dot.nbm.fragments.QoSFragment;
+import com.dot.nbm.fragments.SettingsFragment;
+
 public class PagerAdaptor extends FragmentStateAdapter {
 
     public PagerAdaptor(FragmentActivity fragmentActivity) {

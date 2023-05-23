@@ -1,4 +1,4 @@
-package com.dot.nbm;
+package com.dot.nbm.model;
 
 import androidx.lifecycle.ViewModel;
 

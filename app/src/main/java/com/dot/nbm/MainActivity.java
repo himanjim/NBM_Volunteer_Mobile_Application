@@ -4,7 +4,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
+import com.dot.nbm.workers.NBMWorker;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -40,5 +44,15 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(tab_labels[position])).attach();
 // set default position to 1 instead of default 0
         viewPager2.setCurrentItem(1, false);
+
+//        Constraints constraints =  new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).setRequiresDeviceIdle(true).build();
+
+//        WorkRequest testRequest = new PeriodicWorkRequest()
+
+        WorkRequest testRequest = new OneTimeWorkRequest.Builder(NBMWorker.class)
+//                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(getApplicationContext()).enqueue(testRequest);
     }
 }
