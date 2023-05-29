@@ -46,6 +46,9 @@ public class SignalStateFetcher {
                     } else if (cellInfos.get(i) instanceof CellInfoLte) {
                         CellInfoLte cellInfoLte = (CellInfoLte) cellInfos.get(i);
                         CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
+
+                        cellInfoLte.getCellIdentity().getMnc();
+
                         signalViewModel.setOperator(getOperatorName(context));
                         signalViewModel.setSignalStrength(cellSignalStrengthLte.getDbm());
                         signalViewModel.setTechnology("4G");

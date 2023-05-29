@@ -5,8 +5,14 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "signal_state")
-public class SignalState {
+public class SignalState implements Serializable {
+
+    public SignalState(long id) {
+        this.id = id;
+    }
 
     public SignalState(long id, String operaterName, int signalStrength, String technology, double latitude, double longitude, long timeStamp, boolean synced) {
         this.id = id;
@@ -20,7 +26,7 @@ public class SignalState {
     }
 
     @Ignore
-    public SignalState(){
+    public SignalState() {
 
     }
 

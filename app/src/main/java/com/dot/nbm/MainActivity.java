@@ -8,9 +8,16 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
+import com.dot.nbm.model.SignalState;
 import com.dot.nbm.workers.NBMWorker;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,5 +61,33 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         WorkManager.getInstance(getApplicationContext()).enqueue(testRequest);
+
+        SignalState testState = new SignalState(12345);
+//
+        Gson gson = new Gson();
+        try {
+            File file = new File(getApplicationContext().getFilesDir(), "Test.json");
+
+            if(!file.exists())
+                file.createNewFile();
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            byte[] arr = gson.toJson(testState).getBytes();
+            fileOutputStream.write(arr);
+            fileOutputStream.close();
+
+            gson.toJson(testState, new FileWriter("Test.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+//        try {
+//            JsonReader reader = new JsonReader(new FileReader("test"));
+//            SignalState testState2 = gson.fromJson(reader, SignalState.class);
+//            Log.d("testState", String.valueOf(testState2.getId()));
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+
     }
 }

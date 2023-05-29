@@ -20,8 +20,17 @@ import androidx.lifecycle.ViewModelProvider;
 import com.dot.nbm.model.MainActivityViewModel;
 import com.dot.nbm.R;
 import com.dot.nbm.SignalStateFetcher;
+import com.dot.nbm.model.SignalState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,6 +96,7 @@ public class QoSFragment extends Fragment {
             // The registered ActivityResultCallback gets the result of this request.
             requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
         }
+
 
 
         return layout;
