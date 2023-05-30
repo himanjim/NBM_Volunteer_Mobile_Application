@@ -1,59 +1,29 @@
 package com.dot.nbm.model;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
 import java.io.Serializable;
 
-@Entity(tableName = "signal_state")
 public class SignalState implements Serializable {
 
     public SignalState(long id) {
         this.id = id;
     }
 
-    public SignalState(long id, String operaterName, int signalStrength, String technology, double latitude, double longitude, long timeStamp, boolean synced) {
-        this.id = id;
-        this.operaterName = operaterName;
-        this.signalStrength = signalStrength;
-        this.technology = technology;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.timeStamp = timeStamp;
-        this.synced = synced;
-    }
 
-    @Ignore
     public SignalState() {
 
     }
 
-    @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @ColumnInfo(name = "operator_name")
     private String operaterName;
 
-    @ColumnInfo(name = "signal_strength")
     private int signalStrength;
 
-    @ColumnInfo(name = "technology")
     private String technology;
 
-    @ColumnInfo(name = "latitude")
-    private double latitude;
+    private int channelNo;
 
-    @ColumnInfo(name = "longitude")
-    private double longitude;
-
-    @ColumnInfo(name = "timestamp")
-    private long timeStamp;
-
-    @ColumnInfo(name = "synced")
-    private boolean synced;
+    private String generation;
 
 
     public long getId() {
@@ -88,35 +58,31 @@ public class SignalState implements Serializable {
         this.technology = technology;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public int getChannelNo() {
+        return channelNo;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setChannelNo(int channelNo) {
+        this.channelNo = channelNo;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public String getGeneration() {
+        return generation;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setGeneration(String generation) {
+        this.generation = generation;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    public boolean isSynced() {
-        return synced;
-    }
-
-    public void setSynced(boolean synced) {
-        this.synced = synced;
+    @Override
+    public String toString() {
+        return "SignalState{" +
+                "id=" + id +
+                ", operaterName='" + operaterName + '\'' +
+                ", signalStrength=" + signalStrength +
+                ", technology='" + technology + '\'' +
+                ", channelNo=" + channelNo +
+                ", generation='" + generation + '\'' +
+                '}';
     }
 }

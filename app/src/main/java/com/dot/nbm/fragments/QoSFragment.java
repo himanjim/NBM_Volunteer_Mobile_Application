@@ -19,18 +19,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.dot.nbm.model.MainActivityViewModel;
 import com.dot.nbm.R;
-import com.dot.nbm.SignalStateFetcher;
+import com.dot.nbm.doers.SignalStateFetcher;
 import com.dot.nbm.model.SignalState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,10 +52,10 @@ public class QoSFragment extends Fragment {
         TextView operatorNameTextView = layout.findViewById(R.id.operatorNameTextView);
         TextView technologyTextView = layout.findViewById(R.id.technologyTextView);
         TextView signalStrengthTextView = layout.findViewById(R.id.signalStrengthTextView);
-        signalStrengthTextView.setText("Hello");
+//        signalStrengthTextView.setText("Hello");
         Log.d("signalStrengthTextView", (String) operatorNameTextView.getText());
 
-        Log.d("Phone_Model", String.join("-",android.os.Build.MANUFACTURER, android.os.Build.PRODUCT, Build.BRAND, Build.MODEL, Build.HOST, Build.HARDWARE ));
+        Log.d("Phone_Model", String.join("-",Build.MANUFACTURER, Build.PRODUCT, Build.BRAND, Build.MODEL, Build.HOST, Build.HARDWARE ));
 
         if (ContextCompat.checkSelfPermission(
                 getContext(), android.Manifest.permission.READ_PHONE_STATE) !=
@@ -75,8 +69,17 @@ public class QoSFragment extends Fragment {
 
             SignalStateFetcher signalStateFetcher = new SignalStateFetcher();
             // You can use the API that requires the permission.
-            MainActivityViewModel signalViewModel = signalStateFetcher.getSignalStrength(getContext());
-            operatorNameTextView.setText(signalViewModel.getOperator());
+
+            List<SignalState> signalStates = signalStateFetcher.getSignalState(getContext());
+
+            SignalState firstSignalState = signalStates.get(0);
+
+            MainActivityViewModel signalViewModel = new MainActivityViewModel();
+            signalViewModel.setTechnology(firstSignalState.getTechnology());
+            signalViewModel.setOperatorName(firstSignalState.getOperaterName());
+            signalViewModel.setSignalStrength(firstSignalState.getSignalStrength());
+
+            operatorNameTextView.setText(signalViewModel.getOperatorName());
             technologyTextView.setText(signalViewModel.getTechnology());
             signalStrengthTextView.setText(String.valueOf(signalViewModel.getSignalStrength()));
 

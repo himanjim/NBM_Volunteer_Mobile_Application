@@ -6,7 +6,7 @@ public class MainActivityViewModel extends ViewModel {
 
     private String technology;
 
-    private String operator;
+    private String operatorName;
 
     private float signalStrength;
 
@@ -18,12 +18,12 @@ public class MainActivityViewModel extends ViewModel {
         this.technology = technology;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getOperatorName() {
+        return operatorName;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setOperatorName(String operatorName) {
+        this.operatorName = operatorName;
     }
 
     public float getSignalStrength() {

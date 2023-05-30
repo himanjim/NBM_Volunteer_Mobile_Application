@@ -3,4 +3,13 @@
     <string name="about_us_tab_name">About Us</string>
     <string name="qos_tab_name">QoS</string>
     <string name="setting_tab_name">Settings</string>
+    <string name="CDMA">CDMA</string>Wcdma
+    <string name="GSM">GSM</string>
+    <string name="WCDMA">WCDMA</string>
+    <string name="LTE">LTE</string>
+    <string name="NR">NR</string>
+    <string name="TWO_G">2G</string>
+    <string name="THREE_G">3G</string>
+    <string name="FOUR_G">4G</string>
+    <string name="FIVE_G">5G</string>
 </resources>
