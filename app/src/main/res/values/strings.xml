@@ -3,6 +3,8 @@
     <string name="about_us_tab_name">About Us</string>
     <string name="qos_tab_name">QoS</string>
     <string name="setting_tab_name">Settings</string>
+    <string name="combSNHState">NBM_V_SNHState</string>TAG_SYNC_DATA
+    <string name="worker_tag">NBM_V_Worker_Tag</string>
     <string name="CDMA">CDMA</string>Wcdma
     <string name="GSM">GSM</string>
     <string name="WCDMA">WCDMA</string>

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SignalStateFetcher {
 
-    public List<SignalState> getSignalState(Context context) throws SecurityException {
+    public static List<SignalState> getSignalState(Context context) throws SecurityException {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         List<CellInfo> cellInfos = telephonyManager.getAllCellInfo();   //This will give info of all sims present inside your mobile
 
@@ -47,7 +47,7 @@ public class SignalStateFetcher {
 
                         strength = cellSignalStrengthWcdma.getDbm();
                         rfChannelNo = cellInfoWcdma.getCellIdentity().getUarfcn();
-                        operatorName = cellInfoWcdma.getCellIdentity().getMobileNetworkOperator();
+                        operatorName = cellInfoWcdma.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.THREE_G);
                         technology = context.getString(R.string.WCDMA);
 
@@ -57,7 +57,7 @@ public class SignalStateFetcher {
 
                         strength = cellSignalStrengthGsm.getDbm();
                         rfChannelNo = cellInfogsm.getCellIdentity().getArfcn();
-                        operatorName = cellInfogsm.getCellIdentity().getMobileNetworkOperator();
+                        operatorName = cellInfogsm.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.TWO_G);
                         technology = context.getString(R.string.GSM);
 
@@ -67,7 +67,7 @@ public class SignalStateFetcher {
 
                         strength = cellSignalStrengthLte.getDbm();
                         rfChannelNo = cellInfoLte.getCellIdentity().getEarfcn();
-                        operatorName = cellInfoLte.getCellIdentity().getMobileNetworkOperator();
+                        operatorName = cellInfoLte.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.FOUR_G);
                         technology = context.getString(R.string.LTE);
 

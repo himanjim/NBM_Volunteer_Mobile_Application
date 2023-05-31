@@ -2,6 +2,7 @@ package com.dot.nbm.doers;
 
 import android.content.Context;
 
+import com.dot.nbm.R;
 import com.dot.nbm.model.CombinedSignalNetworkHardwareState;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -13,12 +14,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class GsonHandler {
-    private final String combinedSignalNetworkHardwareStateFileName = null;
 
-    private Gson gson = new Gson();
+    public static void saveCombinedSignalNetworkHardwareStates(Context context, List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates) {
+        String combinedSignalNetworkHardwareStateFileName = context.getString(R.string.combSNHState);
+        Gson gson = new Gson();
 
-
-    public void saveCombinedSignalNetworkHardwareStates(Context context, List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates) {
         File file = new File(context.getFilesDir(), combinedSignalNetworkHardwareStateFileName);
         try {
             if (!file.exists())
@@ -36,7 +36,9 @@ public class GsonHandler {
     }
 
 
-    public List<CombinedSignalNetworkHardwareState> getCombinedSignalNetworkHardwareStates(Context context) {
+    public static List<CombinedSignalNetworkHardwareState> getCombinedSignalNetworkHardwareStates(Context context) {
+        String combinedSignalNetworkHardwareStateFileName = context.getString(R.string.combSNHState);
+
         Gson gson = new Gson();
         File file = new File(context.getFilesDir(), combinedSignalNetworkHardwareStateFileName);
         List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates = null;

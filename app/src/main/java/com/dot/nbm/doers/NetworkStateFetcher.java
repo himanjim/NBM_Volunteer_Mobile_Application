@@ -5,7 +5,6 @@ import android.net.ConnectivityManager;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.util.Log;
 
 import com.dot.nbm.model.NetworkState;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class NetworkStateFetcher {
 
-    List<NetworkState> getNetworkState(Context context){
+    public static List<NetworkState> getNetworkState(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         List<NetworkState> networkStates = new ArrayList<>();

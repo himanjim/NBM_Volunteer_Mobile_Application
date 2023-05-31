@@ -1,5 +1,7 @@
 package com.dot.nbm.model;
 
+import java.util.List;
+
 public class CombinedSignalNetworkHardwareState {
 
     private double latitude;
@@ -22,9 +24,43 @@ public class CombinedSignalNetworkHardwareState {
 
     private String hardware;
 
-    private SignalState signalState;
+    public List<SignalState> getSignalStates() {
+        return signalStates;
+    }
 
-    private NetworkState networkState;
+    @Override
+    public String toString() {
+        return "CombinedSignalNetworkHardwareState{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", timeStamp=" + timeStamp +
+                ", synced=" + synced +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", product='" + product + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", host='" + host + '\'' +
+                ", hardware='" + hardware + '\'' +
+                ", signalStates=" + signalStates +
+                ", networkStates=" + networkStates +
+                '}';
+    }
+
+    public void setSignalStates(List<SignalState> signalStates) {
+        this.signalStates = signalStates;
+    }
+
+    public List<NetworkState> getNetworkStates() {
+        return networkStates;
+    }
+
+    public void setNetworkStates(List<NetworkState> networkStates) {
+        this.networkStates = networkStates;
+    }
+
+    private List<SignalState> signalStates;
+
+    private List<NetworkState> networkStates;
 
     public double getLatitude() {
         return latitude;
@@ -106,37 +142,4 @@ public class CombinedSignalNetworkHardwareState {
         this.hardware = hardware;
     }
 
-    public SignalState getSignalState() {
-        return signalState;
-    }
-
-    public void setSignalState(SignalState signalState) {
-        this.signalState = signalState;
-    }
-
-    public NetworkState getNetworkState() {
-        return networkState;
-    }
-
-    public void setNetworkState(NetworkState networkState) {
-        this.networkState = networkState;
-    }
-
-    @Override
-    public String toString() {
-        return "CombinedSignalNetworkHardwareState{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", timeStamp=" + timeStamp +
-                ", synced=" + synced +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", product='" + product + '\'' +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", host='" + host + '\'' +
-                ", hardware='" + hardware + '\'' +
-                ", signalState=" + signalState +
-                ", networkState=" + networkState +
-                '}';
-    }
 }

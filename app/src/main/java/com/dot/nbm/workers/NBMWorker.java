@@ -15,11 +15,9 @@ public class NBMWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        Log.i("combinedSignalNetworkHardwareState", "started NBM worker");
+        Context applicationContext = getApplicationContext();
 
-        for (int i=0;i<1000;i++){
-            Log.i("WorkerTest", String.valueOf(i));
-        }
-
-        return Result.success();
+        return NBMWorkerHelper.doAllWork(applicationContext);
     }
 }
