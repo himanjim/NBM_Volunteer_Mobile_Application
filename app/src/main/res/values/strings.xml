@@ -5,6 +5,8 @@
     <string name="setting_tab_name">Settings</string>
     <string name="combSNHState">NBM_V_SNHState</string>TAG_SYNC_DATA
     <string name="worker_tag">NBM_V_Worker_Tag</string>
+    <string name="worker_task">NBM_V_Worker_Task</string>
+    <string name="contri_FName">NBM_V_Contri</string>
     <string name="CDMA">CDMA</string>Wcdma
     <string name="GSM">GSM</string>
     <string name="WCDMA">WCDMA</string>

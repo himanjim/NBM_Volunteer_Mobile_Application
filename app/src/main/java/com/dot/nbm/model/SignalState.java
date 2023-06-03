@@ -25,6 +25,75 @@ public class SignalState implements Serializable {
 
     private String generation;
 
+    private int cellId;
+
+    private int locationAreaCode;
+
+    private int baseStationIdentityCode;
+
+    private int trackingAreaCode;
+
+    private int physicalCellId;
+
+    private int systemId;
+
+    private int networkId;
+
+    public int getCellId() {
+        return cellId;
+    }
+
+    public void setCellId(int cellId) {
+        this.cellId = cellId;
+    }
+
+    public int getLocationAreaCode() {
+        return locationAreaCode;
+    }
+
+    public void setLocationAreaCode(int locationAreaCode) {
+        this.locationAreaCode = locationAreaCode;
+    }
+
+    public int getBaseStationIdentityCode() {
+        return baseStationIdentityCode;
+    }
+
+    public void setBaseStationIdentityCode(int baseStationIdentityCode) {
+        this.baseStationIdentityCode = baseStationIdentityCode;
+    }
+
+    public int getTrackingAreaCode() {
+        return trackingAreaCode;
+    }
+
+    public void setTrackingAreaCode(int trackingAreaCode) {
+        this.trackingAreaCode = trackingAreaCode;
+    }
+
+    public int getPhysicalCellId() {
+        return physicalCellId;
+    }
+
+    public void setPhysicalCellId(int physicalCellId) {
+        this.physicalCellId = physicalCellId;
+    }
+
+    public int getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(int systemId) {
+        this.systemId = systemId;
+    }
+
+    public int getNetworkId() {
+        return networkId;
+    }
+
+    public void setNetworkId(int networkId) {
+        this.networkId = networkId;
+    }
 
     public long getId() {
         return id;
@@ -83,6 +152,13 @@ public class SignalState implements Serializable {
                 ", technology='" + technology + '\'' +
                 ", channelNo=" + channelNo +
                 ", generation='" + generation + '\'' +
+                ", cellId=" + cellId +
+                ", locationAreaCode=" + locationAreaCode +
+                ", baseStationIdentityCode=" + baseStationIdentityCode +
+                ", trackingAreaCode=" + trackingAreaCode +
+                ", physicalCellId=" + physicalCellId +
+                ", systemId=" + systemId +
+                ", networkId=" + networkId +
                 '}';
     }
 }
