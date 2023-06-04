@@ -3,10 +3,24 @@
     <string name="about_us_tab_name">About Us</string>
     <string name="qos_tab_name">QoS</string>
     <string name="setting_tab_name">Settings</string>
+
+    <string name="NBM_P_F_Tag">NBM_P_F_Tag</string>
+    <string name="NBM_P_F_A_Tag">NBM_P_F_A_Tag</string>
+
     <string name="combSNHState">NBM_V_SNHState</string>TAG_SYNC_DATA
     <string name="worker_tag">NBM_V_Worker_Tag</string>
     <string name="worker_task">NBM_V_Worker_Task</string>
     <string name="contri_FName">NBM_V_Contri</string>
+
+    <string name="permission_alert_title">Location permission request</string>
+    <string name="permission_alert_msg">Please <b>permit</b></string>
+    <string name="permission_alert_ok">OK</string>
+
+    <string name="permission_alert_title_again">Location permission request</string>
+    <string name="permission_alert_msg_again">Please <b>permit</b> again</string>
+    <string name="permission_alert_ok_again">OK</string>
+    <string name="permission_alert_no_again">NO</string>
+
     <string name="CDMA">CDMA</string>Wcdma
     <string name="GSM">GSM</string>
     <string name="WCDMA">WCDMA</string>
@@ -16,4 +30,5 @@
     <string name="THREE_G">3G</string>
     <string name="FOUR_G">4G</string>
     <string name="FIVE_G">5G</string>
+
 </resources>

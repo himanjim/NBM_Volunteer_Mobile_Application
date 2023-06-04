@@ -1,32 +1,16 @@
 package com.dot.nbm;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
-import androidx.work.BackoffPolicy;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 
-import com.dot.nbm.workers.NBMWorker;
-import com.dot.nbm.workers.NBMWorkerHelper;
+import com.dot.nbm.doers.MainActivityHelper;
+import com.dot.nbm.fragments.NBMPermissionDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
-            runScheduleWorker(getApplicationContext());
+            MainActivityHelper.runScheduleWorker(getApplicationContext());
 
 //            WorkRequest testRequest = new OneTimeWorkRequest.Builder(NBMWorker.class)
 ////                .setConstraints(constraints)
@@ -78,70 +62,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // You can directly ask for the permission.
             // The registered ActivityResultCallback gets the result of this request.
-            requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
+            new NBMPermissionDialogFragment().show(getSupportFragmentManager().beginTransaction(), getString(R.string.NBM_P_F_Tag));
         }
 
 
     }
 
-    private boolean isWorkScheduled(String tag, Context applicationContext) {
-        WorkManager instance = WorkManager.getInstance(applicationContext);
-        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
-        try {
-            boolean running = false;
-            List<WorkInfo> workInfoList = statuses.get();
-            for (WorkInfo workInfo : workInfoList) {
-                WorkInfo.State state = workInfo.getState();
-                running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
-            }
-            return running;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private final ActivityResultLauncher<String[]> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts
-                            .RequestMultiplePermissions(), result -> {
-                        Boolean fineLocationGranted = result.get(
-                                android.Manifest.permission.ACCESS_FINE_LOCATION);
-                        Boolean coarseLocationGranted = result.get(
-                                android.Manifest.permission.ACCESS_COARSE_LOCATION);
-                        if ((fineLocationGranted != null && fineLocationGranted) || (coarseLocationGranted != null && coarseLocationGranted)) {
-                            runScheduleWorker(getApplicationContext());
-                        } else {
-                            // No location access granted. Show dialog
-                        }
-                    }
-            );
-
-    private void runScheduleWorker(Context applicationContext){
-        NBMWorkerHelper.doAllWork(applicationContext);
-
-        Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-
-        if (isWorkScheduled(getString(R.string.worker_tag), applicationContext)){
-            Log.i("combinedSignalNetworkHardwareState", "NBM worker scheduled");
-        }else{
-            Log.i("combinedSignalNetworkHardwareState", "NBM worker not scheduled");
-        }
-
-        PeriodicWorkRequest periodicNBMWork =
-                new PeriodicWorkRequest.Builder(NBMWorker.class, 20, TimeUnit.MINUTES, 15, TimeUnit.MINUTES)
-                        .addTag(getString(R.string.worker_tag))
-                        .setConstraints(constraints)
-                        // setting a backoff on case the work needs to retry
-                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                        .build();
-
-        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-                getString(R.string.worker_task),
-                ExistingPeriodicWorkPolicy.KEEP, //Existing Periodic Work policy
-                periodicNBMWork //work request
-        );
-    }
 }
