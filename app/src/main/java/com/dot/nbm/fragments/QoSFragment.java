@@ -1,6 +1,7 @@
 package com.dot.nbm.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class QoSFragment extends Fragment {
 
     MainActivityViewModel mainActivityViewModel;
 
+    @SuppressLint("StringFormatMatches")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,13 +45,13 @@ public class QoSFragment extends Fragment {
 
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_qo_s, container, false);
 
-        TextView operatorNameTextView = layout.findViewById(R.id.operatorNameTextView);
-        TextView technologyTextView = layout.findViewById(R.id.technologyTextView);
-        TextView signalStrengthTextView = layout.findViewById(R.id.signalStrengthTextView);
+//        TextView operatorNameTextView = layout.findViewById(R.id.operatorNameTextView);
+//        TextView technologyTextView = layout.findViewById(R.id.technologyTextView);
+//        TextView signalStrengthTextView = layout.findViewById(R.id.signalStrengthTextView);
 //        signalStrengthTextView.setText("Hello");
 //        Log.d("signalStrengthTextView", (String) operatorNameTextView.getText());
 
-        Log.d("Phone_Model", String.join("-",Build.MANUFACTURER, Build.PRODUCT, Build.BRAND, Build.MODEL, Build.HOST, Build.HARDWARE ));
+        Log.d("Phone_Model", String.join("-", Build.MANUFACTURER, Build.PRODUCT, Build.BRAND, Build.MODEL, Build.HOST, Build.HARDWARE));
 
         if (ContextCompat.checkSelfPermission(
                 getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
@@ -57,15 +59,24 @@ public class QoSFragment extends Fragment {
 
             List<SignalState> signalStates = SignalStateFetcher.getSignalState(getContext());
 
-            SignalState firstSignalState = signalStates.get(0);
+//            SignalState firstSignalState = signalStates.get(0);
 
-            mainActivityViewModel.setTechnology(firstSignalState.getTechnology());
-            mainActivityViewModel.setOperatorName(firstSignalState.getOperaterName());
-            mainActivityViewModel.setSignalStrength(firstSignalState.getSignalStrength());
+            int simCount = 1;
+            for (SignalState signalState : signalStates) {
+                //Inefficient fun
+                int id = getResources().getIdentifier("sim" + simCount + "TextView", "id",getContext().getPackageName());
+                TextView simTextView = layout.findViewById(id);
+                simTextView.setText(String.format(getString(R.string.signal_strength_text), simCount, signalState.getOperaterName(),signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
+                simCount++;
+            }
 
-            operatorNameTextView.setText(mainActivityViewModel.getOperatorName());
-            technologyTextView.setText(mainActivityViewModel.getTechnology());
-            signalStrengthTextView.setText(String.valueOf(mainActivityViewModel.getSignalStrength()));
+//            mainActivityViewModel.setTechnology(firstSignalState.getTechnology());
+//            mainActivityViewModel.setOperatorName(firstSignalState.getOperaterName());
+//            mainActivityViewModel.setSignalStrength(firstSignalState.getSignalStrength());
+//
+//            operatorNameTextView.setText(mainActivityViewModel.getOperatorName());
+//            technologyTextView.setText(mainActivityViewModel.getTechnology());
+//            signalStrengthTextView.setText(String.valueOf(mainActivityViewModel.getSignalStrength()));
 
 //            Log.d("signalStrengthCaptured", String.valueOf(signalViewModel.getSignalStrength()));
 //            Log.d("locationCaptured", fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null));
@@ -86,7 +97,7 @@ public class QoSFragment extends Fragment {
                         Boolean backgroundLocationGranted = result.get(
                                 Manifest.permission.ACCESS_BACKGROUND_LOCATION);
                         Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
-                        if ((backgroundLocationGranted != null && backgroundLocationGranted) ) {
+                        if ((backgroundLocationGranted != null && backgroundLocationGranted)) {
                             Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
                         }
                     }

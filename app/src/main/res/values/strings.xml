@@ -6,6 +6,10 @@
     <string name="qos_tab_name">QoS</string>
     <string name="setting_tab_name">Settings</string>
 
+    <string name="contri_textView_Str">Your contributions are</string>
+    <string name="pause_data_textView_Str">PAUSE data collection</string>
+    <string name="fetch_textView_Str">...fetching</string>
+
     <string name="NBM_P_F_Tag">NBM_P_F_Tag</string>
     <string name="NBM_P_F_A_Tag">NBM_P_F_A_Tag</string>
 
@@ -27,6 +31,8 @@
     <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength crowdsourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3.<b>Your precise location both in foreground and background.</b>\n
     Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
     </string>
+
+    <string name="signal_strength_text">Your <b>SIM%1$s</b> is of operator:<b>%2$s</b>.\nThe technology is <b>%3$s</b>.\nAnd the signal strength is <b>%4$s</b> which is <b>%5$s</b>.</string>
 
     <string name="CDMA">CDMA</string>Wcdma
     <string name="GSM">GSM</string>
