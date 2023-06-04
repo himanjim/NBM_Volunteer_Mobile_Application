@@ -10,6 +10,17 @@ public class MainActivityViewModel extends ViewModel {
 
     private float signalStrength;
 
+
+    private int noOfContributions;
+
+    public int getNoOfContributions() {
+        return noOfContributions;
+    }
+
+    public void setNoOfContributions(int noOfContributions) {
+        this.noOfContributions = noOfContributions;
+    }
+
     public String getTechnology() {
         return technology;
     }
@@ -32,5 +43,15 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setSignalStrength(float signalStrength) {
         this.signalStrength = signalStrength;
+    }
+
+    @Override
+    public String toString() {
+        return "MainActivityViewModel{" +
+                "technology='" + technology + '\'' +
+                ", operatorName='" + operatorName + '\'' +
+                ", signalStrength=" + signalStrength +
+                ", noOfContributions=" + noOfContributions +
+                '}';
     }
 }

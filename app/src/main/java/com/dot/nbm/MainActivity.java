@@ -1,14 +1,20 @@
 package com.dot.nbm;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dot.nbm.doers.MainActivityHelper;
-import com.dot.nbm.fragments.NBMPermissionDialogFragment;
+import com.dot.nbm.doers.TestGsonHandler;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -50,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
 //        WorkRequest testRequest = new PeriodicWorkRequest()
         if (ContextCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
             MainActivityHelper.runScheduleWorker(getApplicationContext());
-
 //            WorkRequest testRequest = new OneTimeWorkRequest.Builder(NBMWorker.class)
 ////                .setConstraints(constraints)
 //                    .build();
@@ -60,12 +67,71 @@ public class MainActivity extends AppCompatActivity {
 //            WorkManager.getInstance(getApplicationContext()).enqueue(testRequest);
 
         } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.permission_alert_msg)
+                    .setTitle(R.string.permission_alert_title);
+// Add the buttons
+            builder.setPositiveButton(R.string.permission_alert_ok, (dialog, id) -> requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}));
+            AlertDialog dialog = builder.create();
+            dialog.show();
             // You can directly ask for the permission.
             // The registered ActivityResultCallback gets the result of this request.
-            new NBMPermissionDialogFragment().show(getSupportFragmentManager().beginTransaction(), getString(R.string.NBM_P_F_Tag));
+//            new NBMPermissionDialogFragment().show(getSupportFragmentManager(), getString(R.string.NBM_P_F_Tag));
+//            requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
         }
 
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION});
+        }
 
+        Integer contributions = TestGsonHandler.getContributionCount(getApplicationContext());
+        Log.i("combinedSignalNetworkHardwareState", "MATestcontributions" + contributions);
     }
+
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts
+                            .RequestMultiplePermissions(), result -> {
+                        Boolean fineLocationGranted = result.get(
+                                android.Manifest.permission.ACCESS_FINE_LOCATION);
+                        Boolean coarseLocationGranted = result.get(
+                                android.Manifest.permission.ACCESS_COARSE_LOCATION);
+                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
+                        if ((fineLocationGranted != null && fineLocationGranted) || (coarseLocationGranted != null && coarseLocationGranted)) {
+                            Log.i("combinedSignalNetworkHardwareState", "After alert got permission");
+                            MainActivityHelper.runScheduleWorker(getApplicationContext());
+
+                            Log.i("combinedSignalNetworkHardwareState", "Ran activity helper");
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            builder.setMessage(R.string.permission_alert_msg_again)
+                                    .setTitle(R.string.permission_alert_title_again);
+// Add the buttons
+                            builder.setPositiveButton(R.string.permission_alert_ok_again, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
+                                }
+                            });
+                            builder.setNegativeButton(R.string.permission_alert_no_again, (dialog, id) -> {
+                                this.finish();
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                    }
+            );
+
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
+            registerForActivityResult(new ActivityResultContracts
+                            .RequestMultiplePermissions(), result -> {
+                        Boolean backgroundLocationGranted = result.get(
+                                Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
+                        if ((backgroundLocationGranted != null && backgroundLocationGranted) ) {
+                            Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
+                        }
+                    }
+            );
 
 }

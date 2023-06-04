@@ -1,4 +1,6 @@
 <resources>
+    <string name="my_email">dir1@broadbandmission.gov.in</string>
+
     <string name="app_name">NBM Volunteer</string>
     <string name="about_us_tab_name">About Us</string>
     <string name="qos_tab_name">QoS</string>
@@ -7,19 +9,24 @@
     <string name="NBM_P_F_Tag">NBM_P_F_Tag</string>
     <string name="NBM_P_F_A_Tag">NBM_P_F_A_Tag</string>
 
-    <string name="combSNHState">NBM_V_SNHState</string>TAG_SYNC_DATA
-    <string name="worker_tag">NBM_V_Worker_Tag</string>
-    <string name="worker_task">NBM_V_Worker_Task</string>
+    <string name="combSNHState">NBM_V_SNHState</string>
+    <string name="worker_tag">1_NBM_V_Worker_Tag</string>
+    <string name="worker_task">1_NBM_V_Worker_Task</string>
     <string name="contri_FName">NBM_V_Contri</string>
+    <string name="worker_paused">Background data collection paused.</string>
+    <string name="worker_resumed">Background data collection resumed.</string>
 
-    <string name="permission_alert_title">Location permission request</string>
-    <string name="permission_alert_msg">Please <b>permit</b></string>
+    <string name="permission_alert_title"><b>LOCATION PERMISSON REQUEST</b></string>
+    <string name="permission_alert_msg">Dear user we need permission to access your precise <b>location</b> both in foreground and <b>background</b>. We need your precise location to capture what is the mobile signal strength at your location. Please note that <b>no information</b> related to your identity is captured. The data captured can never be backtracked to your identity.</string>
     <string name="permission_alert_ok">OK</string>
-
     <string name="permission_alert_title_again">Location permission request</string>
-    <string name="permission_alert_msg_again">Please <b>permit</b> again</string>
+    <string name="permission_alert_msg_again">Dear user without permission of location, this application <b>won\'t work</b>. So please rethink and give the permission again. Or else you can install application for the time being and reconsider later. Please contact at @string/my_email for further doubts.</string>
     <string name="permission_alert_ok_again">OK</string>
     <string name="permission_alert_no_again">NO</string>
+
+    <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength crowdsourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3.<b>Your precise location both in foreground and background.</b>\n
+    Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
+    </string>
 
     <string name="CDMA">CDMA</string>Wcdma
     <string name="GSM">GSM</string>

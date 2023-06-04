@@ -10,9 +10,9 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.concurrent.futures.CallbackToFutureAdapter;
 import androidx.core.app.ActivityCompat;
 import androidx.work.ListenableWorker;
-import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.dot.nbm.doers.GsonHandler;
@@ -28,19 +28,24 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NBMWorker extends Worker {
-    public NBMWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
-        super(context, workerParams);
+public class NBMListenableWorker extends ListenableWorker {
+    /**
+     * @param appContext   The application {@link Context}
+     * @param workerParams Parameters to setup the internal state of this worker
+     */
+    public NBMListenableWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
+        super(appContext, workerParams);
     }
 
     @NonNull
     @Override
-    public Result doWork() {
-        Log.i("combinedSignalNetworkHardwareState", "started NBM worker");
+    public ListenableFuture<Result> startWork() {
+        Log.i("combinedSignalNetworkHardwareState", "started Listenable NBM worker");
         Context applicationContext = getApplicationContext();
 
         Integer contributions = TestGsonHandler.getContributionCount(applicationContext);
@@ -52,20 +57,21 @@ public class NBMWorker extends Worker {
 
         TestGsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
-        return doAllWork(applicationContext);
+        return CallbackToFutureAdapter.getFuture(completer -> {
+            getLocation(completer, applicationContext);
+            return completer;
+        });
     }
 
-    public static ListenableWorker.Result doAllWork(Context applicationContext) {
-
-        Log.i("combinedSignalNetworkHardwareState", "started NBM worker Helper");
+    private void getLocation(CallbackToFutureAdapter.Completer<Result> completer, Context applicationContext) {
+        Log.i("combinedSignalNetworkHardwareState", "started NBM Listenable worker Helper");
 
         CombinedSignalNetworkHardwareState combinedSignalNetworkHardwareState = new CombinedSignalNetworkHardwareState();
 
         if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("combinedSignalNetworkLocation", "No location access");
-            return ListenableWorker.Result.failure();
-        }
-        else{
+            completer.set(Result.failure());
+        } else {
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(applicationContext);
             LocationCallback mLocationCallback = new LocationCallback() {
                 @Override
@@ -109,7 +115,7 @@ public class NBMWorker extends Worker {
 
                                 List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates = GsonHandler.getCombinedSignalNetworkHardwareStates(applicationContext);
 
-                                if (combinedSignalNetworkHardwareStates == null){
+                                if (combinedSignalNetworkHardwareStates == null) {
                                     combinedSignalNetworkHardwareStates = new ArrayList<>();
                                 }
                                 Log.i("combinedSignalNetworkHardwareStates size", combinedSignalNetworkHardwareStates.size() + "");
@@ -129,8 +135,10 @@ public class NBMWorker extends Worker {
                                 GsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
                                 mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                                completer.set(Result.success());
                             } else {
                                 Log.w("combinedSignalNetworkHardwareState", "Failed to get location.");
+                                completer.set(Result.failure());
                             }
                         }
                     });
@@ -138,9 +146,5 @@ public class NBMWorker extends Worker {
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, null);
 
         }
-
-
-        return ListenableWorker.Result.success();
-
     }
 }

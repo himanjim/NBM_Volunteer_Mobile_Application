@@ -1,5 +1,6 @@
 package com.dot.nbm.fragments;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -67,40 +70,26 @@ public class QoSFragment extends Fragment {
 //            Log.d("signalStrengthCaptured", String.valueOf(signalViewModel.getSignalStrength()));
 //            Log.d("locationCaptured", fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null));
         }
-//        else if (shouldShowRequestPermissionRationale()) {
-//            // In an educational UI, explain to the user why your app requires this
-//            // permission for a specific feature to behave as expected, and what
-//            // features are disabled if it's declined. In this UI, include a
-//            // "cancel" or "no thanks" button that lets the user continue
-//            // using your app without granting the permission.
-//            showInContextUI(...);
-//        }
-        else {
-            // You can directly ask for the permission.
-            // The registered ActivityResultCallback gets the result of this request.
-//            requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
+        if (ContextCompat.checkSelfPermission(
+                getActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION});
         }
-
 
 
         return layout;
     }
 
-    // Register the permissions callback, which handles the user's response to the
-// system permissions dialog. Save the return value, an instance of
-// ActivityResultLauncher, as an instance variable.
-//    private ActivityResultLauncher<String> requestPermissionLauncher =
-//            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-//                if (isGranted) {
-//                    Log.d("signalStrengthCaptured", getSignalStrength(getContext()));
-//                } else {
-//                    // Explain to the user that the feature is unavailable because the
-//                    // features requires a permission that the user has denied. At the
-//                    // same time, respect the user's decision. Don't link to system
-//                    // settings in an effort to convince the user to change their
-//                    // decision.
-//                }
-//            });
-
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
+            registerForActivityResult(new ActivityResultContracts
+                            .RequestMultiplePermissions(), result -> {
+                        Boolean backgroundLocationGranted = result.get(
+                                Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
+                        if ((backgroundLocationGranted != null && backgroundLocationGranted) ) {
+                            Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
+                        }
+                    }
+            );
 
 }
