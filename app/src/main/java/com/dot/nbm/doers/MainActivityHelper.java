@@ -13,7 +13,6 @@ import androidx.work.WorkManager;
 
 import com.dot.nbm.R;
 import com.dot.nbm.workers.NBMListenableWorker;
-import com.dot.nbm.workers.NBMWorker;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivityHelper {
 
     public static void runScheduleWorker(Context applicationContext) {
-        NBMWorker.doAllWork(applicationContext);
+        NBMListenableWorker.fetchSaveLocationNetworkParams(null, applicationContext);
 
 
         if (isWorkScheduled(applicationContext.getString(R.string.worker_tag), applicationContext)) {

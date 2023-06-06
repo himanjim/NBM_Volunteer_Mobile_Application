@@ -23,13 +23,17 @@
     <string name="permission_alert_title"><b>LOCATION PERMISSON REQUEST</b></string>
     <string name="permission_alert_msg">Dear user we need permission to access your precise <b>location</b> both in foreground and <b>background</b>. We need your precise location to capture what is the mobile signal strength at your location. Please note that <b>no information</b> related to your identity is captured. The data captured can never be backtracked to your identity.</string>
     <string name="permission_alert_ok">OK</string>
+
+    <string name="bg_permission_alert_title"><b>BACKGROUND LOCATION PERMISSON REQUEST</b></string>
+    <string name="bg_permission_alert_msg">Dear user we need background permission to access your precise <b>location</b> all the time. We need your location in background to capture the mobile signal strength at your location every 15 mins.</string>
+    <string name="bg_permission_alert_ok">OK</string>
+
     <string name="permission_alert_title_again">Location permission request</string>
     <string name="permission_alert_msg_again">Dear user without permission of location, this application <b>won\'t work</b>. So please rethink and give the permission again. Or else you can install application for the time being and reconsider later. Please contact at @string/my_email for further doubts.</string>
     <string name="permission_alert_ok_again">OK</string>
     <string name="permission_alert_no_again">NO</string>
 
-    <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength crowdsourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3.<b>Your precise location both in foreground and background.</b>\n
-    Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
+    <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength crowdsourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3. Your <b>precise location</b> both in foreground and background.\n4. The <b>brand and hardware of your phone.</b>\nPlease be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
     </string>
 
     <string name="signal_strength_text"><b>%1$s</b> signal\n>>Operator: <b>%2$s</b>.\n>>Technology: <b>%3$s</b>.\n>>Signal strength: <b>%4$s</b> which is <b>%5$s</b>.</string>

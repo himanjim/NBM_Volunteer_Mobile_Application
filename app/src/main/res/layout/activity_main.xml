@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_wall"
+    android:background="@drawable/indian_flag_bg"
     tools:context=".MainActivity">
 
     <com.google.android.material.tabs.TabLayout
@@ -13,13 +13,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="1dp"
-        android:background="#229CD6"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager"
+        android:background="#06038D"
+        app:layout_constraintBottom_toTopOf="@+id/emblem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabSelectedTextColor="@color/white"
-        />
+        app:tabSelectedTextColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/emblem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/emblem_40px"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        android:padding="8dp"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -27,9 +34,9 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/emblem" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

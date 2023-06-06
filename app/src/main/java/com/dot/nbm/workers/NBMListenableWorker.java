@@ -21,11 +21,7 @@ import com.dot.nbm.doers.SignalStateFetcher;
 import com.dot.nbm.doers.TestGsonHandler;
 import com.dot.nbm.model.CombinedSignalNetworkHardwareState;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -58,92 +54,96 @@ public class NBMListenableWorker extends ListenableWorker {
         TestGsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
         return CallbackToFutureAdapter.getFuture(completer -> {
-            getLocation(completer, applicationContext);
+            fetchSaveLocationNetworkParams(completer, applicationContext);
             return completer;
         });
     }
 
-    private void getLocation(CallbackToFutureAdapter.Completer<Result> completer, Context applicationContext) {
+    public static void fetchSaveLocationNetworkParams(CallbackToFutureAdapter.Completer<Result> completer, Context applicationContext) {
         Log.i("combinedSignalNetworkHardwareState", "started NBM Listenable worker Helper");
 
         CombinedSignalNetworkHardwareState combinedSignalNetworkHardwareState = new CombinedSignalNetworkHardwareState();
 
         if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("combinedSignalNetworkLocation", "No location access");
-            completer.set(Result.failure());
+
+            if (completer!=null){
+                completer.set(Result.failure());
+            }
+
         } else {
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(applicationContext);
-            LocationCallback mLocationCallback = new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    super.onLocationResult(locationResult);
-                }
-            };
-
-            LocationRequest mLocationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
-                    .setWaitForAccurateLocation(true)
-                    .setMinUpdateIntervalMillis(5000)
-                    .setMaxUpdateDelayMillis(100000)
-                    .build();
+//            LocationCallback mLocationCallback = new LocationCallback() {
+//                @Override
+//                public void onLocationResult(LocationResult locationResult) {
+//                    super.onLocationResult(locationResult);
+//                }
+//            };
+//
+//            LocationRequest mLocationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
+//                    .setWaitForAccurateLocation(true)
+//                    .setMinUpdateIntervalMillis(5000)
+//                    .setMaxUpdateDelayMillis(100000)
+//                    .build();
 
             mFusedLocationClient
                     .getCurrentLocation(PRIORITY_HIGH_ACCURACY, null)
-                    .addOnCompleteListener(new OnCompleteListener<Location>() {
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            Location mLocation = task.getResult();
+                            Log.d("combinedSignalNetworkLocation", "Location : " + mLocation);
+                            combinedSignalNetworkHardwareState.setLatitude(mLocation.getLatitude());
+                            combinedSignalNetworkHardwareState.setLongitude(mLocation.getLongitude());
 
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            if (task.isSuccessful() && task.getResult() != null) {
-                                Location mLocation = task.getResult();
-                                Log.d("combinedSignalNetworkLocation", "Location : " + mLocation);
-                                combinedSignalNetworkHardwareState.setLatitude(mLocation.getLatitude());
-                                combinedSignalNetworkHardwareState.setLongitude(mLocation.getLongitude());
+                            combinedSignalNetworkHardwareState.setSignalStates(SignalStateFetcher.getSignalState(applicationContext));
 
-                                combinedSignalNetworkHardwareState.setSignalStates(SignalStateFetcher.getSignalState(applicationContext));
+                            combinedSignalNetworkHardwareState.setNetworkStates(NetworkStateFetcher.getNetworkState(applicationContext));
 
-                                combinedSignalNetworkHardwareState.setNetworkStates(NetworkStateFetcher.getNetworkState(applicationContext));
-
-                                combinedSignalNetworkHardwareState.setManufacturer(Build.MANUFACTURER);
-                                combinedSignalNetworkHardwareState.setProduct(Build.PRODUCT);
-                                combinedSignalNetworkHardwareState.setBrand(Build.BRAND);
-                                combinedSignalNetworkHardwareState.setModel(Build.MODEL);
-                                combinedSignalNetworkHardwareState.setHost(Build.HOST);
-                                combinedSignalNetworkHardwareState.setHardware(Build.HARDWARE);
-                                combinedSignalNetworkHardwareState.setTimeStamp(System.currentTimeMillis());
+                            combinedSignalNetworkHardwareState.setManufacturer(Build.MANUFACTURER);
+                            combinedSignalNetworkHardwareState.setProduct(Build.PRODUCT);
+                            combinedSignalNetworkHardwareState.setBrand(Build.BRAND);
+                            combinedSignalNetworkHardwareState.setModel(Build.MODEL);
+                            combinedSignalNetworkHardwareState.setHost(Build.HOST);
+                            combinedSignalNetworkHardwareState.setHardware(Build.HARDWARE);
+                            combinedSignalNetworkHardwareState.setTimeStamp(System.currentTimeMillis());
 
 
-                                Log.i("combinedSignalNetworkHardwareState", combinedSignalNetworkHardwareState.toString());
+                            Log.i("combinedSignalNetworkHardwareState", combinedSignalNetworkHardwareState.toString());
 
-                                List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates = GsonHandler.getCombinedSignalNetworkHardwareStates(applicationContext);
+                            List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates = GsonHandler.getCombinedSignalNetworkHardwareStates(applicationContext);
 
-                                if (combinedSignalNetworkHardwareStates == null) {
-                                    combinedSignalNetworkHardwareStates = new ArrayList<>();
-                                }
-                                Log.i("combinedSignalNetworkHardwareStates size", combinedSignalNetworkHardwareStates.size() + "");
-                                Log.i("combinedSignalNetworkHardwareStates", combinedSignalNetworkHardwareStates.toString());
+                            if (combinedSignalNetworkHardwareStates == null) {
+                                combinedSignalNetworkHardwareStates = new ArrayList<>();
+                            }
+                            Log.i("combinedSignalNetworkHardwareStates size", combinedSignalNetworkHardwareStates.size() + "");
+                            Log.i("combinedSignalNetworkHardwareStates", combinedSignalNetworkHardwareStates.toString());
 
-                                combinedSignalNetworkHardwareStates.add(combinedSignalNetworkHardwareState);
+                            combinedSignalNetworkHardwareStates.add(combinedSignalNetworkHardwareState);
 
-                                GsonHandler.saveCombinedSignalNetworkHardwareStates(applicationContext, combinedSignalNetworkHardwareStates);
+                            GsonHandler.saveCombinedSignalNetworkHardwareStates(applicationContext, combinedSignalNetworkHardwareStates);
 
-                                Integer contributions = GsonHandler.getContributionCount(applicationContext);
+                            Integer contributions = GsonHandler.getContributionCount(applicationContext);
 
-                                if (contributions == null)
-                                    contributions = 0;
+                            if (contributions == null)
+                                contributions = 0;
 
-                                Log.i("combinedSignalNetworkHardwareState", "contributions" + contributions);
+                            Log.i("combinedSignalNetworkHardwareState", "contributions" + contributions);
 
-                                GsonHandler.incrementContributionCount(applicationContext, contributions + 1);
+                            GsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
-                                mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+//                                mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                            if (completer!=null){
                                 completer.set(Result.success());
-                            } else {
-                                Log.w("combinedSignalNetworkHardwareState", "Failed to get location.");
+                            }
+                        } else {
+                            Log.w("combinedSignalNetworkHardwareState", "Failed to get location.");
+                            if (completer!=null){
                                 completer.set(Result.failure());
                             }
                         }
                     });
 
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest, null);
+//            mFusedLocationClient.requestLocationUpdates(mLocationRequest, null);
 
         }
     }

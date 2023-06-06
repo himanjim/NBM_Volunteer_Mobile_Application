@@ -80,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
 //            requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
         }
 
-        if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION});
-        }
+//        if (ContextCompat.checkSelfPermission(
+//                this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
+//                PackageManager.PERMISSION_GRANTED) {
+//            requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION});
+//        }
 
         Integer contributions = TestGsonHandler.getContributionCount(getApplicationContext());
         Log.i("combinedSignalNetworkHardwareState", "MATestcontributions" + contributions);
@@ -122,16 +122,16 @@ public class MainActivity extends AppCompatActivity {
                     }
             );
 
-    private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
-            registerForActivityResult(new ActivityResultContracts
-                            .RequestMultiplePermissions(), result -> {
-                        Boolean backgroundLocationGranted = result.get(
-                                Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
-                        if ((backgroundLocationGranted != null && backgroundLocationGranted) ) {
-                            Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
-                        }
-                    }
-            );
+//    private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
+//            registerForActivityResult(new ActivityResultContracts
+//                            .RequestMultiplePermissions(), result -> {
+//                        Boolean backgroundLocationGranted = result.get(
+//                                Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+//                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
+//                        if ((backgroundLocationGranted != null && backgroundLocationGranted) ) {
+//                            Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
+//                        }
+//                    }
+//            );
 
 }

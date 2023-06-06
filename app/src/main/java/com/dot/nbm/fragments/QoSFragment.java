@@ -2,6 +2,7 @@ package com.dot.nbm.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -115,10 +116,24 @@ public class QoSFragment extends Fragment {
 //            Log.d("signalStrengthCaptured", String.valueOf(signalViewModel.getSignalStrength()));
 //            Log.d("locationCaptured", fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null));
         }
+
+
         if (ContextCompat.checkSelfPermission(
                 getActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
-            requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION});
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage(R.string.bg_permission_alert_title)
+                    .setTitle(R.string.bg_permission_alert_title);
+// Add the buttons
+            builder.setPositiveButton(R.string.bg_permission_alert_ok, (dialog, id) -> requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION}));
+
+            LayoutInflater dialog_inflater = getLayoutInflater();
+
+            builder.setView(dialog_inflater.inflate(R.layout.bg_location_alert_image, null));
+            builder.show();
+
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
         }
 
 
