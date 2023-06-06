@@ -1,66 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signal_scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="parent"
     tools:context=".fragments.QoSFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="12dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        android:scrollbars="vertical">
+
 
         <TextView
-            android:id="@+id/sim1TextView"
+            android:id="@+id/signal1TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/border"
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.154"
+            app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.124" />
-
+            app:layout_constraintVertical_bias="0.042" />
 
         <TextView
-            android:id="@+id/sim2TextView"
+            android:id="@+id/signal2TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:background="@drawable/border"
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/sim1TextView"
-            app:layout_constraintTop_toBottomOf="@+id/sim1TextView" />
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/signal1TextView"
+            app:layout_constraintTop_toBottomOf="@+id/signal1TextView" />
 
 
         <TextView
-            android:id="@+id/sim3TextView"
+            android:id="@+id/signal3TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:background="@drawable/border"
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/sim2TextView"
-            app:layout_constraintTop_toBottomOf="@+id/sim2TextView"
-            />
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/signal2TextView"
+            app:layout_constraintTop_toBottomOf="@+id/signal2TextView" />
 
         <TextView
-            android:id="@+id/sim4TextView"
+            android:id="@+id/signal4TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:background="@drawable/border"
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/sim3TextView"
-            app:layout_constraintTop_toBottomOf="@+id/sim3TextView" />
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/signal3TextView"
+            app:layout_constraintTop_toBottomOf="@+id/signal3TextView" />
 
+        <TextView
+            android:id="@+id/signal5TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/border"
+            android:text="@string/fetch_textView_Str"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/signal4TextView"
+            app:layout_constraintTop_toBottomOf="@+id/signal4TextView" />
+
+        <TextView
+            android:id="@+id/signal6TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/border"
+            android:text="@string/fetch_textView_Str"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/signal5TextView"
+            app:layout_constraintTop_toBottomOf="@+id/signal5TextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
-
-</FrameLayout>

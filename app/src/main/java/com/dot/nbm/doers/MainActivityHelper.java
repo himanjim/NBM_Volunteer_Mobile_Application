@@ -64,12 +64,10 @@ public class MainActivityHelper {
                 running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
             }
             return running;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 }

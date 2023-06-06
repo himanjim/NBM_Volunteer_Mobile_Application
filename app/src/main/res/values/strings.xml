@@ -2,9 +2,9 @@
     <string name="my_email">dir1@broadbandmission.gov.in</string>
 
     <string name="app_name">NBM Volunteer</string>
-    <string name="about_us_tab_name">About Us</string>
-    <string name="qos_tab_name">QoS</string>
-    <string name="setting_tab_name">Settings</string>
+    <string name="about_us_tab_name">ABOUT US</string>
+    <string name="qos_tab_name">SIGNALS</string>
+    <string name="setting_tab_name">SETTINGS</string>
 
     <string name="contri_textView_Str">Your contributions are</string>
     <string name="pause_data_textView_Str">PAUSE data collection</string>
@@ -32,7 +32,7 @@
     Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
     </string>
 
-    <string name="signal_strength_text">Your <b>SIM%1$s</b> is of operator:<b>%2$s</b>.\nThe technology is <b>%3$s</b>.\nAnd the signal strength is <b>%4$s</b> which is <b>%5$s</b>.</string>
+    <string name="signal_strength_text"><b>%1$s</b> signal\n>>Operator: <b>%2$s</b>.\n>>Technology: <b>%3$s</b>.\n>>Signal strength: <b>%4$s</b> which is <b>%5$s</b>.</string>
 
     <string name="CDMA">CDMA</string>Wcdma
     <string name="GSM">GSM</string>
