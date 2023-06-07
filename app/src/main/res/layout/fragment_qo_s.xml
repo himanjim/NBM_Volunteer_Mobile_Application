@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/signal1TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
             android:text="@string/fetch_textView_Str"
@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/signal2TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/border"
@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/signal3TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/border"
@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/signal4TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/border"
@@ -73,7 +73,7 @@
 
         <TextView
             android:id="@+id/signal5TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/border"
@@ -85,7 +85,7 @@
 
         <TextView
             android:id="@+id/signal6TextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/border"

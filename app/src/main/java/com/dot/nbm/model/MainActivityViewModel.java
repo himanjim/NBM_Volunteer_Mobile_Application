@@ -1,5 +1,7 @@
 package com.dot.nbm.model;
 
+import android.text.Spanned;
+
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 public class MainActivityViewModel extends ViewModel {
 
 
-    private List<String> signals = new ArrayList<>();
+    private List<Spanned> signals = new ArrayList<>();
 
     private int noOfContributions;
 
@@ -20,13 +22,13 @@ public class MainActivityViewModel extends ViewModel {
         this.noOfContributions = noOfContributions;
     }
 
-    public List<String> getSignals() {
+    public List<Spanned> getSignals() {
         return signals;
     }
 
-    public void setSignals(List<String> signals) {
-        this.signals = signals;
-    }
+//    public void setSignals(List<Spanned> signals) {
+//        this.signals = signals;
+//    }
 
     @Override
     public String toString() {

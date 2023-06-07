@@ -6,6 +6,10 @@ import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.DynamicDrawableSpan;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -63,10 +68,27 @@ public class QoSFragment extends Fragment {
 
 //            SignalState firstSignalState = signalStates.get(0);
 
-            int signal_count = 1;
+//            int signal_count = 1;
             for (SignalState signalState : signalStates) {
-                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
-                signal_count++;
+//                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
+
+                Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperaterName()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getTechnology()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                Spanned qualityStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_quality), "ok"), HtmlCompat.FROM_HTML_MODE_COMPACT);
+
+//                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
+//                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
+                SpannableStringBuilder builder = new SpannableStringBuilder();
+                builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                        .append(operatorStyleText).append("| ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                        .append(technologyStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.strength_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                        .append(strengthStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                        .append(qualityStyleText);
+
+
+                mainActivityViewModel.getSignals().add(builder);
+//                signal_count++;
             }
 
             if (mainActivityViewModel.getSignals().size() > 0) {
@@ -139,18 +161,18 @@ public class QoSFragment extends Fragment {
 
         return layout;
     }
-    public static String ordinal(int i) {
-        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
-        switch (i % 100) {
-            case 11:
-            case 12:
-            case 13:
-                return i + "th";
-            default:
-                return i + suffixes[i % 10];
-
-        }
-    }
+//    public static String ordinal(int i) {
+//        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+//        switch (i % 100) {
+//            case 11:
+//            case 12:
+//            case 13:
+//                return i + "th";
+//            default:
+//                return i + suffixes[i % 10];
+//
+//        }
+//    }
 
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
