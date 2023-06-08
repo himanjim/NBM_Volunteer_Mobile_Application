@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.dot.nbm.R;
 import com.dot.nbm.doers.SignalStateFetcher;
+import com.dot.nbm.doers.SignalStrengthLevelIndicator;
 import com.dot.nbm.model.MainActivityViewModel;
 import com.dot.nbm.model.SignalState;
 
@@ -79,6 +80,9 @@ public class QoSFragment extends Fragment {
 
 //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
+
+                SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(getContext(), signalState.getTechnology(), signalState.getSignalStrength());
+
                 SpannableStringBuilder builder = new SpannableStringBuilder();
                 builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
                         .append(operatorStyleText).append("| ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)

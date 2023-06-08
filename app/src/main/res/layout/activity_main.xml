@@ -9,7 +9,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="1dp"
@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/emblem_40px"
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        android:contentDescription="Indian Emblem"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

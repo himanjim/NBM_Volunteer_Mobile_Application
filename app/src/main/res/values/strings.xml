@@ -51,4 +51,29 @@
     <string name="FOUR_G">4G</string>
     <string name="FIVE_G">5G</string>
 
+    <integer-array name="TWO_G_LEVELS">
+        <item>-70</item>
+        <item>-85</item>
+        <item>-100</item>
+    </integer-array>
+
+    <integer-array name="THREE_G_LEVELS">
+        <item>-70</item>
+        <item>-85</item>
+        <item>-100</item>
+    </integer-array>
+
+    <integer-array name="FOUR_G_LEVELS">
+        <item>-80</item>
+        <item>-90</item>
+        <item>-100</item>
+    </integer-array>
+
+
+    <integer-array name="FIVE_G_LEVELS">
+        <item>-80</item>
+        <item>-90</item>
+        <item>-100</item>
+    </integer-array>
+
 </resources>
