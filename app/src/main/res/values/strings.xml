@@ -33,13 +33,18 @@
     <string name="permission_alert_ok_again">OK</string>
     <string name="permission_alert_no_again">NO</string>
 
-    <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength crowdsourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3. Your <b>precise location</b> both in foreground and background.\n4. The <b>brand and hardware of your phone.</b>\nPlease be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
+    <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength through crowd-sourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3. Your <b>precise location</b> both in foreground and background.\n4. The <b>brand and hardware of your phone.</b>\nPlease be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
     </string>
 
     <string name="signal_operator">Operator: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_technology">Technology: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_strength">Signal strength: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_quality">Signal level: &lt;b>%1$s&lt;/b></string>
+
+    <string name="signal_quality_excellent">&lt;span style="background-color:#6ACE61">EXCELLENT&lt;/span></string>
+    <string name="signal_quality_good">&lt;span style="background-color:#FBFB43">GOOD&lt;/span></string>
+    <string name="signal_quality_fair">&lt;span style="background-color:#F7BA30">FAIR&lt;/span></string>
+    <string name="signal_quality_poor">&lt;span style="background-color:#EC031D">POOR&lt;/span></string>
 
     <string name="CDMA">CDMA</string>
     <string name="GSM">GSM</string>
