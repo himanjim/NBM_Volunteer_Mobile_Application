@@ -49,8 +49,10 @@
     <string name="CDMA">CDMA</string>
     <string name="GSM">GSM</string>
     <string name="WCDMA">WCDMA</string>
+    <string name="TDSCDMA">TD-SCDMA</string>
     <string name="LTE">LTE</string>
     <string name="NR">NR</string>
+
     <string name="TWO_G">2G</string>
     <string name="THREE_G">3G</string>
     <string name="FOUR_G">4G</string>

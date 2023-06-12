@@ -80,7 +80,7 @@ public class QoSFragment extends Fragment {
 //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
 
-                SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(getContext(), signalState.getTechnology(), signalState.getSignalStrength());
+                SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(getContext(), signalState.getGeneration(), signalState.getSignalStrength());
 
                 Spanned qualityStyleText = null;
                 if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.EXCELLENT){

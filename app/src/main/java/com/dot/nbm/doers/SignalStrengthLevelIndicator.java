@@ -13,26 +13,26 @@ public class SignalStrengthLevelIndicator {
         POOR
     }
 
-    public static SignalLevel getSignalStrengthLevel(Context context, String technology, int signalStrength){
+    public static SignalLevel getSignalStrengthLevel(Context context, String generation, int signalStrength){
 
         Resources resources = context.getResources();
         // For 2G
-        if (technology.equals(context.getString(R.string.TWO_G))){
+        if (generation.equals(context.getString(R.string.TWO_G))){
             int[] two_g_signal_levels = resources.getIntArray(R.array.TWO_G_LEVELS);
             return getLevel(signalStrength, two_g_signal_levels);
         }
         // For 3G
-        else if (technology.equals(context.getString(R.string.THREE_G))){
+        else if (generation.equals(context.getString(R.string.THREE_G))){
             int[] three_g_signal_levels = resources.getIntArray(R.array.THREE_G_LEVELS);
             return getLevel(signalStrength, three_g_signal_levels);
         }
         // For 4G
-        else if (technology.equals(context.getString(R.string.FOUR_G))){
+        else if (generation.equals(context.getString(R.string.FOUR_G))){
             int[] four_g_signal_levels = resources.getIntArray(R.array.FOUR_G_LEVELS);
             return getLevel(signalStrength, four_g_signal_levels);
         }
         // For 5G
-        else if (technology.equals(context.getString(R.string.FIVE_G))){
+        else if (generation.equals(context.getString(R.string.FIVE_G))){
             int[] five_g_signal_levels = resources.getIntArray(R.array.FIVE_G_LEVELS);
             return getLevel(signalStrength, five_g_signal_levels);
         }

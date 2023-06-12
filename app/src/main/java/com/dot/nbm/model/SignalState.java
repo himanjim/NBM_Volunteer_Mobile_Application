@@ -4,11 +4,6 @@ import java.io.Serializable;
 
 public class SignalState implements Serializable {
 
-    public SignalState(long id) {
-        this.id = id;
-    }
-
-
     public SignalState() {
 
     }
@@ -25,7 +20,7 @@ public class SignalState implements Serializable {
 
     private String generation;
 
-    private int cellId;
+    private long cellId;
 
     private int locationAreaCode;
 
@@ -39,11 +34,32 @@ public class SignalState implements Serializable {
 
     private int networkId;
 
-    public int getCellId() {
+    private int level;
+
+    public int getCpid() {
+        return cpid;
+    }
+
+    public void setCpid(int cpid) {
+        this.cpid = cpid;
+    }
+
+    private int cpid;
+
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public long getCellId() {
         return cellId;
     }
 
-    public void setCellId(int cellId) {
+    public void setCellId(long cellId) {
         this.cellId = cellId;
     }
 
@@ -159,6 +175,8 @@ public class SignalState implements Serializable {
                 ", physicalCellId=" + physicalCellId +
                 ", systemId=" + systemId +
                 ", networkId=" + networkId +
+                ", level=" + level +
+                ", cpid=" + cpid +
                 '}';
     }
 }

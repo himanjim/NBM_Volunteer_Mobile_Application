@@ -22,6 +22,8 @@ public class NetworkStateFetcher {
         for (Network network: networks) {
             NetworkCapabilities nc = connectivityManager.getNetworkCapabilities(network);
             LinkProperties linkProperties = connectivityManager.getLinkProperties(network);
+//            nc.getCapabilities()
+            nc.getTransportInfo();
 
             NetworkState networkState = new NetworkState();
             networkState.setInterfaceName(linkProperties.getInterfaceName());
