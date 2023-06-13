@@ -58,6 +58,15 @@
     <string name="FOUR_G">4G</string>
     <string name="FIVE_G">5G</string>
 
+    <string name="TRANSPORT_CELLULAR">CELLULAR</string>
+    <string name="TRANSPORT_WIFI">WIFI</string>
+    <string name="TRANSPORT_BLUETOOTH">BLUETOOTH</string>
+    <string name="TRANSPORT_ETHERNET">ETHERNET</string>
+    <string name="TRANSPORT_LOWPAN">LOWPAN</string>
+    <string name="TRANSPORT_USB">USB</string>
+    <string name="TRANSPORT_WIFI_AWARE">WIFI_AWARE</string>
+    <string name="TRANSPORT_THREAD">THREAD</string>
+
     <integer-array name="TWO_G_LEVELS">
         <item>-70</item>
         <item>-85</item>

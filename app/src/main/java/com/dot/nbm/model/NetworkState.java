@@ -8,6 +8,16 @@ public class NetworkState {
 
     private String interfaceName;
 
+    private String transportType;
+
+    public String getTransportType() {
+        return transportType;
+    }
+
+    public void setTransportType(String transportType) {
+        this.transportType = transportType;
+    }
+
     public int getDownstreamBandwidthKbps() {
         return downstreamBandwidthKbps;
     }
@@ -38,6 +48,7 @@ public class NetworkState {
                 "downstreamBandwidthKbps=" + downstreamBandwidthKbps +
                 ", upstreamBandwidthKbps=" + upstreamBandwidthKbps +
                 ", interfaceName='" + interfaceName + '\'' +
+                ", transportType='" + transportType + '\'' +
                 '}';
     }
 }
