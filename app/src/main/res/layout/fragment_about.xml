@@ -17,14 +17,14 @@
         android:layout_margin="12dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/aboutUsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
             android:justificationMode="inter_word"
             android:padding="15dp"
-            android:text="@string/about_us"
-            android:textSize="24sp"
+            android:text="...loading"
+            android:textSize="22sp"
             android:fontFamily="@font/calibri_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

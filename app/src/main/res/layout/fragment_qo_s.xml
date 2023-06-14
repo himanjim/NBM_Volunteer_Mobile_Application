@@ -25,14 +25,14 @@
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/signal2TextView"
+            app:layout_constraintBottom_toTopOf="@+id/pauseTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.042" />
 
         <TextView
-            android:id="@+id/signal2TextView"
+            android:id="@+id/pauseTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -54,8 +54,8 @@
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/signal2TextView"
-            app:layout_constraintTop_toBottomOf="@+id/signal2TextView" />
+            app:layout_constraintStart_toStartOf="@+id/pauseTextView"
+            app:layout_constraintTop_toBottomOf="@+id/pauseTextView" />
 
         <TextView
             android:id="@+id/signal4TextView"

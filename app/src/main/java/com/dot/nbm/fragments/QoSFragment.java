@@ -114,7 +114,7 @@ public class QoSFragment extends Fragment {
                 signal1TextView.setVisibility(View.VISIBLE);
 
                 if (mainActivityViewModel.getSignals().size() > 1) {
-                    TextView signal2TextView = layout.findViewById(R.id.signal2TextView);
+                    TextView signal2TextView = layout.findViewById(R.id.pauseTextView);
                     signal2TextView.setText(mainActivityViewModel.getSignals().get(1));
                     signal2TextView.setVisibility(View.VISIBLE);
 

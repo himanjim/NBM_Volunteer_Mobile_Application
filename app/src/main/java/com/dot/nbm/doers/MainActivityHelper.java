@@ -28,7 +28,10 @@ public class MainActivityHelper {
         if (isWorkScheduled(applicationContext.getString(R.string.worker_tag), applicationContext)) {
             Log.i("combinedSignalNetworkHardwareState", "NBM worker scheduled");
         } else {
-            scheduleWorker(applicationContext);
+
+            if (!GsonHandler.getPauseBackgroundTaskState(applicationContext))
+                scheduleWorker(applicationContext);
+
             Log.i("combinedSignalNetworkHardwareState", "NBM worker not scheduled");
         }
     }

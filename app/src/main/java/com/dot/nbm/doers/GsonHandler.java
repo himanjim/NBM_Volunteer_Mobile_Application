@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GsonHandler {
 
-    public static void incrementContributionCount(Context context, Integer contributions){
+    public static void incrementContributionCount(Context context, Integer contributions) {
         String contributionsFileName = context.getString(R.string.contri_FName);
         Gson gson = new Gson();
 
@@ -37,7 +37,7 @@ public class GsonHandler {
 
     }
 
-    public static Integer getContributionCount(Context context){
+    public static Integer getContributionCount(Context context) {
         String contributionsFileName = context.getString(R.string.contri_FName);
 
         Gson gson = new Gson();
@@ -45,13 +45,13 @@ public class GsonHandler {
         Integer contributions;
         try {
             File file = new File(context.getFilesDir(), contributionsFileName);
-            if (!file.exists()){
+            if (!file.exists()) {
                 file.createNewFile();
-                return null;
+                return 0;
             }
 
             if (new BufferedReader(new FileReader(file)).readLine() == null)
-                return null;
+                return 0;
 
             JsonReader reader = new JsonReader(new FileReader(file));
             contributions = gson.fromJson(reader, Integer.class);
@@ -71,9 +71,14 @@ public class GsonHandler {
             File file = new File(context.getFilesDir(), combinedSignalNetworkHardwareStateFileName);
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            byte[] arr = gson.toJson(combinedSignalNetworkHardwareStates).getBytes();
+            String jsonStr = gson.toJson(combinedSignalNetworkHardwareStates);
+            byte[] arr = jsonStr.getBytes();
+
             fileOutputStream.write(arr);
             fileOutputStream.close();
+
+            RetrofitAPICaller.postData(jsonStr, context);
+
 
 //            gson.toJson(testState, new FileWriter(file));
         } catch (IOException e) {
@@ -91,7 +96,7 @@ public class GsonHandler {
         try {
             File file = new File(context.getFilesDir(), combinedSignalNetworkHardwareStateFileName);
 
-            if (!file.exists()){
+            if (!file.exists()) {
                 file.createNewFile();
                 return null;
             }
@@ -100,7 +105,8 @@ public class GsonHandler {
                 return null;
 
             JsonReader reader = new JsonReader(new FileReader(file));
-            Type collectionType = new TypeToken<List<CombinedSignalNetworkHardwareState>>(){}.getType();
+            Type collectionType = new TypeToken<List<CombinedSignalNetworkHardwareState>>() {
+            }.getType();
             combinedSignalNetworkHardwareStates = gson.fromJson(reader, collectionType);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -108,4 +114,67 @@ public class GsonHandler {
 
         return combinedSignalNetworkHardwareStates;
     }
+
+    public static void emptyCombinedSignalNetworkHardwareStates(Context context) {
+        String combinedSignalNetworkHardwareStateFileName = context.getString(R.string.combSNHState);
+
+        try {
+            File file = new File(context.getFilesDir(), combinedSignalNetworkHardwareStateFileName);
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+            fileOutputStream.write(null);
+            fileOutputStream.close();
+
+//            gson.toJson(testState, new FileWriter(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void savePauseBackgroundTaskState(Context context, Boolean save) {
+        String pauseBgTaskFileName = context.getString(R.string.pause_bg_task_FName);
+        Gson gson = new Gson();
+
+        File file = new File(context.getFilesDir(), pauseBgTaskFileName);
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            byte[] arr = gson.toJson(save).getBytes();
+            fileOutputStream.write(arr);
+            fileOutputStream.close();
+
+//            gson.toJson(testState, new FileWriter(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static Boolean getPauseBackgroundTaskState(Context context) {
+        String pauseBgTaskFileName = context.getString(R.string.pause_bg_task_FName);
+
+        Gson gson = new Gson();
+
+        Boolean bgTaskState;
+        try {
+            File file = new File(context.getFilesDir(), pauseBgTaskFileName);
+            if (!file.exists()) {
+                file.createNewFile();
+                return Boolean.FALSE;
+            }
+
+            if (new BufferedReader(new FileReader(file)).readLine() == null)
+                return Boolean.FALSE;
+
+            JsonReader reader = new JsonReader(new FileReader(file));
+            bgTaskState = gson.fromJson(reader, Boolean.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return bgTaskState;
+
+    }
+
 }

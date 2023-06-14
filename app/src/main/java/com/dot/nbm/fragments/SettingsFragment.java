@@ -1,5 +1,6 @@
 package com.dot.nbm.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class SettingsFragment extends Fragment {
 
     MainActivityViewModel mainActivityViewModel;
     CheckBox pauseCheckBox;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,11 +47,29 @@ public class SettingsFragment extends Fragment {
         contributionsTextView.setText(Integer.toString(mainActivityViewModel.getNoOfContributions()));
 
         pauseCheckBox = layout.findViewById(R.id.pauseContriCheckBox);
+
+        if (GsonHandler.getPauseBackgroundTaskState(applicationContext))
+            pauseCheckBox.setChecked(true);
+
         pauseCheckBox.setOnClickListener(v -> {
-            if (pauseCheckBox.isChecked()){
-                WorkManager.getInstance(applicationContext).cancelAllWorkByTag(applicationContext.getString(R.string.worker_tag));
-                Toast.makeText(applicationContext, R.string.worker_paused, Toast.LENGTH_LONG).show();
-            }else{
+            if (pauseCheckBox.isChecked()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(applicationContext);
+                builder.setMessage(R.string.pause_collection_alert_msg)
+                        .setTitle(R.string.pause_collection_alert_title);
+// Add the buttons
+                builder.setPositiveButton(R.string.pause_collection_alert_no_confirm, (dialog, which) -> {
+                    pauseCheckBox.setChecked(false);
+                });
+
+                builder.setNegativeButton(R.string.pause_collection_alert_confirm, (dialog, which) -> {
+                    WorkManager.getInstance(applicationContext).cancelAllWorkByTag(applicationContext.getString(R.string.worker_tag));
+                    GsonHandler.savePauseBackgroundTaskState(applicationContext, true);
+                    Toast.makeText(applicationContext, R.string.worker_paused, Toast.LENGTH_LONG).show();
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            } else {
                 MainActivityHelper.scheduleWorker(applicationContext);
                 Toast.makeText(applicationContext, R.string.worker_resumed, Toast.LENGTH_LONG).show();
             }

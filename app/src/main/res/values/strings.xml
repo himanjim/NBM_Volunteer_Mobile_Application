@@ -9,6 +9,7 @@
     <string name="contri_textView_Str">Your contributions are</string>
     <string name="pause_data_textView_Str">PAUSE data collection</string>
     <string name="fetch_textView_Str">...fetching</string>
+    <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. Your contributions enable us to see how the telecom scenario in the country is evolving and what measures need to be taken to provide network coverage in each and every nook and corner of the country.</string>
 
     <string name="NBM_P_F_Tag">NBM_P_F_Tag</string>
     <string name="NBM_P_F_A_Tag">NBM_P_F_A_Tag</string>
@@ -19,6 +20,7 @@
     <string name="contri_FName">NBM_V_Contri</string>
     <string name="worker_paused">Background data collection paused.</string>
     <string name="worker_resumed">Background data collection resumed.</string>
+    <string name="pause_bg_task_FName">Pause_Bg_Task</string>
 
     <string name="permission_alert_title"><b>LOCATION PERMISSON REQUEST</b></string>
     <string name="permission_alert_msg">Dear user we need permission to access your precise <b>location</b> both in foreground and <b>background</b>. We need your precise location to capture what is the mobile signal strength at your location. Please note that <b>no information</b> related to your identity is captured. The data captured can never be backtracked to your identity.</string>
@@ -33,8 +35,15 @@
     <string name="permission_alert_ok_again">OK</string>
     <string name="permission_alert_no_again">NO</string>
 
-    <string name="about_us">Dear User, \n    Thanks for downloading the application. This application is developed by Director(<b>National Broadband Mission</b>), Department of Telecommunications, Government of India, as a <b>pilot program</b> to capture ground level signal strength through crowd-sourcing. \n The application tries to captures following data every 15 minutes:\n1. Network signal strength\n2. Mobile cell parameters\n3. Your <b>precise location</b> both in foreground and background.\n4. The <b>brand and hardware of your phone.</b>\nPlease be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
+    <string name="pause_collection_alert_title"><b>PAUSE BACKGROUND DATA COLLECTION</b></string>
+    <string name="pause_collection_alert_msg">Pause background data collection? You can always resume later.</string>
+    <string name="pause_collection_alert_confirm">Confirm</string>
+    <string name="pause_collection_alert_no_confirm">No</string>
+
+    <string name="about_us">Dear User, &lt;br/>Thanks for downloading the application.&lt;br/>&lt;br/>This application is developed by Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India, as a &lt;b>pilot program&lt;/b> to capture ground level signal strength through crowd-sourcing.&lt;br/>&lt;br/>The application tries to captures following data every 15 minutes:&lt;br/>&lt;ol>&lt;li>Network signal strength&lt;/li>&lt;li>Mobile cell parameters&lt;/li>&lt;li>Your &lt;b>precise location&lt;/b> both in foreground and background.&lt;/li>&lt;li>The &lt;b>brand and hardware of your phone.&lt;/li>&lt;/ol>&lt;br/>Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
     </string>
+
+    <string name="retrofit_success">SUCCESS</string>
 
     <string name="signal_operator">Operator: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_technology">Technology: &lt;b>%1$s&lt;/b>&lt;br/></string>
