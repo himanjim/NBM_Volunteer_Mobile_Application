@@ -3,6 +3,9 @@ package com.dot.nbm.doers;
 import android.content.Context;
 import android.util.Log;
 
+import com.dot.nbm.R;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,14 +18,23 @@ public class RetrofitAPICaller {
 
         // on below line we are creating a retrofit
         // builder and passing our base url
+        OkHttpClient.Builder okBuilder = new OkHttpClient().newBuilder();
+
+        okBuilder.hostnameVerifier((hostname, session) -> {
+            if(hostname.equals(context.getString(R.string.retrofit_hostname)))
+                return true;
+            return false;
+        });
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://reqres.in/api/")
+                .baseUrl(context.getString(R.string.retrofit_base_url))
                 // as we are sending data in json format so
                 // we have to add Gson converter factory
+                .client(okBuilder.build())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 // at last we are building our retrofit builder.
                 .build();
         // below line is to create an instance for our retrofit api class.
+
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
 
@@ -41,7 +53,7 @@ public class RetrofitAPICaller {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.e("RetrofitAPICaller", "Error");
+                Log.e("RetrofitAPICaller", "Error" + t);
             }
 
         });
