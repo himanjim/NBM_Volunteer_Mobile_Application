@@ -36,6 +36,8 @@ public class SignalState implements Serializable {
 
     private int level;
 
+    private int cpid;
+
     public int getCpid() {
         return cpid;
     }
@@ -43,8 +45,6 @@ public class SignalState implements Serializable {
     public void setCpid(int cpid) {
         this.cpid = cpid;
     }
-
-    private int cpid;
 
 
     public int getLevel() {

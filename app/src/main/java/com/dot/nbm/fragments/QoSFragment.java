@@ -30,6 +30,8 @@ import com.dot.nbm.doers.SignalStateFetcher;
 import com.dot.nbm.doers.SignalStrengthLevelIndicator;
 import com.dot.nbm.model.MainActivityViewModel;
 import com.dot.nbm.model.SignalState;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -60,6 +62,40 @@ public class QoSFragment extends Fragment {
 
         Log.d("Phone_Model", String.join("-", Build.MANUFACTURER, Build.PRODUCT, Build.BRAND, Build.MODEL, Build.HOST, Build.HARDWARE));
 
+//        fetchAndShowSignals(layout);
+
+        FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.refresh_signals);
+        fab.setOnClickListener(view -> {
+            fetchAndShowSignals(layout);
+            getParentFragmentManager().beginTransaction().detach(QoSFragment.this).attach
+                    (QoSFragment.this).commit();
+            Snackbar.make(view, "Signals refreshed", Snackbar.LENGTH_LONG).show();
+        });
+
+
+        if (ContextCompat.checkSelfPermission(
+                getActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage(R.string.bg_permission_alert_title)
+                    .setTitle(R.string.bg_permission_alert_title);
+// Add the buttons
+            builder.setPositiveButton(R.string.bg_permission_alert_ok, (dialog, id) -> requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION}));
+
+            LayoutInflater dialog_inflater = getLayoutInflater();
+
+            builder.setView(dialog_inflater.inflate(R.layout.bg_location_alert_image, null));
+            builder.show();
+
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
+        }
+
+
+        return layout;
+    }
+
+    private void fetchAndShowSignals(ViewGroup layout){
         if (ContextCompat.checkSelfPermission(
                 getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
@@ -75,7 +111,7 @@ public class QoSFragment extends Fragment {
 
                 Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperaterName()), HtmlCompat.FROM_HTML_MODE_COMPACT);
                 Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getTechnology()), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                @SuppressLint("StringFormatMatches") Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
 //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
 //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
@@ -144,6 +180,7 @@ public class QoSFragment extends Fragment {
                 }
             }
 
+
 //            mainActivityViewModel.setTechnology(firstSignalState.getTechnology());
 //            mainActivityViewModel.setOperatorName(firstSignalState.getOperaterName());
 //            mainActivityViewModel.setSignalStrength(firstSignalState.getSignalStrength());
@@ -155,41 +192,7 @@ public class QoSFragment extends Fragment {
 //            Log.d("signalStrengthCaptured", String.valueOf(signalViewModel.getSignalStrength()));
 //            Log.d("locationCaptured", fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null));
         }
-
-
-        if (ContextCompat.checkSelfPermission(
-                getActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage(R.string.bg_permission_alert_title)
-                    .setTitle(R.string.bg_permission_alert_title);
-// Add the buttons
-            builder.setPositiveButton(R.string.bg_permission_alert_ok, (dialog, id) -> requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION}));
-
-            LayoutInflater dialog_inflater = getLayoutInflater();
-
-            builder.setView(dialog_inflater.inflate(R.layout.bg_location_alert_image, null));
-            builder.show();
-
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
-        }
-
-
-        return layout;
     }
-//    public static String ordinal(int i) {
-//        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
-//        switch (i % 100) {
-//            case 11:
-//            case 12:
-//            case 13:
-//                return i + "th";
-//            default:
-//                return i + suffixes[i % 10];
-//
-//        }
-//    }
 
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
