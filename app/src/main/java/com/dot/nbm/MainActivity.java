@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.text.LineBreaker;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -78,10 +80,14 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.permission_alert_msg)
-                    .setTitle(R.string.permission_alert_title);
+            builder.setTitle(R.string.permission_alert_title);
 // Add the buttons
             builder.setPositiveButton(R.string.permission_alert_ok, (dialog, id) -> requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}));
+            TextView msg = new TextView(this);
+            msg.setText(R.string.permission_alert_msg);
+            msg.setPadding(20, 20, 20, 20);
+            msg.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+            builder.setView(msg);
             AlertDialog dialog = builder.create();
             dialog.show();
             // You can directly ask for the permission.

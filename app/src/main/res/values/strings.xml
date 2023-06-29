@@ -1,5 +1,6 @@
 <resources>
     <string name="my_email">dir1@broadbandmission.gov.in</string>
+    <string name="auth_code">sdljdasdas*()!@(!@#@#>mkkldlwldwlelw@!@!@!jkkkkk</string>
 
     <string name="app_name">NBM Volunteer</string>
     <string name="about_us_tab_name">ABOUT US</string>
@@ -40,6 +41,10 @@
     <string name="pause_collection_alert_confirm">Confirm</string>
     <string name="pause_collection_alert_no_confirm">No</string>
 
+    <string name="contact_tsp_title">CONTACT OPERATOR</string>
+    <string name="contact_tsp_msg">Please contact customer services of respective telecom operator in case any issue faced in telecom service.</string>
+    <string name="contact_tsp_ok">OK</string>
+
     <string name="about_us">Dear User, &lt;br/>Thanks for downloading the application.&lt;br/>&lt;br/>This application is developed by Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India, as a &lt;b>pilot program&lt;/b> to capture ground level signal strength through crowd-sourcing.&lt;br/>&lt;br/>The application tries to captures following data every 15 minutes:&lt;br/>&lt;ol>&lt;li>Network signal strength&lt;/li>&lt;li>Mobile cell parameters&lt;/li>&lt;li>Your &lt;b>precise location&lt;/b> both in foreground and background.&lt;/li>&lt;li>The &lt;b>brand and hardware of your phone.&lt;/li>&lt;/ol>&lt;br/>Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
     </string>
 
@@ -55,7 +60,7 @@
     <string name="signal_quality_excellent">&lt;span style="background-color:#6ACE61">EXCELLENT&lt;/span></string>
     <string name="signal_quality_good">&lt;span style="background-color:#FBFB43">GOOD&lt;/span></string>
     <string name="signal_quality_fair">&lt;span style="background-color:#F7BA30">FAIR&lt;/span></string>
-    <string name="signal_quality_poor">&lt;span style="background-color:#EC031D">POOR&lt;/span></string>
+    <string name="signal_quality_poor">&lt;span style="background-color:#EC031D">POOR&lt;/span>\u00A0\u00A0</string>
 
     <string name="CDMA">CDMA</string>
     <string name="GSM">GSM</string>

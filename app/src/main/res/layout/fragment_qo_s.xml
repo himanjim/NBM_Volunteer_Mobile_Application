@@ -104,6 +104,19 @@
             android:contentDescription="Refresh Signals"
             app:layout_constraintEnd_toEndOf="@id/signal1TextView"
             app:layout_constraintTop_toTopOf="@id/signal1TextView" />
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/contact_operator"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@mipmap/about_us_tab"-->
+<!--            tools:layout_editor_absoluteX="130dp"-->
+<!--            tools:layout_editor_absoluteY="71dp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/signal1TextView"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/signal1TextView"-->
+
+<!--            />-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

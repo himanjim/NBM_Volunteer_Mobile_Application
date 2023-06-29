@@ -123,7 +123,7 @@ public class GsonHandler {
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
 
-            fileOutputStream.write(null);
+            fileOutputStream.write(new byte[0]);
             fileOutputStream.close();
 
 //            gson.toJson(testState, new FileWriter(file));

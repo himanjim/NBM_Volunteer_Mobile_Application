@@ -10,8 +10,6 @@ public class CombinedSignalNetworkHardwareState {
 
     private long timeStamp;
 
-    private boolean synced;
-
     private String manufacturer;
 
     private String product;
@@ -24,38 +22,30 @@ public class CombinedSignalNetworkHardwareState {
 
     private String hardware;
 
+    private String authCode;
+
     public List<SignalState> getSignalStates() {
         return signalStates;
-    }
-
-    @Override
-    public String toString() {
-        return "CombinedSignalNetworkHardwareState{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", timeStamp=" + timeStamp +
-                ", synced=" + synced +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", product='" + product + '\'' +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", host='" + host + '\'' +
-                ", hardware='" + hardware + '\'' +
-                ", signalStates=" + signalStates +
-                ", networkStates=" + networkStates +
-                '}';
-    }
-
-    public void setSignalStates(List<SignalState> signalStates) {
-        this.signalStates = signalStates;
     }
 
     public List<NetworkState> getNetworkStates() {
         return networkStates;
     }
 
+    public void setSignalStates(List<SignalState> signalStates) {
+        this.signalStates = signalStates;
+    }
+
     public void setNetworkStates(List<NetworkState> networkStates) {
         this.networkStates = networkStates;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
     }
 
     private List<SignalState> signalStates;
@@ -84,14 +74,6 @@ public class CombinedSignalNetworkHardwareState {
 
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
-    }
-
-    public boolean isSynced() {
-        return synced;
-    }
-
-    public void setSynced(boolean synced) {
-        this.synced = synced;
     }
 
     public String getManufacturer() {
@@ -142,4 +124,22 @@ public class CombinedSignalNetworkHardwareState {
         this.hardware = hardware;
     }
 
+
+    @Override
+    public String toString() {
+        return "CombinedSignalNetworkHardwareState{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", timeStamp=" + timeStamp +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", product='" + product + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", host='" + host + '\'' +
+                ", hardware='" + hardware + '\'' +
+                ", authCode='" + authCode + '\'' +
+                ", signalStates=" + signalStates +
+                ", networkStates=" + networkStates +
+                '}';
+    }
 }

@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.work.ListenableWorker;
 import androidx.work.WorkerParameters;
 
+import com.dot.nbm.R;
 import com.dot.nbm.doers.GsonHandler;
 import com.dot.nbm.doers.NetworkStateFetcher;
 import com.dot.nbm.doers.SignalStateFetcher;
@@ -22,8 +23,6 @@ import com.dot.nbm.doers.TestGsonHandler;
 import com.dot.nbm.model.CombinedSignalNetworkHardwareState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class NBMListenableWorker extends ListenableWorker {
         if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("combinedSignalNetworkLocation", "No location access");
 
-            if (completer!=null){
+            if (completer != null) {
                 completer.set(Result.failure());
             }
 
@@ -92,6 +91,7 @@ public class NBMListenableWorker extends ListenableWorker {
                         if (task.isSuccessful() && task.getResult() != null) {
                             Location mLocation = task.getResult();
                             Log.d("combinedSignalNetworkLocation", "Location : " + mLocation);
+                            combinedSignalNetworkHardwareState.setAuthCode(applicationContext.getString(R.string.auth_code));
                             combinedSignalNetworkHardwareState.setLatitude(mLocation.getLatitude());
                             combinedSignalNetworkHardwareState.setLongitude(mLocation.getLongitude());
 
@@ -132,12 +132,12 @@ public class NBMListenableWorker extends ListenableWorker {
                             GsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
 //                                mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                            if (completer!=null){
+                            if (completer != null) {
                                 completer.set(Result.success());
                             }
                         } else {
                             Log.w("combinedSignalNetworkHardwareState", "Failed to get location.");
-                            if (completer!=null){
+                            if (completer != null) {
                                 completer.set(Result.failure());
                             }
                         }

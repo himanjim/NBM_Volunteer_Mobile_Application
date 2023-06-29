@@ -26,7 +26,11 @@ public class MainActivityViewModel extends ViewModel {
         return signals;
     }
 
-//    public void setSignals(List<Spanned> signals) {
+    public void setSignals(List<Spanned> signals) {
+        this.signals = signals;
+    }
+
+    //    public void setSignals(List<Spanned> signals) {
 //        this.signals = signals;
 //    }
 

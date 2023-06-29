@@ -46,6 +46,7 @@ public class RetrofitAPICaller {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.i("RetrofitAPICaller", response.toString());
+                GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
 //                if (response.body().equals(context.getString(R.string.retrofit_success))) {
 //                    GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
 //                }
