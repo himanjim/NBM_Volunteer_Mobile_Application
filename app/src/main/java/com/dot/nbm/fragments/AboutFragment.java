@@ -1,6 +1,10 @@
 package com.dot.nbm.fragments;
 
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.DynamicDrawableSpan;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +29,21 @@ public class AboutFragment extends Fragment {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_about, container, false);
 
         TextView aboutUsTextView = layout.findViewById(R.id.aboutUsTextView);
-        aboutUsTextView.setText(HtmlCompat.fromHtml(getString(R.string.about_us), HtmlCompat.FROM_HTML_MODE_COMPACT));
+
+        Spanned aboutUsText_1 = HtmlCompat.fromHtml(getString(R.string.about_us_1), HtmlCompat.FROM_HTML_MODE_COMPACT);
+        Spanned aboutUsText_2 = HtmlCompat.fromHtml(getString(R.string.about_us_2), HtmlCompat.FROM_HTML_MODE_COMPACT);
+        Spanned aboutUsText_3 = HtmlCompat.fromHtml(getString(R.string.about_us_3), HtmlCompat.FROM_HTML_MODE_COMPACT);
+        Spanned aboutUsText_4 = HtmlCompat.fromHtml(getString(R.string.about_us_4), HtmlCompat.FROM_HTML_MODE_COMPACT);
+        Spanned aboutUsText_5 = HtmlCompat.fromHtml(getString(R.string.about_us_5), HtmlCompat.FROM_HTML_MODE_COMPACT);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(aboutUsText_1).append(" ", new ImageSpan(getActivity(), R.mipmap.thanks_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                .append(aboutUsText_2).append(" ", new ImageSpan(getActivity(), R.mipmap.nbm_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                .append(aboutUsText_3).append(" ", new ImageSpan(getActivity(), R.mipmap.database_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                .append(aboutUsText_4).append(" ", new ImageSpan(getActivity(), R.mipmap.surety_bond_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                .append(aboutUsText_5);
+
+        aboutUsTextView.setText(builder);
 
         return layout;
     }

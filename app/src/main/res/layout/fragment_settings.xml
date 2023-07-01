@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:layout_margin="12dp">
+        android:layout_margin="12dp"
+        android:id="@+id/thanks_layout">
 
         <TextView
             android:id="@+id/contributionsView"
@@ -27,17 +28,19 @@
             app:layout_constraintHorizontal_bias="0.154"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.28" />
+            app:layout_constraintVertical_bias="0.28"
+            android:drawableStart="@mipmap/contribution_icon_32"/>
 
         <TextView
             android:id="@+id/contributionsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="12dp"
             android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/contributionsView"
-            app:layout_constraintStart_toEndOf="@+id/contributionsView" />
+            app:layout_constraintStart_toEndOf="@+id/contributionsView"
+            android:background="@color/contri_color"/>
 
         <TextView
             android:id="@+id/pauseTextView"
@@ -46,9 +49,9 @@
             android:layout_marginTop="52dp"
             android:text="@string/pause_data_textView_Str"
             android:textSize="24sp"
-
             app:layout_constraintStart_toStartOf="@+id/contributionsView"
-            app:layout_constraintTop_toBottomOf="@+id/contributionsView" />
+            app:layout_constraintTop_toBottomOf="@+id/contributionsView"
+            android:drawableStart="@mipmap/pause_32"/>
 
 
         <CheckBox
@@ -58,7 +61,8 @@
             android:layout_marginEnd="3dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/pauseTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pauseTextView" />
+            app:layout_constraintStart_toEndOf="@+id/pauseTextView"
+            android:background="@color/pause_color"/>
 
         <TextView
             android:id="@+id/contributionsThanksTextView"
@@ -69,10 +73,13 @@
             android:background="@drawable/border"
             android:justificationMode="inter_word"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/pauseTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pauseTextView"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/pauseContriCheckBox"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="40sp"
+            android:drawableTop="@mipmap/thanks_32"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

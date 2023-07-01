@@ -92,7 +92,8 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout1"
             app:layout_constraintStart_toStartOf="@+id/signal5TextView"
-            app:layout_constraintTop_toBottomOf="@+id/signal5TextView" />
+            app:layout_constraintTop_toBottomOf="@+id/signal5TextView"
+            android:layout_marginBottom="40sp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/refresh_signals"
