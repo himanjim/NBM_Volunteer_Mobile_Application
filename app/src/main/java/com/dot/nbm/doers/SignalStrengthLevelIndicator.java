@@ -42,10 +42,10 @@ public class SignalStrengthLevelIndicator {
     private static SignalLevel getLevel(int signalStrength, int[]signal_levels){
         if(signalStrength >= signal_levels[0])
             return SignalLevel.EXCELLENT;
-        else if (signalStrength < signal_levels[0] && signalStrength >=signal_levels[1]) {
+        else if (signalStrength >=signal_levels[1]) {
             return SignalLevel.GOOD;
         }
-        else if (signalStrength < signal_levels[1] && signalStrength >=signal_levels[2]) {
+        else if (signalStrength >=signal_levels[2]) {
             return SignalLevel.FAIR;
         }
         else

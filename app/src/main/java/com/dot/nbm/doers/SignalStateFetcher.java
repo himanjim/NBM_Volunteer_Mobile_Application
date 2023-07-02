@@ -1,7 +1,6 @@
 package com.dot.nbm.doers;
 
 import android.content.Context;
-import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityNr;
 import android.telephony.CellIdentityTdscdma;
 import android.telephony.CellInfo;
@@ -32,7 +31,7 @@ public class SignalStateFetcher {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         List<CellInfo> cellInfos = telephonyManager.getAllCellInfo();   //This will give info of all sims present inside your mobile
 
-        boolean nrConnect = isNRConnected(telephonyManager);
+//        boolean nrConnect = isNRConnected(telephonyManager);
 
         if (cellInfos != null) {
             int strength = 0;
@@ -132,8 +131,6 @@ public class SignalStateFetcher {
                         generation = context.getString(R.string.TWO_G);
                         technology = context.getString(R.string.CDMA);
 
-                        CellIdentityCdma cellIdentityCdma;
-
                     } else if (cellInfo instanceof CellInfoNr) {
                         CellInfoNr cellInfoNr = (CellInfoNr) cellInfo;
                         CellSignalStrengthNr cellSignalStrengthNr = (CellSignalStrengthNr) cellInfoNr.getCellSignalStrength();
@@ -154,7 +151,7 @@ public class SignalStateFetcher {
                 }
 
                 SignalState signalState = new SignalState();
-                signalState.setOperaterName(operatorName);
+                signalState.setOperatorName(operatorName);
                 signalState.setSignalStrength(strength);
                 signalState.setChannelNo(rfChannelNo);
                 signalState.setTechnology(technology);
@@ -170,7 +167,6 @@ public class SignalStateFetcher {
                 signalState.setLevel(level);
                 signalState.setCpid(cpid);
 
-
                 signalStates.add(signalState);
             }
 
@@ -182,23 +178,23 @@ public class SignalStateFetcher {
         return null;
     }
 
-    public static boolean isNRConnected(TelephonyManager telephonyManager) {
-        try {
-            Object obj = Class.forName(telephonyManager.getClass().getName())
-                    .getDeclaredMethod("getServiceState", new Class[0]).invoke(telephonyManager, new Object[0]);
-            // try extracting from string
-            String serviceState = obj.toString();
-            boolean is5gActive = serviceState.contains("nrState=CONNECTED") ||
-                    serviceState.contains("nsaState=5") ||
-                    (serviceState.contains("EnDc=true") &&
-                            serviceState.contains("5G Allocated=true"));
-            if (is5gActive) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public static boolean isNRConnected(TelephonyManager telephonyManager) {
+//        try {
+//            Object obj = Class.forName(telephonyManager.getClass().getName())
+//                    .getDeclaredMethod("getServiceState", new Class[0]).invoke(telephonyManager, new Object[0]);
+//            // try extracting from string
+//            String serviceState = obj.toString();
+//            boolean is5gActive = serviceState.contains("nrState=CONNECTED") ||
+//                    serviceState.contains("nsaState=5") ||
+//                    (serviceState.contains("EnDc=true") &&
+//                            serviceState.contains("5G Allocated=true"));
+//            if (is5gActive) {
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
 }

@@ -19,7 +19,6 @@ import com.dot.nbm.R;
 import com.dot.nbm.doers.GsonHandler;
 import com.dot.nbm.doers.NetworkStateFetcher;
 import com.dot.nbm.doers.SignalStateFetcher;
-import com.dot.nbm.doers.TestGsonHandler;
 import com.dot.nbm.model.CombinedSignalNetworkHardwareState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -43,14 +42,14 @@ public class NBMListenableWorker extends ListenableWorker {
         Log.i("combinedSignalNetworkHardwareState", "started Listenable NBM worker");
         Context applicationContext = getApplicationContext();
 
-        Integer contributions = TestGsonHandler.getContributionCount(applicationContext);
-
-        if (contributions == null)
-            contributions = 0;
-
-//        Log.i("combinedSignalNetworkLocation", "contributions" + contributions);
-
-        TestGsonHandler.incrementContributionCount(applicationContext, contributions + 1);
+//        Integer contributions = TestGsonHandler.getContributionCount(applicationContext);
+//
+//        if (contributions == null)
+//            contributions = 0;
+//
+////        Log.i("combinedSignalNetworkLocation", "contributions" + contributions);
+//
+//        TestGsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
         return CallbackToFutureAdapter.getFuture(completer -> {
             fetchSaveLocationNetworkParams(completer, applicationContext);
@@ -120,7 +119,7 @@ public class NBMListenableWorker extends ListenableWorker {
 
                             combinedSignalNetworkHardwareStates.add(combinedSignalNetworkHardwareState);
 
-                            GsonHandler.saveCombinedSignalNetworkHardwareStates(applicationContext, combinedSignalNetworkHardwareStates);
+                            GsonHandler.savePostToServerCombinedSignalNetworkHardwareStates(applicationContext, combinedSignalNetworkHardwareStates);
 
                             Integer contributions = GsonHandler.getContributionCount(applicationContext);
 

@@ -21,18 +21,16 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivityHelper {
 
-    public static void runScheduleWorker(Context applicationContext) {
+    public static void runAndScheduleWorker(Context applicationContext) {
         NBMListenableWorker.fetchSaveLocationNetworkParams(null, applicationContext);
 
 
         if (isWorkScheduled(applicationContext.getString(R.string.worker_tag), applicationContext)) {
             Log.i("combinedSignalNetworkHardwareState", "NBM worker scheduled");
         } else {
-
+            Log.i("combinedSignalNetworkHardwareState", "NBM worker not scheduled");
             if (!GsonHandler.getPauseBackgroundTaskState(applicationContext))
                 scheduleWorker(applicationContext);
-
-            Log.i("combinedSignalNetworkHardwareState", "NBM worker not scheduled");
         }
     }
 
@@ -63,7 +61,7 @@ public class MainActivityHelper {
             for (WorkInfo workInfo : workInfoList) {
                 WorkInfo.State state = workInfo.getState();
                 Log.i("combinedSignalNetworkHardwareState", tag + "_" + workInfo);
-                running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+                running = (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED);
             }
             return running;
         } catch (ExecutionException | InterruptedException e) {
@@ -71,5 +69,4 @@ public class MainActivityHelper {
             return false;
         }
     }
-
 }

@@ -20,11 +20,7 @@ public class RetrofitAPICaller {
         // builder and passing our base url
         OkHttpClient.Builder okBuilder = new OkHttpClient().newBuilder();
 
-        okBuilder.hostnameVerifier((hostname, session) -> {
-            if(hostname.equals(context.getString(R.string.retrofit_hostname)))
-                return true;
-            return false;
-        });
+        okBuilder.hostnameVerifier((hostname, session) -> hostname.equals(context.getString(R.string.retrofit_hostname)));
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.retrofit_base_url))
                 // as we are sending data in json format so
@@ -39,24 +35,25 @@ public class RetrofitAPICaller {
 
 
         // calling a method to create a post and passing our modal class.
-        Call<String> call = retrofitAPI.postData(cnhStatesStr);
+        if (cnhStatesStr!=null && cnhStatesStr.length()>0) {
+            Call<String> call = retrofitAPI.postData(cnhStatesStr);
 
-        // on below line we are executing our method.
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.i("RetrofitAPICaller", response.toString());
-                GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
+            // on below line we are executing our method.
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    Log.i("RetrofitAPICaller", response.toString());
+                    GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
 //                if (response.body().equals(context.getString(R.string.retrofit_success))) {
 //                    GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
 //                }
-            }
+                }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.e("RetrofitAPICaller", "Error" + t);
-            }
-
-        });
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("RetrofitAPICaller", "Error" + t);
+                }
+            });
+        }
     }
 }

@@ -57,9 +57,7 @@ public class SettingsFragment extends Fragment {
                 builder.setMessage(R.string.pause_collection_alert_msg)
                         .setTitle(R.string.pause_collection_alert_title);
 // Add the buttons
-                builder.setPositiveButton(R.string.pause_collection_alert_no_confirm, (dialog, which) -> {
-                    pauseCheckBox.setChecked(false);
-                });
+                builder.setPositiveButton(R.string.pause_collection_alert_no_confirm, (dialog, which) -> pauseCheckBox.setChecked(false));
 
                 builder.setNegativeButton(R.string.pause_collection_alert_confirm, (dialog, which) -> {
                     WorkManager.getInstance(applicationContext).cancelAllWorkByTag(applicationContext.getString(R.string.worker_tag));

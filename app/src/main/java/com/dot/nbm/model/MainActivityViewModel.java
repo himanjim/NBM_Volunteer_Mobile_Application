@@ -2,6 +2,7 @@ package com.dot.nbm.model;
 
 import android.text.Spanned;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class MainActivityViewModel extends ViewModel {
 //        this.signals = signals;
 //    }
 
+    @NonNull
     @Override
     public String toString() {
         return "MainActivityViewModel{" +

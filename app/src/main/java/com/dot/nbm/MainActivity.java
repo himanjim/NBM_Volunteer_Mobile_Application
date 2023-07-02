@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
-            MainActivityHelper.runScheduleWorker(getApplicationContext());
+            MainActivityHelper.runAndScheduleWorker(getApplicationContext());
 //            WorkRequest testRequest = new OneTimeWorkRequest.Builder(NBMWorker.class)
 ////                .setConstraints(constraints)
 //                    .build();
@@ -116,22 +116,24 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
                         if ((fineLocationGranted != null && fineLocationGranted) || (coarseLocationGranted != null && coarseLocationGranted)) {
                             Log.i("combinedSignalNetworkHardwareState", "After alert got permission");
-                            MainActivityHelper.runScheduleWorker(getApplicationContext());
+                            MainActivityHelper.runAndScheduleWorker(getApplicationContext());
 
                             Log.i("combinedSignalNetworkHardwareState", "Ran activity helper");
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                            builder.setMessage(R.string.permission_alert_msg_again)
-                                    .setTitle(R.string.permission_alert_title_again);
+                            builder.setTitle(R.string.permission_alert_title_again);
+                            TextView msg = new TextView(this);
+                            msg.setText(R.string.permission_alert_msg_again);
+                            msg.setPadding(20, 20, 20, 20);
+                            msg.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+                            builder.setView(msg);
 // Add the buttons
                             builder.setPositiveButton(R.string.permission_alert_ok_again, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     requestPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
                                 }
                             });
-                            builder.setNegativeButton(R.string.permission_alert_no_again, (dialog, id) -> {
-                                this.finish();
-                            });
+                            builder.setNegativeButton(R.string.permission_alert_no_again, (dialog, id) -> this.finish());
                             AlertDialog dialog = builder.create();
                             dialog.show();
                         }

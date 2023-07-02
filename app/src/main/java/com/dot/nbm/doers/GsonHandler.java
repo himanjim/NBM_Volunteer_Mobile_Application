@@ -63,7 +63,7 @@ public class GsonHandler {
 
     }
 
-    public static void saveCombinedSignalNetworkHardwareStates(Context context, List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates) {
+    public static void savePostToServerCombinedSignalNetworkHardwareStates(Context context, List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates) {
         String combinedSignalNetworkHardwareStateFileName = context.getString(R.string.combSNHState);
         Gson gson = new Gson();
 

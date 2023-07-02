@@ -5,6 +5,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_LOWPAN;
 import static android.net.NetworkCapabilities.TRANSPORT_USB;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
 
@@ -66,7 +67,9 @@ public class NetworkStateFetcher {
         else if(nc.hasTransport(TRANSPORT_USB))
             return context.getString(R.string.TRANSPORT_USB);
 
+        else if(nc.hasTransport(TRANSPORT_VPN))
+            return context.getString(R.string.TRANSPORT_VPN);
+
         return null;
     }
-
 }

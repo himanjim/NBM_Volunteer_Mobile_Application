@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settings_scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:scrollbars="vertical"
@@ -14,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:layout_margin="12dp"
-        android:id="@+id/thanks_layout">
+        android:layout_margin="12dp">
 
         <TextView
             android:id="@+id/contributionsView"
@@ -23,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="@string/contri_textView_Str"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/pauseTextView"
+            app:layout_constraintBottom_toTopOf="@+id/signal2TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.154"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +41,7 @@
             android:background="@color/contri_color"/>
 
         <TextView
-            android:id="@+id/pauseTextView"
+            android:id="@+id/signal2TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
@@ -59,13 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/pauseTextView"
+            app:layout_constraintBaseline_toBaselineOf="@+id/signal2TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pauseTextView"
+            app:layout_constraintStart_toEndOf="@+id/signal2TextView"
             android:background="@color/pause_color"/>
 
         <TextView
-            android:id="@+id/contributionsThanksTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
@@ -74,7 +71,7 @@
             android:justificationMode="inter_word"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pauseTextView"
+            app:layout_constraintTop_toBottomOf="@+id/signal2TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="40sp"

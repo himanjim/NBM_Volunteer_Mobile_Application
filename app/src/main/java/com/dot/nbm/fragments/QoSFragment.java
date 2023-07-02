@@ -37,6 +37,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -84,8 +85,7 @@ public class QoSFragment extends Fragment {
                 getActivity(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage(R.string.bg_permission_alert_msg)
-                    .setTitle(R.string.bg_permission_alert_title);
+            builder.setTitle(R.string.bg_permission_alert_title);
 // Add the buttons
             builder.setPositiveButton(R.string.bg_permission_alert_ok, (dialog, id) -> requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION}));
 
@@ -125,50 +125,53 @@ public class QoSFragment extends Fragment {
                 PackageManager.PERMISSION_GRANTED) {
 
             List<SignalState> signalStates = SignalStateFetcher.getSignalState(getContext());
+            Collections.sort(signalStates);
             mainActivityViewModel.setSignals(new ArrayList<>());
 
 //            SignalState firstSignalState = signalStates.get(0);
 
 //            int signal_count = 1;
-            for (SignalState signalState : signalStates) {
-//                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
+            if (signalStates != null) {
+                for (SignalState signalState : signalStates) {
+    //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
 
-                Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperaterName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getGeneration()), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                @SuppressLint("StringFormatMatches") Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperatorName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getGeneration()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    @SuppressLint("StringFormatMatches") Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-//                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
-//                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
+    //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
+    //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
 
-                SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(getContext(), signalState.getGeneration(), signalState.getSignalStrength());
+                    SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(getContext(), signalState.getGeneration(), signalState.getSignalStrength());
 
-                SpannableStringBuilder builder = new SpannableStringBuilder();
-                builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                        .append(operatorStyleText).append("| ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                        .append(technologyStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.strength_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                        .append(strengthStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0);
+                    SpannableStringBuilder builder = new SpannableStringBuilder();
+                    builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                            .append(operatorStyleText).append("| ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                            .append(technologyStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.strength_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                            .append(strengthStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0);
 
-                Spanned qualityStyleText = null;
-                if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.EXCELLENT) {
-                    qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_excellent), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                    builder.append(qualityStyleText);
+                    Spanned qualityStyleText;
+                    if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.EXCELLENT) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_excellent), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                        builder.append(qualityStyleText);
 
-                } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.GOOD) {
-                    qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_good), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                    builder.append(qualityStyleText);
+                    } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.GOOD) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_good), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                        builder.append(qualityStyleText);
 
-                } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.FAIR) {
-                    qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_fair), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                    builder.append(qualityStyleText);
+                    } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.FAIR) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_fair), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                        builder.append(qualityStyleText);
 
-                } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.POOR) {
-                    qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_poor), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                    builder.append(qualityStyleText);
+                    } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.POOR) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_poor), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                        builder.append(qualityStyleText);
 
-                    builder = setClickSpanOnBuilder(builder);
+                        setClickSpanOnBuilder(builder);
+                    }
+                    mainActivityViewModel.getSignals().add(builder);
+    //                signal_count++;
                 }
-                mainActivityViewModel.getSignals().add(builder);
-//                signal_count++;
             }
 
             if (mainActivityViewModel.getSignals().size() > 0) {
@@ -178,7 +181,7 @@ public class QoSFragment extends Fragment {
                 signal1TextView.setMovementMethod(LinkMovementMethod.getInstance());
 
                 if (mainActivityViewModel.getSignals().size() > 1) {
-                    TextView signal2TextView = layout.findViewById(R.id.pauseTextView);
+                    TextView signal2TextView = layout.findViewById(R.id.signal2TextView);
                     signal2TextView.setText(mainActivityViewModel.getSignals().get(1));
                     signal2TextView.setVisibility(View.VISIBLE);
                     signal2TextView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -227,7 +230,7 @@ public class QoSFragment extends Fragment {
         }
     }
 
-    private SpannableStringBuilder setClickSpanOnBuilder(SpannableStringBuilder builder) {
+    private void setClickSpanOnBuilder(SpannableStringBuilder builder) {
         final ImageSpan imageSpan = new ImageSpan(getActivity(), R.mipmap.about_us_tab, DynamicDrawableSpan.ALIGN_BASELINE);
 
         ClickableSpan clickSpan = new ClickableSpan() {
@@ -252,7 +255,6 @@ public class QoSFragment extends Fragment {
         builder.setSpan(imageSpan, builder.length() - 1, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.setSpan(clickSpan, builder.length() - 1, builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        return builder;
     }
 
 

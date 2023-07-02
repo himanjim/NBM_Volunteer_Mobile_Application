@@ -2,7 +2,7 @@ package com.dot.nbm.model;
 
 import java.io.Serializable;
 
-public class SignalState implements Serializable {
+public class SignalState implements Serializable, Comparable<SignalState> {
 
     public SignalState() {
 
@@ -10,7 +10,7 @@ public class SignalState implements Serializable {
 
     private long id;
 
-    private String operaterName;
+    private String operatorName;
 
     private int signalStrength;
 
@@ -119,12 +119,12 @@ public class SignalState implements Serializable {
         this.id = id;
     }
 
-    public String getOperaterName() {
-        return operaterName;
+    public String getOperatorName() {
+        return operatorName;
     }
 
-    public void setOperaterName(String operaterName) {
-        this.operaterName = operaterName;
+    public void setOperatorName(String operatorName) {
+        this.operatorName = operatorName;
     }
 
     public int getSignalStrength() {
@@ -163,7 +163,7 @@ public class SignalState implements Serializable {
     public String toString() {
         return "SignalState{" +
                 "id=" + id +
-                ", operaterName='" + operaterName + '\'' +
+                ", operaterName='" + operatorName + '\'' +
                 ", signalStrength=" + signalStrength +
                 ", technology='" + technology + '\'' +
                 ", channelNo=" + channelNo +
@@ -178,5 +178,10 @@ public class SignalState implements Serializable {
                 ", level=" + level +
                 ", cpid=" + cpid +
                 '}';
+    }
+
+    @Override
+    public int compareTo(SignalState o) {
+        return o.getSignalStrength() - this.getSignalStrength();
     }
 }
