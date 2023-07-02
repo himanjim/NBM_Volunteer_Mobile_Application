@@ -32,6 +32,8 @@ public class SignalStateFetcher {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         List<CellInfo> cellInfos = telephonyManager.getAllCellInfo();   //This will give info of all sims present inside your mobile
 
+        boolean nrConnect = isNRConnected(telephonyManager);
+
         if (cellInfos != null) {
             int strength = 0;
             String operatorName = null;
@@ -78,7 +80,7 @@ public class SignalStateFetcher {
                         level = cellSignalStrengthTdscdma.getLevel();
                         strength = cellSignalStrengthTdscdma.getDbm();
 
-                        CellIdentityTdscdma cellIdentityTdscdma = (CellIdentityTdscdma) cellInfoTdscdma.getCellIdentity();
+                        CellIdentityTdscdma cellIdentityTdscdma = cellInfoTdscdma.getCellIdentity();
                         rfChannelNo = cellIdentityTdscdma.getUarfcn();
                         cellId = cellIdentityTdscdma.getCid();
                         locationAreaCode = cellIdentityTdscdma.getLac();
@@ -178,6 +180,25 @@ public class SignalStateFetcher {
         }
 
         return null;
+    }
+
+    public static boolean isNRConnected(TelephonyManager telephonyManager) {
+        try {
+            Object obj = Class.forName(telephonyManager.getClass().getName())
+                    .getDeclaredMethod("getServiceState", new Class[0]).invoke(telephonyManager, new Object[0]);
+            // try extracting from string
+            String serviceState = obj.toString();
+            boolean is5gActive = serviceState.contains("nrState=CONNECTED") ||
+                    serviceState.contains("nsaState=5") ||
+                    (serviceState.contains("EnDc=true") &&
+                            serviceState.contains("5G Allocated=true"));
+            if (is5gActive) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

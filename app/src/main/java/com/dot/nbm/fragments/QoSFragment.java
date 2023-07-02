@@ -133,8 +133,8 @@ public class QoSFragment extends Fragment {
             for (SignalState signalState : signalStates) {
 //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
 
-                Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperaterName()), HtmlCompat.FROM_HTML_MODE_COMPACT);
-                Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getTechnology()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperaterName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getGeneration()), HtmlCompat.FROM_HTML_MODE_COMPACT);
                 @SuppressLint("StringFormatMatches") Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
 //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
