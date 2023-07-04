@@ -38,7 +38,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,14 +127,21 @@ public class QoSFragment extends Fragment {
                 PackageManager.PERMISSION_GRANTED) {
 
             List<SignalState> signalStates = SignalStateFetcher.getSignalState(getContext());
-            Collections.sort(signalStates);
+
+            Set<SignalState> s= new HashSet<>();
+            if (signalStates != null) {
+                s.addAll(signalStates);
+            }
+            List<SignalState> uniqueDignalStates = new ArrayList<>(s);
+
+            Collections.sort(uniqueDignalStates);
             mainActivityViewModel.setSignals(new ArrayList<>());
 
 //            SignalState firstSignalState = signalStates.get(0);
 
 //            int signal_count = 1;
-            if (signalStates != null) {
-                for (SignalState signalState : signalStates) {
+            if (uniqueDignalStates != null) {
+                for (SignalState signalState : uniqueDignalStates) {
     //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
 
                     Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperatorName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);

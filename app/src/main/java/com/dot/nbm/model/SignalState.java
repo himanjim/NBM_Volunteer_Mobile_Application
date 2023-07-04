@@ -1,14 +1,13 @@
 package com.dot.nbm.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class SignalState implements Serializable, Comparable<SignalState> {
 
     public SignalState() {
 
     }
-
-    private long id;
 
     private String operatorName;
 
@@ -111,14 +110,6 @@ public class SignalState implements Serializable, Comparable<SignalState> {
         this.networkId = networkId;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getOperatorName() {
         return operatorName;
     }
@@ -160,9 +151,21 @@ public class SignalState implements Serializable, Comparable<SignalState> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SignalState)) return false;
+        SignalState that = (SignalState) o;
+        return getSignalStrength() == that.getSignalStrength() && Objects.equals(getOperatorName(), that.getOperatorName()) && Objects.equals(getTechnology(), that.getTechnology());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOperatorName(), getSignalStrength(), getTechnology());
+    }
+
+    @Override
     public String toString() {
         return "SignalState{" +
-                "id=" + id +
                 ", operaterName='" + operatorName + '\'' +
                 ", signalStrength=" + signalStrength +
                 ", technology='" + technology + '\'' +
