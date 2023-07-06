@@ -13,7 +13,7 @@
     <string name="contri_textView_Str">Your contributions are</string>
     <string name="pause_data_textView_Str">PAUSE data collection</string>
     <string name="fetch_textView_Str">...fetching</string>
-    <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. Your contributions enable us to see how the telecom scenario in the country is evolving and what measures need to be taken to provide network coverage in each and every nook and corner of the country.</string>
+    <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. Your contributions will enable us to see how the telecom scenario in the country is evolving. Your data will help us plan the measures which need to be taken to provide telecom coverage in every nook and corner of the country.</string>
 
     <string name="combSNHState">NBM_V_SNHState</string>
     <string name="worker_tag">1_NBM_V_Worker_Tag</string>
@@ -23,38 +23,37 @@
     <string name="worker_resumed">Background data collection resumed.</string>
     <string name="pause_bg_task_FName">Pause_Bg_Task</string>
 
-    <string name="permission_alert_title"><b>LOCATION PERMISSON REQUEST</b></string>
-    <string name="permission_alert_msg">Dear user we need permission to access your precise <b>location</b> both in foreground and <b>background</b>. We need your precise location to capture what is the mobile signal strength at your location. Please note that <b>no information</b> related to your identity is captured. The data captured can never be backtracked to your identity.</string>
+    <string name="permission_alert_title"><b>LOCATION PERMISSION REQUEST</b></string>
+    <string name="permission_alert_msg">Dear user we need permission to access your precise <b>location</b> both in the foreground and <b>background</b>. We need your precise location to capture what is the mobile signal strength and related parameters at your location. Please note that <b>no information</b> related to your identity is captured. The data captured can never be backtracked to your identity.</string>
     <string name="permission_alert_ok">OK</string>
 
-    <string name="bg_permission_alert_title"><b>BACKGROUND LOCATION PERMISSON REQUEST</b></string>
-    <string name="bg_permission_alert_msg">Dear user we need background permission to access your precise <b>location</b> all the time. We need your location in background to capture the mobile signal strength at your location every 15 mins.</string>
+    <string name="bg_permission_alert_title"><b>BACKGROUND LOCATION PERMISSION REQUEST</b></string>
+    <string name="bg_permission_alert_msg">Dear user, we need background permission to always access your precise <b>location</b>. We need your location in the background to capture the mobile signal strength and related parameters at your location every 15 mins.</string>
     <string name="bg_permission_alert_ok">OK</string>
 
-    <string name="permission_alert_title_again">Location permission request</string>
-    <string name="permission_alert_msg_again">Dear user without permission of location, this application <b>won\'t work</b>. So please rethink and give the permission again. Or else you can install application for the time being and reconsider later. Please contact at &my_email; for further doubts.</string>
+    <string name="permission_alert_title_again">LOCATION PERMISSION REQUEST</string>
+    <string name="permission_alert_msg_again">Dear user without location permission, this application <b>won\'t work</b>. So please rethink and give the permission again. Or else you can install the application for the time being and reconsider later. Please contact at &my_email; for further doubts.</string>
     <string name="permission_alert_ok_again">OK</string>
     <string name="permission_alert_no_again">NO</string>
 
     <string name="pause_collection_alert_title"><b>PAUSE BACKGROUND DATA COLLECTION</b></string>
     <string name="pause_collection_alert_msg">Pause background data collection? You can always resume later.</string>
-    <string name="pause_collection_alert_confirm">Confirm</string>
-    <string name="pause_collection_alert_no_confirm">No</string>
+    <string name="pause_collection_alert_confirm">CONFIRM</string>
+    <string name="pause_collection_alert_no_confirm">NO</string>
 
     <string name="contact_tsp_title">CONTACT OPERATOR</string>
-    <string name="contact_tsp_msg">Please contact customer services of respective telecom operator in case any issue faced in telecom service.</string>
+    <string name="contact_tsp_msg">Please contact customer services of the respective telecom operator in case any issue is faced in telecom service.</string>
     <string name="contact_tsp_ok">OK</string>
 
     <string name="about_us_1">Dear User,&lt;br/>
     </string>
     <string name="about_us_2">Thanks for downloading the application.&lt;br/>&lt;br/>
     </string>
-    <string name="about_us_3">This application is developed by Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India, as a &lt;b>pilot program&lt;/b> to capture ground level signal strength through crowd-sourcing.&lt;br/>&lt;br/>
+    <string name="about_us_3">This application is developed by Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India, as a &lt;b>pilot program&lt;/b> to capture ground level signal strength and related parameters through crowd-sourcing.&lt;br/>&lt;br/>
     </string>
-    <string name="about_us_4">The application tries to captures following data every 15 minutes:&lt;br/>&lt;ol>&lt;li>Network signal strength&lt;/li>&lt;li>Mobile cell parameters&lt;/li>&lt;li>Your &lt;b>precise location&lt;/b> both in foreground and background.&lt;/li>&lt;li>The &lt;b>brand and hardware of your phone.&lt;/li>&lt;/ol>&lt;br/>
+    <string name="about_us_4">The application tries to captures following data every 15 minutes:&lt;br/>&lt;ol>&lt;li>Network signal strength&lt;/li>&lt;li>Mobile tower parameters&lt;/li>&lt;li>Your &lt;b>precise location&lt;/b> both in foreground and background.&lt;/li>&lt;li>The &lt;b>brand and hardware of your mobile phone.&lt;/li>&lt;/ol>&lt;br/>
     </string>
-    <string name="about_us_5">Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.
-    </string>
+    <string name="about_us_5">Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.</string>
 
     <string name="retrofit_hostname">65.0.159.209</string>
     <string name="retrofit_base_url">https://65.0.159.209</string>
@@ -63,10 +62,11 @@
     <string name="signal_technology">Technology: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_strength">Signal strength: &lt;b>%1$s&lt;/b>&lt;br/></string>
 
-    <string name="signal_quality_excellent">&lt;span style="background-color:#6ACE61">EXCELLENT&lt;/span></string>
+    <string name="signal_quality_great">&lt;span style="background-color:#6ACE61">GREAT&lt;/span></string>
     <string name="signal_quality_good">&lt;span style="background-color:#FBFB43">GOOD&lt;/span></string>
-    <string name="signal_quality_fair">&lt;span style="background-color:#F7BA30">FAIR&lt;/span></string>
+    <string name="signal_quality_moderate">&lt;span style="background-color:#F7BA30">MODERATE&lt;/span></string>
     <string name="signal_quality_poor">&lt;span style="background-color:#EC031D">POOR&lt;/span>\u00A0\u00A0</string>
+    <string name="signal_quality_unknown">&lt;span style="background-color:#F7BA30">UNKNOWN&lt;/span>\u00A0\u00A0</string>
 
     <string name="CDMA">CDMA</string>
     <string name="GSM">GSM</string>

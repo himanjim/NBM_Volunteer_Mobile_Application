@@ -128,7 +128,7 @@ public class QoSFragment extends Fragment {
 
             List<SignalState> signalStates = SignalStateFetcher.getSignalState(getContext());
 
-            Set<SignalState> s= new HashSet<>();
+            Set<SignalState> s = new HashSet<>();
             if (signalStates != null) {
                 s.addAll(signalStates);
             }
@@ -142,16 +142,16 @@ public class QoSFragment extends Fragment {
 //            int signal_count = 1;
             if (uniqueDignalStates != null) {
                 for (SignalState signalState : uniqueDignalStates) {
-    //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
+                    //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
 
                     Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperatorName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);
                     Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getGeneration()), HtmlCompat.FROM_HTML_MODE_COMPACT);
                     @SuppressLint("StringFormatMatches") Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
-    //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
-    //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
+                    //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
 
-                    SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(getContext(), signalState.getGeneration(), signalState.getSignalStrength());
+                    SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(signalState);
 
                     SpannableStringBuilder builder = new SpannableStringBuilder();
                     builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
@@ -160,16 +160,16 @@ public class QoSFragment extends Fragment {
                             .append(strengthStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0);
 
                     Spanned qualityStyleText;
-                    if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.EXCELLENT) {
-                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_excellent), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.GREAT) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_great), HtmlCompat.FROM_HTML_MODE_COMPACT);
                         builder.append(qualityStyleText);
 
                     } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.GOOD) {
                         qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_good), HtmlCompat.FROM_HTML_MODE_COMPACT);
                         builder.append(qualityStyleText);
 
-                    } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.FAIR) {
-                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_fair), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.MODERATE) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_moderate), HtmlCompat.FROM_HTML_MODE_COMPACT);
                         builder.append(qualityStyleText);
 
                     } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.POOR) {
@@ -177,9 +177,14 @@ public class QoSFragment extends Fragment {
                         builder.append(qualityStyleText);
 
                         setClickSpanOnBuilder(builder);
+                    } else if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.UNKNOWN) {
+                        qualityStyleText = HtmlCompat.fromHtml(getString(R.string.signal_quality_unknown), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                        builder.append(qualityStyleText);
+
+                        setClickSpanOnBuilder(builder);
                     }
                     mainActivityViewModel.getSignals().add(builder);
-    //                signal_count++;
+                    //                signal_count++;
                 }
             }
 
