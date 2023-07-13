@@ -16,6 +16,7 @@ import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
 import com.dot.nbm.R;
+import com.dot.nbm.doers.GsonHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,18 +31,29 @@ public class AboutFragment extends Fragment {
 
         TextView aboutUsTextView = layout.findViewById(R.id.aboutUsTextView);
 
+        boolean shutdownState = GsonHandler.getPauseShutdownState(getContext());
+
         Spanned aboutUsText_1 = HtmlCompat.fromHtml(getString(R.string.about_us_1), HtmlCompat.FROM_HTML_MODE_COMPACT);
         Spanned aboutUsText_2 = HtmlCompat.fromHtml(getString(R.string.about_us_2), HtmlCompat.FROM_HTML_MODE_COMPACT);
         Spanned aboutUsText_3 = HtmlCompat.fromHtml(getString(R.string.about_us_3), HtmlCompat.FROM_HTML_MODE_COMPACT);
-        Spanned aboutUsText_4 = HtmlCompat.fromHtml(getString(R.string.about_us_4), HtmlCompat.FROM_HTML_MODE_COMPACT);
-        Spanned aboutUsText_5 = HtmlCompat.fromHtml(getString(R.string.about_us_5), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(aboutUsText_1).append(" ", new ImageSpan(getActivity(), R.mipmap.thanks_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                .append(aboutUsText_2).append(" ", new ImageSpan(getActivity(), R.mipmap.nbm_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                .append(aboutUsText_3).append(" ", new ImageSpan(getActivity(), R.mipmap.database_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                .append(aboutUsText_4).append(" ", new ImageSpan(getActivity(), R.mipmap.surety_bond_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                .append(aboutUsText_5);
+                .append(aboutUsText_2).append(" ", new ImageSpan(getActivity(), R.mipmap.nbm_32, DynamicDrawableSpan.ALIGN_BASELINE), 0).append(aboutUsText_3);
+
+        if (!shutdownState) {
+            Spanned aboutUsText_4 = HtmlCompat.fromHtml(getString(R.string.about_us_4), HtmlCompat.FROM_HTML_MODE_COMPACT);
+            Spanned aboutUsText_5 = HtmlCompat.fromHtml(getString(R.string.about_us_5), HtmlCompat.FROM_HTML_MODE_COMPACT);
+
+            builder.append(" ", new ImageSpan(getActivity(), R.mipmap.database_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                    .append(aboutUsText_4).append(" ", new ImageSpan(getActivity(), R.mipmap.surety_bond_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                    .append(aboutUsText_5);
+        } else {
+            Spanned aboutUsText_6 = HtmlCompat.fromHtml(getString(R.string.about_us_6), HtmlCompat.FROM_HTML_MODE_COMPACT);
+
+            builder.append(" ", new ImageSpan(getActivity(), R.mipmap.finish_icon_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                    .append(aboutUsText_6);
+        }
 
         aboutUsTextView.setText(builder);
 

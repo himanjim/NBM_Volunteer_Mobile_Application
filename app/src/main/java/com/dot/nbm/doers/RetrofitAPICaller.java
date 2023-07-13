@@ -3,6 +3,8 @@ package com.dot.nbm.doers;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.work.WorkManager;
+
 import com.dot.nbm.R;
 
 import okhttp3.OkHttpClient;
@@ -35,7 +37,7 @@ public class RetrofitAPICaller {
 
 
         // calling a method to create a post and passing our modal class.
-        if (cnhStatesStr!=null && cnhStatesStr.length()>0) {
+        if (cnhStatesStr != null && cnhStatesStr.length() > 0) {
             Call<String> call = retrofitAPI.postData(cnhStatesStr);
 
             // on below line we are executing our method.
@@ -44,9 +46,10 @@ public class RetrofitAPICaller {
                 public void onResponse(Call<String> call, Response<String> response) {
                     Log.i("RetrofitAPICaller", response.toString());
                     GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
-//                if (response.body().equals(context.getString(R.string.retrofit_success))) {
-//                    GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
-//                }
+                    if (response.body().contains(context.getString(R.string.shutdown))) {
+                        WorkManager.getInstance(context).cancelAllWorkByTag(context.getString(R.string.worker_tag));
+                        GsonHandler.savePauseShutdownState(context, true);
+                    }
                 }
 
                 @Override

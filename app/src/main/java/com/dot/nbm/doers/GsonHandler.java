@@ -177,4 +177,49 @@ public class GsonHandler {
 
     }
 
+    public static void savePauseShutdownState(Context context, Boolean save) {
+        String shutdownTaskFileName = context.getString(R.string.shutdown_task_FName);
+        Gson gson = new Gson();
+
+        File file = new File(context.getFilesDir(), shutdownTaskFileName);
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            byte[] arr = gson.toJson(save).getBytes();
+            fileOutputStream.write(arr);
+            fileOutputStream.close();
+
+//            gson.toJson(testState, new FileWriter(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static Boolean getPauseShutdownState(Context context) {
+        String shutdownTaskFileName = context.getString(R.string.shutdown_task_FName);
+
+        Gson gson = new Gson();
+
+        Boolean bgTaskState;
+        try {
+            File file = new File(context.getFilesDir(), shutdownTaskFileName);
+            if (!file.exists()) {
+                file.createNewFile();
+                return Boolean.FALSE;
+            }
+
+            if (new BufferedReader(new FileReader(file)).readLine() == null)
+                return Boolean.FALSE;
+
+            JsonReader reader = new JsonReader(new FileReader(file));
+            bgTaskState = gson.fromJson(reader, Boolean.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return bgTaskState;
+
+    }
+
 }

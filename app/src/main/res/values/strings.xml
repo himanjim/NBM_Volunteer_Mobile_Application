@@ -4,6 +4,7 @@
     ]>
 <resources>
     <string name="auth_code">sdljdasdas*()!@(!@#@#>mkkldlwldwlelw@!@!@!jkkkkk</string>
+    <string name="shutdown">SHUTDOWN</string>
 
     <string name="app_name">NBM Volunteer</string>
     <string name="about_us_tab_name">ABOUT US</string>
@@ -22,6 +23,7 @@
     <string name="worker_paused">Background data collection paused.</string>
     <string name="worker_resumed">Background data collection resumed.</string>
     <string name="pause_bg_task_FName">Pause_Bg_Task</string>
+    <string name="shutdown_task_FName">shutdown_Task</string>
 
     <string name="permission_alert_title"><b>LOCATION PERMISSION REQUEST</b></string>
     <string name="permission_alert_msg">Dear user we need permission to access your precise <b>location</b> both in the foreground and <b>background</b>. We need your precise location to capture what is the mobile signal strength and related parameters at your location. Please note that <b>no information</b> related to your identity is captured. The data captured can never be backtracked to your identity.</string>
@@ -55,6 +57,8 @@
     </string>
     <string name="about_us_5">Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.</string>
 
+    <string name="about_us_6">The pilot has finished. The background data will not be captured any longer. You can still use the application to view the telecom signals available on your phone.</string>
+
     <string name="retrofit_hostname">65.0.159.209</string>
     <string name="retrofit_base_url">https://65.0.159.209</string>
 
@@ -67,6 +71,10 @@
     <string name="signal_quality_moderate">&lt;span style="background-color:#F7BA30">MODERATE&lt;/span></string>
     <string name="signal_quality_poor">&lt;span style="background-color:#EC031D">POOR&lt;/span>\u00A0\u00A0</string>
     <string name="signal_quality_unknown">&lt;span style="background-color:#F7BA30">UNKNOWN&lt;/span>\u00A0\u00A0</string>
+
+    <string name="signal_available">The signals that are accessible on your phone are listed below:</string>
+    <string name="no_signal_available">No signals are available or can be fetched on your phone.</string>
+    <string name="refresh_signals">Refresh Signals</string>
 
     <string name="CDMA">CDMA</string>
     <string name="GSM">GSM</string>

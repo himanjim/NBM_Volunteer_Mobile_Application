@@ -132,16 +132,16 @@ public class QoSFragment extends Fragment {
             if (signalStates != null) {
                 s.addAll(signalStates);
             }
-            List<SignalState> uniqueDignalStates = new ArrayList<>(s);
+            List<SignalState> uniqueSignalStates = new ArrayList<>(s);
 
-            Collections.sort(uniqueDignalStates);
+            Collections.sort(uniqueSignalStates);
             mainActivityViewModel.setSignals(new ArrayList<>());
 
 //            SignalState firstSignalState = signalStates.get(0);
 
 //            int signal_count = 1;
-            if (uniqueDignalStates != null) {
-                for (SignalState signalState : uniqueDignalStates) {
+            if (uniqueSignalStates .size() > 0) {
+                for (SignalState signalState : uniqueSignalStates) {
                     //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
 
                     Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperatorName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);
