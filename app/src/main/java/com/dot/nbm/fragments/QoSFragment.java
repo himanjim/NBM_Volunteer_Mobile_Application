@@ -141,12 +141,14 @@ public class QoSFragment extends Fragment {
 
 //            int signal_count = 1;
             if (uniqueSignalStates .size() > 0) {
+
                 for (SignalState signalState : uniqueSignalStates) {
                     //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
 
                     Spanned operatorStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_operator), signalState.getOperatorName().toUpperCase()), HtmlCompat.FROM_HTML_MODE_COMPACT);
                     Spanned technologyStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_technology), signalState.getGeneration()), HtmlCompat.FROM_HTML_MODE_COMPACT);
                     @SuppressLint("StringFormatMatches") Spanned strengthStyleText = HtmlCompat.fromHtml(String.format(getString(R.string.signal_strength), signalState.getSignalStrength()), HtmlCompat.FROM_HTML_MODE_COMPACT);
+                    Spanned dbmText = HtmlCompat.fromHtml(getString(R.string.dbm), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
                     //                Spanned dynamicStyledText =  HtmlCompat.fromHtml(dynamicText, HtmlCompat.FROM_HTML_MODE_COMPACT);
                     //                mainActivityViewModel.getSignals().add(String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok"));
@@ -157,7 +159,7 @@ public class QoSFragment extends Fragment {
                     builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
                             .append(operatorStyleText).append("| ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
                             .append(technologyStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.strength_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                            .append(strengthStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0);
+                            .append(strengthStyleText).append(dbmText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0);
 
                     Spanned qualityStyleText;
                     if (signalLevel == SignalStrengthLevelIndicator.SignalLevel.GREAT) {
@@ -189,13 +191,17 @@ public class QoSFragment extends Fragment {
             }
 
             if (mainActivityViewModel.getSignals().size() > 0) {
+                TextView signalsAvailableTextView = layout.findViewById(R.id.signalAvailable);
+                signalsAvailableTextView.setText(new SpannableStringBuilder().append("|", new ImageSpan(getActivity(), R.mipmap.signals_available_icon_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                        .append(HtmlCompat.fromHtml(getString(R.string.signal_available), HtmlCompat.FROM_HTML_MODE_COMPACT)));
+
                 TextView signal1TextView = layout.findViewById(R.id.signal1TextView);
                 signal1TextView.setText(mainActivityViewModel.getSignals().get(0));
                 signal1TextView.setVisibility(View.VISIBLE);
                 signal1TextView.setMovementMethod(LinkMovementMethod.getInstance());
 
                 if (mainActivityViewModel.getSignals().size() > 1) {
-                    TextView signal2TextView = layout.findViewById(R.id.signal2TextView);
+                    TextView signal2TextView = layout.findViewById(R.id.pauseCollectionTextView);
                     signal2TextView.setText(mainActivityViewModel.getSignals().get(1));
                     signal2TextView.setVisibility(View.VISIBLE);
                     signal2TextView.setMovementMethod(LinkMovementMethod.getInstance());

@@ -64,7 +64,8 @@
 
     <string name="signal_operator">Operator: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_technology">Technology: &lt;b>%1$s&lt;/b>&lt;br/></string>
-    <string name="signal_strength">Signal strength: &lt;b>%1$s&lt;/b>&lt;br/></string>
+    <string name="signal_strength">Signal strength: &lt;b>%1$s&lt;/b></string>
+    <string name="dbm">dBm&lt;br/></string>
 
     <string name="signal_quality_great">&lt;span style="background-color:#6ACE61">GREAT&lt;/span></string>
     <string name="signal_quality_good">&lt;span style="background-color:#FBFB43">GOOD&lt;/span></string>
@@ -72,8 +73,8 @@
     <string name="signal_quality_poor">&lt;span style="background-color:#EC031D">POOR&lt;/span>\u00A0\u00A0</string>
     <string name="signal_quality_unknown">&lt;span style="background-color:#F7BA30">UNKNOWN&lt;/span>\u00A0\u00A0</string>
 
-    <string name="signal_available">The signals that are accessible on your phone are listed below:</string>
-    <string name="no_signal_available">No signals are available or can be fetched on your phone.</string>
+    <string name="signal_available">The &lt;b>signals&lt;/b> that are accessible on your phone are listed below:</string>
+    <string name="no_signal_available">No &lt;b>signals&lt;/b> are available or can be fetched on your phone.</string>
     <string name="refresh_signals">Refresh Signals</string>
 
     <string name="CDMA">CDMA</string>

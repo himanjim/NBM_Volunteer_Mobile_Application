@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.dot.nbm.doers.GsonHandler;
 import com.dot.nbm.doers.MainActivityHelper;
 import com.dot.nbm.doers.TestGsonHandler;
 import com.google.android.material.tabs.TabLayout;
@@ -71,7 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
-            MainActivityHelper.runAndScheduleWorker(getApplicationContext());
+            boolean shutdownState = GsonHandler.getPauseShutdownState(getApplicationContext());
+
+            if (!shutdownState)
+                MainActivityHelper.runAndScheduleWorker(getApplicationContext());
 //            WorkRequest testRequest = new OneTimeWorkRequest.Builder(NBMWorker.class)
 ////                .setConstraints(constraints)
 //                    .build();
@@ -116,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
                         if ((fineLocationGranted != null && fineLocationGranted) || (coarseLocationGranted != null && coarseLocationGranted)) {
                             Log.i("combinedSignalNetworkHardwareState", "After alert got permission");
-                            MainActivityHelper.runAndScheduleWorker(getApplicationContext());
+                            boolean shutdownState = GsonHandler.getPauseShutdownState(getApplicationContext());
+
+                            if (!shutdownState)
+                                MainActivityHelper.runAndScheduleWorker(getApplicationContext());
 
                             Log.i("combinedSignalNetworkHardwareState", "Ran activity helper");
                         } else {
