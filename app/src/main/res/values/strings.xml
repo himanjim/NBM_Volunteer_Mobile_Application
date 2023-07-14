@@ -11,8 +11,8 @@
     <string name="qos_tab_name">SIGNALS</string>
     <string name="setting_tab_name">SETTINGS</string>
 
-    <string name="contri_textView_Str">Your contributions are</string>
-    <string name="pause_data_textView_Str">PAUSE data collection</string>
+    <string name="contri_textView_Str">\u00A0\u00A0Your contributions are</string>
+    <string name="pause_data_textView_Str">\u00A0\u00A0PAUSE data collection</string>
     <string name="fetch_textView_Str">...fetching</string>
     <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. Your contributions will enable us to see how the telecom scenario in the country is evolving. Your data will help us plan the measures which need to be taken to provide telecom coverage in every nook and corner of the country.</string>
 

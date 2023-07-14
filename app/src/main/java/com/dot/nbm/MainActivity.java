@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.text.LineBreaker;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -17,7 +16,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.dot.nbm.doers.GsonHandler;
 import com.dot.nbm.doers.MainActivityHelper;
-import com.dot.nbm.doers.TestGsonHandler;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -106,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
 //            requestPermissionLauncher2.launch(new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION});
 //        }
 
-        Integer contributions = TestGsonHandler.getContributionCount(getApplicationContext());
-        Log.i("combinedSignalNetworkHardwareState", "MATestcontributions" + contributions);
+//        Integer contributions = TestGsonHandler.getContributionCount(getApplicationContext());
+//        Log.i("combinedSignalNetworkHardwareState", "MATestcontributions" + contributions);
     }
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher =
@@ -117,15 +115,15 @@ public class MainActivity extends AppCompatActivity {
                                 android.Manifest.permission.ACCESS_FINE_LOCATION);
                         Boolean coarseLocationGranted = result.get(
                                 android.Manifest.permission.ACCESS_COARSE_LOCATION);
-                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
+//                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
                         if ((fineLocationGranted != null && fineLocationGranted) || (coarseLocationGranted != null && coarseLocationGranted)) {
-                            Log.i("combinedSignalNetworkHardwareState", "After alert got permission");
+//                            Log.i("combinedSignalNetworkHardwareState", "After alert got permission");
                             boolean shutdownState = GsonHandler.getPauseShutdownState(getApplicationContext());
 
                             if (!shutdownState)
                                 MainActivityHelper.runAndScheduleWorker(getApplicationContext());
 
-                            Log.i("combinedSignalNetworkHardwareState", "Ran activity helper");
+//                            Log.i("combinedSignalNetworkHardwareState", "Ran activity helper");
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(this);
                             builder.setTitle(R.string.permission_alert_title_again);

@@ -17,7 +17,6 @@ import android.telephony.CellSignalStrengthNr;
 import android.telephony.CellSignalStrengthTdscdma;
 import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.dot.nbm.R;
 import com.dot.nbm.model.SignalState;
@@ -52,7 +51,7 @@ public class SignalStateFetcher {
 
             List<SignalState> signalStates = new ArrayList<>();
 
-            Log.d("cellInfos", cellInfos.toString());
+//            Log.d("cellInfos", cellInfos.toString());
             for (CellInfo cellInfo : cellInfos) {
 
                 if (cellInfo.isRegistered()) {

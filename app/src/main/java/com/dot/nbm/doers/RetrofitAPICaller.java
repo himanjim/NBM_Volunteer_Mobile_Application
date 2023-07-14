@@ -1,7 +1,6 @@
 package com.dot.nbm.doers;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.work.WorkManager;
 
@@ -44,7 +43,7 @@ public class RetrofitAPICaller {
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    Log.i("RetrofitAPICaller", response.toString());
+//                    Log.i("RetrofitAPICaller", response.toString());
                     GsonHandler.emptyCombinedSignalNetworkHardwareStates(context);
                     if (response.body().contains(context.getString(R.string.shutdown))) {
                         WorkManager.getInstance(context).cancelAllWorkByTag(context.getString(R.string.worker_tag));
@@ -54,7 +53,7 @@ public class RetrofitAPICaller {
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    Log.e("RetrofitAPICaller", "Error" + t);
+//                    Log.e("RetrofitAPICaller", "Error" + t);
                 }
             });
         }

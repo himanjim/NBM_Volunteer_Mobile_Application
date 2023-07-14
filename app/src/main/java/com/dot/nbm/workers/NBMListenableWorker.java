@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.concurrent.futures.CallbackToFutureAdapter;
@@ -39,7 +38,7 @@ public class NBMListenableWorker extends ListenableWorker {
     @NonNull
     @Override
     public ListenableFuture<Result> startWork() {
-        Log.i("combinedSignalNetworkHardwareState", "started Listenable NBM worker");
+//        Log.i("combinedSignalNetworkHardwareState", "started Listenable NBM worker");
         Context applicationContext = getApplicationContext();
 
 //        Integer contributions = TestGsonHandler.getContributionCount(applicationContext);
@@ -58,12 +57,12 @@ public class NBMListenableWorker extends ListenableWorker {
     }
 
     public static void fetchSaveLocationNetworkParams(CallbackToFutureAdapter.Completer<Result> completer, Context applicationContext) {
-        Log.i("combinedSignalNetworkHardwareState", "started NBM Listenable worker Helper");
+//        Log.i("combinedSignalNetworkHardwareState", "started NBM Listenable worker Helper");
 
         CombinedSignalNetworkHardwareState combinedSignalNetworkHardwareState = new CombinedSignalNetworkHardwareState();
 
         if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.i("combinedSignalNetworkLocation", "No location access");
+//            Log.i("combinedSignalNetworkLocation", "No location access");
 
             if (completer != null) {
                 completer.set(Result.failure());
@@ -89,7 +88,7 @@ public class NBMListenableWorker extends ListenableWorker {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful() && task.getResult() != null) {
                             Location mLocation = task.getResult();
-                            Log.d("combinedSignalNetworkLocation", "Location : " + mLocation);
+//                            Log.d("combinedSignalNetworkLocation", "Location : " + mLocation);
                             combinedSignalNetworkHardwareState.setAuthCode(applicationContext.getString(R.string.auth_code));
                             combinedSignalNetworkHardwareState.setLatitude(mLocation.getLatitude());
                             combinedSignalNetworkHardwareState.setLongitude(mLocation.getLongitude());
@@ -107,15 +106,15 @@ public class NBMListenableWorker extends ListenableWorker {
                             combinedSignalNetworkHardwareState.setTimeStamp(System.currentTimeMillis());
 
 
-                            Log.i("combinedSignalNetworkHardwareState", combinedSignalNetworkHardwareState.toString());
+//                            Log.i("combinedSignalNetworkHardwareState", combinedSignalNetworkHardwareState.toString());
 
                             List<CombinedSignalNetworkHardwareState> combinedSignalNetworkHardwareStates = GsonHandler.getCombinedSignalNetworkHardwareStates(applicationContext);
 
                             if (combinedSignalNetworkHardwareStates == null) {
                                 combinedSignalNetworkHardwareStates = new ArrayList<>();
                             }
-                            Log.i("combinedSignalNetworkHardwareStates size", combinedSignalNetworkHardwareStates.size() + "");
-                            Log.i("combinedSignalNetworkHardwareStates", combinedSignalNetworkHardwareStates.toString());
+//                            Log.i("combinedSignalNetworkHardwareStates size", combinedSignalNetworkHardwareStates.size() + "");
+//                            Log.i("combinedSignalNetworkHardwareStates", combinedSignalNetworkHardwareStates.toString());
 
                             combinedSignalNetworkHardwareStates.add(combinedSignalNetworkHardwareState);
 
@@ -126,7 +125,7 @@ public class NBMListenableWorker extends ListenableWorker {
                             if (contributions == null)
                                 contributions = 0;
 
-                            Log.i("combinedSignalNetworkHardwareState", "contributions" + contributions);
+//                            Log.i("combinedSignalNetworkHardwareState", "contributions" + contributions);
 
                             GsonHandler.incrementContributionCount(applicationContext, contributions + 1);
 
@@ -135,7 +134,7 @@ public class NBMListenableWorker extends ListenableWorker {
                                 completer.set(Result.success());
                             }
                         } else {
-                            Log.w("combinedSignalNetworkHardwareState", "Failed to get location.");
+//                            Log.w("combinedSignalNetworkHardwareState", "Failed to get location.");
                             if (completer != null) {
                                 completer.set(Result.failure());
                             }

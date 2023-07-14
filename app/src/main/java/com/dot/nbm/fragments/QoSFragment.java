@@ -283,9 +283,9 @@ public class QoSFragment extends Fragment {
                             .RequestMultiplePermissions(), result -> {
                         Boolean backgroundLocationGranted = result.get(
                                 Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
+//                        Log.i("combinedSignalNetworkHardwareState", "inside permission launcher");
                         if ((backgroundLocationGranted != null && backgroundLocationGranted)) {
-                            Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
+//                            Log.i("combinedSignalNetworkHardwareState", "Got bg permission");
                         }
                     }
             );

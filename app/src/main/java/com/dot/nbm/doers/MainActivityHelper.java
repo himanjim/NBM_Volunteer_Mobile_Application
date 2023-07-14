@@ -1,7 +1,6 @@
 package com.dot.nbm.doers;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
@@ -26,9 +25,9 @@ public class MainActivityHelper {
 
 
         if (isWorkScheduled(applicationContext.getString(R.string.worker_tag), applicationContext)) {
-            Log.i("combinedSignalNetworkHardwareState", "NBM worker scheduled");
+//            Log.i("combinedSignalNetworkHardwareState", "NBM worker scheduled");
         } else {
-            Log.i("combinedSignalNetworkHardwareState", "NBM worker not scheduled");
+//            Log.i("combinedSignalNetworkHardwareState", "NBM worker not scheduled");
             if (!GsonHandler.getPauseBackgroundTaskState(applicationContext))
                 scheduleWorker(applicationContext);
         }
@@ -60,7 +59,7 @@ public class MainActivityHelper {
             List<WorkInfo> workInfoList = statuses.get();
             for (WorkInfo workInfo : workInfoList) {
                 WorkInfo.State state = workInfo.getState();
-                Log.i("combinedSignalNetworkHardwareState", tag + "_" + workInfo);
+//                Log.i("combinedSignalNetworkHardwareState", tag + "_" + workInfo);
                 running = (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED);
             }
             return running;
