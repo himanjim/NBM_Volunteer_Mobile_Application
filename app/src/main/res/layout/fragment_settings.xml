@@ -13,35 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:layout_margin="12dp">
+        android:layout_margin="6dp">
 
         <TextView
             android:id="@+id/contributionsView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contri_textView_Str"
+            android:text="@string/fetch_textView_Str"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/pauseCollectionTextView"
             app:layout_constraintStart_toStartOf="@+id/pauseCollectionTextView"
-            android:drawableStart="@mipmap/contribution_icon_32"/>
+            android:justificationMode="inter_word"/>
 
-        <TextView
-            android:id="@+id/contributionsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="@string/fetch_textView_Str"
-            android:textSize="24sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/contributionsView"
-            app:layout_constraintStart_toEndOf="@+id/contributionsView"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/contri_color"/>
 
         <TextView
             android:id="@+id/pauseCollectionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="20dp"
             android:text="@string/pause_data_textView_Str"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/contriThanks"
@@ -63,7 +52,7 @@
             android:id="@+id/contriThanks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="20dp"
             android:text="@string/contri_thanks_textView_Str"
             android:background="@drawable/border"
             android:justificationMode="inter_word"
@@ -74,6 +63,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="40sp"
             android:drawableTop="@mipmap/thanks_32"
+            android:drawableBottom="@mipmap/future_32"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,10 +36,11 @@ public class AboutFragment extends Fragment {
         Spanned aboutUsText_1 = HtmlCompat.fromHtml(getString(R.string.about_us_1), HtmlCompat.FROM_HTML_MODE_COMPACT);
         Spanned aboutUsText_2 = HtmlCompat.fromHtml(getString(R.string.about_us_2), HtmlCompat.FROM_HTML_MODE_COMPACT);
         Spanned aboutUsText_3 = HtmlCompat.fromHtml(getString(R.string.about_us_3), HtmlCompat.FROM_HTML_MODE_COMPACT);
+        Spanned aboutUsText_3_1 = HtmlCompat.fromHtml(getString(R.string.about_us_3_1), HtmlCompat.FROM_HTML_MODE_COMPACT);
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(aboutUsText_1).append(" ", new ImageSpan(getActivity(), R.mipmap.thanks_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                .append(aboutUsText_2).append(" ", new ImageSpan(getActivity(), R.mipmap.nbm_32, DynamicDrawableSpan.ALIGN_BASELINE), 0).append(aboutUsText_3);
+                .append(aboutUsText_2).append(" ", new ImageSpan(getActivity(), R.mipmap.nbm_32_1, DynamicDrawableSpan.ALIGN_BASELINE), 0).append(aboutUsText_3).append(" ", new ImageSpan(getActivity(), R.mipmap.crowd_source_32, DynamicDrawableSpan.ALIGN_BASELINE), 0).append(aboutUsText_3_1);
 
         if (!shutdownState) {
             Spanned aboutUsText_4 = HtmlCompat.fromHtml(getString(R.string.about_us_4), HtmlCompat.FROM_HTML_MODE_COMPACT);

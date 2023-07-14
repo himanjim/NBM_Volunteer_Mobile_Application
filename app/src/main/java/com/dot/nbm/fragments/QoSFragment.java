@@ -156,8 +156,8 @@ public class QoSFragment extends Fragment {
                     SignalStrengthLevelIndicator.SignalLevel signalLevel = SignalStrengthLevelIndicator.getSignalStrengthLevel(signalState);
 
                     SpannableStringBuilder builder = new SpannableStringBuilder();
-                    builder.append("|", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
-                            .append(operatorStyleText).append("| ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                    builder.append(" ", new ImageSpan(getActivity(), R.mipmap.operator_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                            .append(operatorStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.technology_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
                             .append(technologyStyleText).append(" ", new ImageSpan(getActivity(), R.mipmap.strength_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
                             .append(strengthStyleText).append(dbmText).append(" ", new ImageSpan(getActivity(), R.mipmap.quality_32, DynamicDrawableSpan.ALIGN_BASELINE), 0);
 

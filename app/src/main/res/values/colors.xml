@@ -4,4 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pause_color">#50EB5534</color>
     <color name="contri_color">#5042f542</color>
+    <color name="signals_header_color">#80FFFFFF</color>
+
+    <color name="flag_start_color">#FF671F</color>
+    <color name="flag_center_color">#FFFFFF</color>
+    <color name="flag_end_color">#046A38</color>
 </resources>

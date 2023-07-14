@@ -14,21 +14,21 @@
         android:id="@+id/constraintLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_margin="6dp">
 
         <TextView
             android:id="@+id/signalAvailable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signal_available"
-            android:textSize="24sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/signal1TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.042"
             android:justificationMode="inter_word"
-            android:background="@color/contri_color"
+            android:background="@color/signals_header_color"
             android:layout_marginBottom="10sp"
             />
 
