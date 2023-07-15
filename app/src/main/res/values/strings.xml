@@ -15,7 +15,7 @@
     <string name="pause_data_textView_Str">\u00A0\u00A0PAUSE data collection</string>
     <string name="fetch_textView_Str">...fetching</string>
     <string name="contri_count">\u00A0&lt;span style="background-color:#6ACE61">&lt;b>%1$s&lt;/b>&lt;/span>\u00A0</string>
-    <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. Your contributions will enable us to see how the telecom scenario in the country is evolving. Your data can help plan the measures that need to be taken to provide telecom coverage in every nook and corner of the country. The data collected by this mobile application can become the foundation for all kinds of telecom-related data analysis in the future.</string>
+    <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. \nYour contributions will enable us to see how the telecom scenario in the country is evolving. Your data can help plan the measures that need to be taken to provide telecom coverage in every nook and corner of the country. The data collected by this mobile application can become the foundation for all kinds of telecom-related data analysis in the future.</string>
 
     <string name="combSNHState">NBM_V_SNHState</string>
     <string name="worker_tag">1_NBM_V_Worker_Tag</string>
