@@ -1,13 +1,23 @@
 package com.dot.nbm.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.text.LineBreaker;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +68,61 @@ public class AboutFragment extends Fragment {
 
         aboutUsTextView.setText(builder);
 
+        SpannableStringBuilder pr_builder = new SpannableStringBuilder();
+        Spanned aboutUsText_privacy = HtmlCompat.fromHtml(getString(R.string.about_us_privacy), HtmlCompat.FROM_HTML_MODE_COMPACT);
+        pr_builder.append(" ", new ImageSpan(getActivity(), R.mipmap.privacy_policy_32, DynamicDrawableSpan.ALIGN_BASELINE), 0)
+                .append(aboutUsText_privacy);
+
+        setClickSpanOnBuilder(pr_builder, getContext());
+        TextView privacyTextView = layout.findViewById(R.id.privacyPolicyTextView);
+        privacyTextView.setText(pr_builder);
+        privacyTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
         return layout;
+    }
+
+    private void setClickSpanOnBuilder(SpannableStringBuilder builder, Context context) {
+
+        ClickableSpan clickSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View clicked) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.about_us_privacy);
+
+                TextView msg = new TextView(getContext());
+                msg.setPadding(20, 20, 20, 20);
+                msg.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+// Add the buttons
+                builder.setNeutralButton(R.string.contact_tsp_ok, (dialog, id) -> {
+                });
+
+                WebView webView = new WebView(context);
+                webView.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                        handler.proceed();
+                    }
+
+                    @Override
+                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        super.onPageStarted(view, url, favicon);
+                        msg.setText(R.string.loading_Str);
+                    }
+                });
+
+                webView.loadUrl(getString(R.string.privacy_policy_url));
+
+                builder.setView(webView);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+            }
+        };
+
+        builder.setSpan(clickSpan, builder.length() - 15, builder.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
     }
 }

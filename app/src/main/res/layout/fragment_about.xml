@@ -21,15 +21,30 @@
             android:background="@drawable/border"
             android:justificationMode="inter_word"
             android:padding="15dp"
-            android:text="@string/fetch_textView_Str"
+            android:text="@string/loading_Str"
             android:textSize="22sp"
             android:fontFamily="@font/calibri_regular"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/privacyPolicyTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="1.0" />
+        <TextView
+            android:id="@+id/privacyPolicyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:justificationMode="inter_word"
+            android:padding="15dp"
+            android:text="@string/loading_Str"
+            android:textSize="22sp"
+            android:fontFamily="@font/calibri_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aboutUsTextView"
+            android:layout_marginTop="10sp"
             android:layout_marginBottom="40sp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

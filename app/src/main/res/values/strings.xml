@@ -13,7 +13,7 @@
 
     <string name="contri_textView_Str">\u00A0\u00A0Your contributions as a whole total to\u00A0</string>
     <string name="pause_data_textView_Str">\u00A0\u00A0PAUSE data collection</string>
-    <string name="fetch_textView_Str">...fetching</string>
+    <string name="loading_Str">...loading</string>
     <string name="contri_count">\u00A0&lt;span style="background-color:#6ACE61">&lt;b>%1$s&lt;/b>&lt;/span>\u00A0</string>
     <string name="contri_thanks_textView_Str">Thanks a lot for your contributions. \nYour contributions will enable us to see how the telecom scenario in the country is evolving. Your data can help plan the measures that need to be taken to provide telecom coverage in every nook and corner of the country. The data collected by this mobile application can become the foundation for all kinds of telecom-related data analysis in the future.</string>
 
@@ -53,12 +53,14 @@
     <string name="about_us_3">\u00A0\u00A0This application is developed by the Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India, as a &lt;b>pilot program&lt;/b> to capture ground-level signal strength and related parameters through</string>
     <string name="about_us_3_1">\u00A0\u00A0&lt;b>crowd-sourcing&lt;/b>.&lt;br/>&lt;br/></string>
     <string name="about_us_4">\u00A0\u00A0The application tries to capture the following data every 15 minutes:&lt;br/>&lt;ol>&lt;li>&lt;b>Network signal&lt;/b> strength&lt;/li>&lt;li>&lt;b>Mobile tower&lt;/b> parameters&lt;/li>&lt;li>Your &lt;b>precise location&lt;/b> both in the foreground and background.&lt;/li>&lt;li>The &lt;b>brand and hardware of your mobile phone.&lt;/li>&lt;/ol>&lt;br/></string>
-    <string name="about_us_5">\u00A0\u00A0Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.</string>
+    <string name="about_us_5">\u00A0\u00A0Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.&lt;br/></string>
 
     <string name="about_us_6">\u00A0\u00A0The pilot has finished. The background data will not be captured any longer. You can still use the application to view the telecom signals available on your phone.</string>
+    <string name="about_us_privacy">\u00A0\u00A0Here is our PRIVACY POLICY.</string>
 
     <string name="retrofit_hostname">65.0.159.209</string>
     <string name="retrofit_base_url">https://65.0.159.209</string>
+    <string name="privacy_policy_url">https://65.0.159.209/privacy_policy.html</string>
 
     <string name="signal_operator">\u00A0Operator: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_technology">\u00A0\u00A0Technology: &lt;b>%1$s&lt;/b>&lt;br/></string>
@@ -71,8 +73,8 @@
     <string name="signal_quality_poor">\u00A0\u00A0&lt;span style="background-color:#EC031D">POOR&lt;/span>\u00A0\u00A0</string>
     <string name="signal_quality_unknown">\u00A0\u00A0&lt;span style="background-color:#F7BA30">UNKNOWN&lt;/span>\u00A0\u00A0</string>
 
-    <string name="signal_available">The &lt;b>signals&lt;/b> that are accessible on your phone are listed below:</string>
-    <string name="no_signal_available">No &lt;b>signals&lt;/b> are available or can be fetched on your phone.</string>
+    <string name="signal_available">The <b>signals</b> that are accessible on your phone are listed below:</string>
+    <string name="no_signal_available">No <b>signals</b> are available or can be fetched on your phone.</string>
     <string name="refresh_signals">Refresh Signals</string>
 
     <string name="CDMA">CDMA</string>
