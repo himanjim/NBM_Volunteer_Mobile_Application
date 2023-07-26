@@ -56,7 +56,7 @@
     <string name="about_us_5">\u00A0\u00A0Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.&lt;br/></string>
 
     <string name="about_us_6">\u00A0\u00A0The pilot has finished. The background data will not be captured any longer. You can still use the application to view the telecom signals available on your phone.</string>
-    <string name="about_us_privacy">\u00A0\u00A0Here is our PRIVACY POLICY.</string>
+    <string name="about_us_privacy">Here is our PRIVACY POLICY.</string>
 
     <string name="retrofit_hostname">65.0.159.209</string>
     <string name="retrofit_base_url">https://65.0.159.209</string>

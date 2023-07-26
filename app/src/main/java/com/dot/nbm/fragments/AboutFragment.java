@@ -3,7 +3,6 @@ package com.dot.nbm.fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.text.LineBreaker;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -27,6 +26,13 @@ import androidx.fragment.app.Fragment;
 
 import com.dot.nbm.R;
 import com.dot.nbm.doers.GsonHandler;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,9 +96,6 @@ public class AboutFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle(R.string.about_us_privacy);
 
-                TextView msg = new TextView(getContext());
-                msg.setPadding(20, 20, 20, 20);
-                msg.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
 // Add the buttons
                 builder.setNeutralButton(R.string.contact_tsp_ok, (dialog, id) -> {
                 });
@@ -101,13 +104,22 @@ public class AboutFragment extends Fragment {
                 webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                        handler.proceed();
+                        try {
+                            X509Certificate cert = error.getCertificate().getX509Certificate();
+                            cert.getPublicKey();
+                            cert.verify(null);
+                            handler.proceed();
+                        } catch (CertificateException | NoSuchAlgorithmException |
+                                 InvalidKeyException | NoSuchProviderException |
+                                 SignatureException e) {
+                            handler.cancel();
+                        }
                     }
 
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
                         super.onPageStarted(view, url, favicon);
-                        msg.setText(R.string.loading_Str);
+
                     }
                 });
 
@@ -117,8 +129,6 @@ public class AboutFragment extends Fragment {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-
             }
         };
 
