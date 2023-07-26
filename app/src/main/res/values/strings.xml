@@ -60,7 +60,7 @@
 
     <string name="retrofit_hostname">65.0.159.209</string>
     <string name="retrofit_base_url">https://65.0.159.209</string>
-    <string name="privacy_policy_url">https://65.0.159.209/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://sites.google.com/view/nbm-volunteer-privacy-policy/home</string>
 
     <string name="signal_operator">\u00A0Operator: &lt;b>%1$s&lt;/b>&lt;br/></string>
     <string name="signal_technology">\u00A0\u00A0Technology: &lt;b>%1$s&lt;/b>&lt;br/></string>
@@ -122,5 +122,76 @@
         <item>-90</item>
         <item>-100</item>
     </integer-array>
+<string name="privacy_policy_html"><![CDATA[<html>
+<head>
+<style>
+body {
+    font-family: sans-serif;
+}
+
+</style>
+</head>
+<body>
+<h1>NBM Volunteer Mobile Application Privacy Policy</h1>
+<h3>This Privacy Policy describes how this mobile application handles the user data collected through this application on the user&apos;s mobile phone.</h3>
+<h2>About the Developer</h2>
+This application is developed by Mr. Himanshu Sharma, Director (National Broadband Mission), Department of Telecommunications, Government of India, as a pilot program, a part of his Master&apos;s dissertation project, to capture ground-level signal strength and related parameters through crowd-sourcing.
+<hr/>
+<h2>What is the data captured?</h2>
+<ol>
+<li>Precise location of the user both in the foreground and the background (after seeking user permission).</li>
+
+<li>Mobile signal parameters:
+<ul>
+      <li>Name of telecom operator</li>
+      <li>Signal strength</li>
+	  <li>Telecom technology(2G/3G/4G/5G)</li>
+	  <li>Mobile base station along with its technical parameters (cell id, base station identity code, network id etc.)</li>
+</ul>
+</li>
+
+<li>Data network parameters
+<ul>
+      <li>Downstream bandwidth (kbps)</li>
+      <li>Upstream bandwidth (kbps)</li>
+	  <li>Interface Name)</li>
+	  <li>Transport type (Wi-Fi or mobile data)</li>
+</ul>
+</li>
+
+<li>Mobile phone specifications: Brand, model and other specifications etc.
+</li>
+</ol>
+<hr/>
+<h2>Personal and sensitive user data access.</h2>
+ No data related to the user like email, mobile no, name etc. is captured.<br/>
+**<b>IMPORTANT</b>** Please be sure that no parameter related to your identity is captured. Once captured, the data is retained on the server for an indefinite time.
+<br/>
+<hr/>
+<h2>Data sharing.</h2>
+The data collected by the mobile application is not shared with any third party.
+<br/>
+<hr/>
+<h2>Data Transfer.</h2>
+The data collected by the mobile application is encrypted before transferring to the server.
+<br/>
+<hr/>
+<h2>Developer data retention and deletion policy.</h2>
+The data collected by the mobile application is not related to the user and can never be tracked back to the respective user. Hence the user is not given any option to delete the captured data. The data once captured is retained on the server for an indefinite amount of time.
+<br/>
+<hr/>
+<h2>What is in for the user?</h2>
+<ol>
+<li>See all the telecom signals available on your mobile phone: telecom operator name, technology(2G/3G/4G/5G), signal strength in dBm and signal quality (GREAT, GOOD, MODERATE, POOR)</li>
+<li>Volunteer to share your telecom-related data on your mobile phone which can help plan the measures that need to be taken to provide telecom coverage in every nook and corner of the country. The data collected by this mobile application can become the foundation for all kinds of telecom-related data analysis in the future.
+</li>
+</ol>
+<h2>Any query?</h2>
+In case of any regarding the privacy policy, how the application works or any other doubt, please contact himanshu.sharma23[at]gov[dot]in.
+<hr/>
+<br/>
+<br/>
+</body>
+</html>]]></string>
 
 </resources>

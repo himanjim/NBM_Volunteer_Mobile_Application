@@ -2,8 +2,6 @@ package com.dot.nbm.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -11,12 +9,11 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,13 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.dot.nbm.R;
 import com.dot.nbm.doers.GsonHandler;
-
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SignatureException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,30 +91,11 @@ public class AboutFragment extends Fragment {
                 });
 
                 WebView webView = new WebView(context);
-                webView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                        try {
-                            X509Certificate cert = error.getCertificate().getX509Certificate();
-                            cert.getPublicKey();
-                            cert.verify(null);
-                            handler.proceed();
-                        } catch (CertificateException | NoSuchAlgorithmException |
-                                 InvalidKeyException | NoSuchProviderException |
-                                 SignatureException e) {
-                            handler.cancel();
-                        }
-                    }
 
-                    @Override
-                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                        super.onPageStarted(view, url, favicon);
-
-                    }
-                });
-
-                webView.loadUrl(getString(R.string.privacy_policy_url));
-
+//                webView.loadUrl(getString(R.string.privacy_policy_url));
+                String unEncodedHtml = getString(R.string.privacy_policy_html);
+                String encodedHtml = Base64.encodeToString(unEncodedHtml.getBytes(), Base64.NO_PADDING);
+                webView.loadData(encodedHtml, "text/html", "base64");
                 builder.setView(webView);
 
                 AlertDialog dialog = builder.create();
