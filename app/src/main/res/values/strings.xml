@@ -50,7 +50,7 @@
 
     <string name="about_us_1">Dear User,&lt;br/></string>
     <string name="about_us_2">\u00A0\u00A0Thanks for downloading the application.&lt;br/>&lt;br/></string>
-    <string name="about_us_3">\u00A0\u00A0This application is developed by the Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India, as a &lt;b>pilot program&lt;/b> to capture ground-level signal strength and related parameters through</string>
+    <string name="about_us_3">\u00A0\u00A0This application is developed by the Director(&lt;b>National Broadband Mission&lt;/b>), Department of Telecommunications, Government of India (please note that &lt;b>this application does not represent any government entity&lt;/b> and the developer is executing this pilot in his private capacity), as a &lt;b>pilot program&lt;/b> to capture ground-level signal strength and related parameters through. </string>
     <string name="about_us_3_1">\u00A0\u00A0&lt;b>crowd-sourcing&lt;/b>.&lt;br/>&lt;br/></string>
     <string name="about_us_4">\u00A0\u00A0The application tries to capture the following data every 15 minutes:&lt;br/>&lt;ol>&lt;li>&lt;b>Network signal&lt;/b> strength&lt;/li>&lt;li>&lt;b>Mobile tower&lt;/b> parameters&lt;/li>&lt;li>Your &lt;b>precise location&lt;/b> both in the foreground and background.&lt;/li>&lt;li>The &lt;b>brand and hardware of your mobile phone.&lt;/li>&lt;/ol>&lt;br/></string>
     <string name="about_us_5">\u00A0\u00A0Please be sure that no parameter related to your identity is captured. The data captured can never be tracked back to your identity ever.&lt;br/></string>
@@ -135,7 +135,7 @@ body {
 <h1>National Telecom Volunteer Mobile Application Privacy Policy</h1>
 <h3>This Privacy Policy describes how this mobile application handles the user data collected through this application on the user&apos;s mobile phone.</h3>
 <h2>About the Developer</h2>
-This application is developed by Mr. Himanshu Sharma, Director (National Broadband Mission), Department of Telecommunications, Government of India, as a pilot program, a part of his Master&apos;s dissertation project, to capture ground-level signal strength and related parameters through crowd-sourcing.
+This application is developed by Mr. Himanshu Sharma, Director (National Broadband Mission), Department of Telecommunications, Government of India, as a pilot program, a part of his Master&apos;s dissertation project, to capture ground-level signal strength and related parameters through crowd-sourcing. But please note that <b>this application does not represent any government entity</b> and the developer is executing this pilot in his private capacity
 <hr/>
 <h2>What is the data captured?</h2>
 <ol>
