@@ -1,9 +1,11 @@
 package com.dot.nbm.doers;
 
+import androidx.annotation.Keep;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-
+@Keep
 public interface RetrofitAPI {
 
     // as we are making a post request to post a data

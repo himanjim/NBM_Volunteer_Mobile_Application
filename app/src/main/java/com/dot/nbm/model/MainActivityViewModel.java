@@ -2,12 +2,13 @@ package com.dot.nbm.model;
 
 import android.text.Spanned;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Keep
 public class MainActivityViewModel extends ViewModel {
 
 

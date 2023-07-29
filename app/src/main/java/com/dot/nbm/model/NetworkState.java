@@ -1,5 +1,8 @@
 package com.dot.nbm.model;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class NetworkState {
 
     private int downstreamBandwidthKbps;

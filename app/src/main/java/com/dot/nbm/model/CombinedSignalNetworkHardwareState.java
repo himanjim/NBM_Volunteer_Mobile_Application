@@ -1,7 +1,9 @@
 package com.dot.nbm.model;
 
-import java.util.List;
+import androidx.annotation.Keep;
 
+import java.util.List;
+@Keep
 public class CombinedSignalNetworkHardwareState {
 
     private double latitude;

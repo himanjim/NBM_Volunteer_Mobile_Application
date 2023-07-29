@@ -1,8 +1,10 @@
 package com.dot.nbm.model;
 
+import androidx.annotation.Keep;
+
 import java.io.Serializable;
 import java.util.Objects;
-
+@Keep
 public class SignalState implements Serializable, Comparable<SignalState> {
 
     public SignalState() {

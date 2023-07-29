@@ -19,3 +19,17 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+##---------------Begin: proguard configuration for Gson  ----------
+# Gson uses generic type information stored in a class file when working with fields. Proguard
+# removes such information by default, so configure it to keep all of it.
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+#-keep class com.google.** { *; }
+#-keep class com.github.** { *; }
+#-keep class com.android.** { *; }
+#-keep class junit.** { *; }
+-keep class com.dot.nbm.model.** { *; }
+-keep class com.dot.nbm.doers.** { *; }
+-keepclassmembers class com.dot.nbm.model.** { *; }
+
+##---------------End: proguard configuration for Gson  ----------

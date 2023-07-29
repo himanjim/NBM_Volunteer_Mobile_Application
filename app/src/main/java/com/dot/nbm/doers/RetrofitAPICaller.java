@@ -2,6 +2,7 @@ package com.dot.nbm.doers;
 
 import android.content.Context;
 
+import androidx.annotation.Keep;
 import androidx.work.WorkManager;
 
 import com.dot.nbm.R;
@@ -12,7 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-
+@Keep
 public class RetrofitAPICaller {
 
     public static void postData(String cnhStatesStr, Context context) {
