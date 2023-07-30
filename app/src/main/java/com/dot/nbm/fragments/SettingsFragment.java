@@ -60,7 +60,7 @@ public class SettingsFragment extends Fragment {
 
         pauseCheckBox = layout.findViewById(R.id.pauseContriCheckBox);
 
-        boolean shutdownState = GsonHandler.getPauseShutdownState(getContext());
+        boolean shutdownState = GsonHandler.getPauseShutdownState(applicationContext);
 
         if (GsonHandler.getPauseBackgroundTaskState(applicationContext) || shutdownState)
             pauseCheckBox.setChecked(true);

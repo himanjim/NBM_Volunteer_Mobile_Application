@@ -24,12 +24,15 @@
 # removes such information by default, so configure it to keep all of it.
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
-#-keep class com.google.** { *; }
-#-keep class com.github.** { *; }
-#-keep class com.android.** { *; }
-#-keep class junit.** { *; }
+-keep class com.google.** { *; }
+-keep class com.github.** { *; }
+-keep class com.android.** { *; }
+-keep class junit.** { *; }
 -keep class com.dot.nbm.model.** { *; }
 -keep class com.dot.nbm.doers.** { *; }
 -keepclassmembers class com.dot.nbm.model.** { *; }
+-keep class com.google.gson.reflect.TypeToken
+-keep class * extends com.google.gson.reflect.TypeToken
+-keep public class * implements java.lang.reflect.Type
 
 ##---------------End: proguard configuration for Gson  ----------
