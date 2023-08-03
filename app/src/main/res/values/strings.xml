@@ -77,6 +77,10 @@
     <string name="no_signal_available">No <b>signals</b> are available or can be fetched on your phone.</string>
     <string name="refresh_signals">Refresh Signals</string>
 
+    <string name="gps_enable">ENABLE GPS</string>
+    <string name="gps_settings">SETTINGS</string>
+    <string name="gps_cancel">CANCEL</string>
+
     <string name="CDMA">CDMA</string>
     <string name="GSM">GSM</string>
     <string name="WCDMA">WCDMA</string>

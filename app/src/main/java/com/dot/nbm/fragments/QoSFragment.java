@@ -3,10 +3,14 @@ package com.dot.nbm.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.text.LineBreaker;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -69,11 +73,13 @@ public class QoSFragment extends Fragment {
 
         Log.d("Phone_Model", String.join("-", Build.MANUFACTURER, Build.PRODUCT, Build.BRAND, Build.MODEL, Build.HOST, Build.HARDWARE));
 
-        fetchAndShowSignals(layout);
+        if (checkLocationEnabled())
+            fetchAndShowSignals(layout);
 
         FloatingActionButton fab = layout.findViewById(R.id.refresh_signals);
         fab.setOnClickListener(view -> {
-
+            if (!checkLocationEnabled())
+                return;
 //            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction().detach(QoSFragment.this);
 //            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             fetchAndShowSignals(layout);
@@ -140,7 +146,7 @@ public class QoSFragment extends Fragment {
 //            SignalState firstSignalState = signalStates.get(0);
 
 //            int signal_count = 1;
-            if (uniqueSignalStates .size() > 0) {
+            if (uniqueSignalStates.size() > 0) {
 
                 for (SignalState signalState : uniqueSignalStates) {
                     //                String dynamicText = String.format(getString(R.string.signal_strength_text), ordinal(signal_count), signalState.getOperaterName(), signalState.getTechnology(), signalState.getSignalStrength(), "ok");
@@ -277,6 +283,30 @@ public class QoSFragment extends Fragment {
 
     }
 
+    private boolean checkLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsEnabled = false;
+        boolean networkEnabled = false;
+        try {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!gpsEnabled && !networkEnabled) {
+            new AlertDialog.Builder(getActivity())
+                    .setMessage(R.string.gps_enable)
+                    .setPositiveButton(R.string.gps_settings, (paramDialogInterface, paramInt) -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                    .setNegativeButton(R.string.gps_cancel, null)
+                    .show();
+        }
+
+        return gpsEnabled;
+    }
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher2 =
             registerForActivityResult(new ActivityResultContracts

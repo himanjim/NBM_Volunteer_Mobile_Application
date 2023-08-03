@@ -47,6 +47,8 @@ public class SignalStateFetcher {
             int networkId = 0;
             int level = 0;
             int cpid = 0;
+            String mnc = null;
+            String mcc = null;
 
 
             List<SignalState> signalStates = new ArrayList<>();
@@ -65,6 +67,8 @@ public class SignalStateFetcher {
                         rfChannelNo = cellInfoWcdma.getCellIdentity().getUarfcn();
                         cellId = cellInfoWcdma.getCellIdentity().getCid();
                         locationAreaCode = cellInfoWcdma.getCellIdentity().getLac();
+                        mnc = cellInfoWcdma.getCellIdentity().getMncString();
+                        mcc = cellInfoWcdma.getCellIdentity().getMccString();
 
                         operatorName = cellInfoWcdma.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.THREE_G);
@@ -83,6 +87,8 @@ public class SignalStateFetcher {
                         cellId = cellIdentityTdscdma.getCid();
                         locationAreaCode = cellIdentityTdscdma.getLac();
                         cpid = cellIdentityTdscdma.getCpid();
+                        mnc = cellIdentityTdscdma.getMncString();
+                        mcc = cellIdentityTdscdma.getMccString();
 
                         operatorName = cellIdentityTdscdma.getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.THREE_G);
@@ -98,6 +104,9 @@ public class SignalStateFetcher {
                         cellId = cellInfogsm.getCellIdentity().getCid();
                         locationAreaCode = cellInfogsm.getCellIdentity().getLac();
                         baseStationIdentityCode = cellInfogsm.getCellIdentity().getBsic();
+                        mnc = cellInfogsm.getCellIdentity().getMncString();
+                        mcc = cellInfogsm.getCellIdentity().getMccString();
+
                         operatorName = cellInfogsm.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.TWO_G);
                         technology = context.getString(R.string.GSM);
@@ -112,6 +121,9 @@ public class SignalStateFetcher {
                         cellId = cellInfoLte.getCellIdentity().getCi();
                         trackingAreaCode = cellInfoLte.getCellIdentity().getTac();
                         physicalCellId = cellInfoLte.getCellIdentity().getPci();
+                        mnc = cellInfoLte.getCellIdentity().getMncString();
+                        mcc = cellInfoLte.getCellIdentity().getMccString();
+
                         operatorName = cellInfoLte.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.FOUR_G);
                         technology = context.getString(R.string.LTE);
@@ -126,6 +138,7 @@ public class SignalStateFetcher {
                         networkId = cellInfoCdma.getCellIdentity().getNetworkId();
                         baseStationIdentityCode = cellInfoCdma.getCellIdentity().getBasestationId();
                         systemId = cellInfoCdma.getCellIdentity().getSystemId();
+
                         operatorName = cellInfoCdma.getCellIdentity().getOperatorAlphaLong().toString();
                         generation = context.getString(R.string.TWO_G);
                         technology = context.getString(R.string.CDMA);
@@ -141,6 +154,8 @@ public class SignalStateFetcher {
                         cellId = cellIdentityNr.getNci();
                         physicalCellId = cellIdentityNr.getPci();
                         trackingAreaCode = cellIdentityNr.getTac();
+                        mnc = cellIdentityNr.getMncString();
+                        mcc = cellIdentityNr.getMccString();
 
                         strength = cellSignalStrengthNr.getDbm();
                         operatorName = cellInfoNr.getCellIdentity().getOperatorAlphaLong().toString();
@@ -165,6 +180,8 @@ public class SignalStateFetcher {
                 signalState.setTrackingAreaCode(trackingAreaCode);
                 signalState.setLevel(level);
                 signalState.setCpid(cpid);
+                signalState.setMobileCountryCode(mcc);
+                signalState.setMobileNetworkCode(mnc);
 
                 signalStates.add(signalState);
             }

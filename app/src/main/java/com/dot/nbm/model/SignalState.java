@@ -3,7 +3,7 @@ package com.dot.nbm.model;
 import androidx.annotation.Keep;
 
 import java.io.Serializable;
-import java.util.Objects;
+
 @Keep
 public class SignalState implements Serializable, Comparable<SignalState> {
 
@@ -38,6 +38,26 @@ public class SignalState implements Serializable, Comparable<SignalState> {
     private int level;
 
     private int cpid;
+
+    private String mobileCountryCode;
+
+    private String mobileNetworkCode;
+
+    public String getMobileCountryCode() {
+        return mobileCountryCode;
+    }
+
+    public void setMobileCountryCode(String mobileCountryCode) {
+        this.mobileCountryCode = mobileCountryCode;
+    }
+
+    public String getMobileNetworkCode() {
+        return mobileNetworkCode;
+    }
+
+    public void setMobileNetworkCode(String mobileNetworkCode) {
+        this.mobileNetworkCode = mobileNetworkCode;
+    }
 
     public int getCpid() {
         return cpid;
@@ -153,22 +173,9 @@ public class SignalState implements Serializable, Comparable<SignalState> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SignalState)) return false;
-        SignalState that = (SignalState) o;
-        return getSignalStrength() == that.getSignalStrength() && Objects.equals(getOperatorName(), that.getOperatorName()) && Objects.equals(getTechnology(), that.getTechnology());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getOperatorName(), getSignalStrength(), getTechnology());
-    }
-
-    @Override
     public String toString() {
         return "SignalState{" +
-                ", operaterName='" + operatorName + '\'' +
+                "operatorName='" + operatorName + '\'' +
                 ", signalStrength=" + signalStrength +
                 ", technology='" + technology + '\'' +
                 ", channelNo=" + channelNo +
@@ -182,6 +189,8 @@ public class SignalState implements Serializable, Comparable<SignalState> {
                 ", networkId=" + networkId +
                 ", level=" + level +
                 ", cpid=" + cpid +
+                ", mobileCountryCode='" + mobileCountryCode + '\'' +
+                ", mobileNetworkCode='" + mobileNetworkCode + '\'' +
                 '}';
     }
 
