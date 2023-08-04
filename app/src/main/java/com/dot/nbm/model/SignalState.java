@@ -3,6 +3,7 @@ package com.dot.nbm.model;
 import androidx.annotation.Keep;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Keep
 public class SignalState implements Serializable, Comparable<SignalState> {
@@ -192,6 +193,19 @@ public class SignalState implements Serializable, Comparable<SignalState> {
                 ", mobileCountryCode='" + mobileCountryCode + '\'' +
                 ", mobileNetworkCode='" + mobileNetworkCode + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SignalState)) return false;
+        SignalState that = (SignalState) o;
+        return getSignalStrength() == that.getSignalStrength() && getChannelNo() == that.getChannelNo() && Objects.equals(getOperatorName(), that.getOperatorName()) && Objects.equals(getTechnology(), that.getTechnology());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOperatorName(), getSignalStrength(), getTechnology(), getChannelNo());
     }
 
     @Override
