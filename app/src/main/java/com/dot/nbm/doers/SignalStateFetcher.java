@@ -1,11 +1,6 @@
 package com.dot.nbm.doers;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.telephony.CellIdentityNr;
 import android.telephony.CellIdentityTdscdma;
@@ -22,13 +17,11 @@ import android.telephony.CellSignalStrengthLte;
 import android.telephony.CellSignalStrengthNr;
 import android.telephony.CellSignalStrengthTdscdma;
 import android.telephony.CellSignalStrengthWcdma;
-import android.telephony.NetworkRegistrationInfo;
 import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
-import androidx.core.app.ActivityCompat;
 
 import com.dot.nbm.R;
 import com.dot.nbm.model.SignalState;
@@ -61,24 +54,27 @@ public class SignalStateFetcher {
             int subscriptionId = subscriptionInfo.getSubscriptionId();
             TelephonyManager subTelephonyManager = telephonyManager.createForSubscriptionId(subscriptionId);
 
-            boolean nrConnect = false;
-                    ServiceState serviceState = subTelephonyManager.getServiceState();
-            if (serviceState != null) {
-                List<NetworkRegistrationInfo> networkRegistrationInfos = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    networkRegistrationInfos = serviceState.getNetworkRegistrationInfoList();
-                }
-                for (NetworkRegistrationInfo networkRegistrationInfo : networkRegistrationInfos) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        if (networkRegistrationInfo.getAccessNetworkTechnology() == TelephonyManager.NETWORK_TYPE_NR) {
-                            nrConnect = true;
-                        }
-                    }
-                }
-            }
+//            boolean nrConnect = false;
 
             int networkType = subTelephonyManager.getDataNetworkType();
             String networkTypeString = getNetworkTypeString(networkType, context);
+
+            ServiceState serviceState = subTelephonyManager.getServiceState();
+            if (serviceState != null) {
+                if (serviceState.toString().contains("isNrAvailable = true"))
+                    networkTypeString = context.getString(R.string.FIVE_G);
+//                List<NetworkRegistrationInfo> networkRegistrationInfos = null;
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    networkRegistrationInfos = serviceState.getNetworkRegistrationInfoList();
+//                }
+//                for (NetworkRegistrationInfo networkRegistrationInfo : networkRegistrationInfos) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                        if (networkRegistrationInfo.getAccessNetworkTechnology() == TelephonyManager.NETWORK_TYPE_NR) {
+//                            nrConnect = true;
+//                        }
+//                    }
+//                }
+            }
 //            boolean nrConnect = is5GConnected(context);
 
 //            networkInfo.append("SIM Slot ").append(subscriptionInfo.getSimSlotIndex()).append(" - Network Type: ").append(networkTypeString).append("\n");
@@ -86,7 +82,7 @@ public class SignalStateFetcher {
             if (networkType == 0)
                 continue;
 
-            simIndex ++;
+            simIndex++;
 
             List<CellInfo> cellInfos = subTelephonyManager.getAllCellInfo();
 
@@ -294,59 +290,59 @@ public class SignalStateFetcher {
     }
 
 
-    public static boolean isNRConnected(TelephonyManager telephonyManager) {
-        try {
-            Object obj = Class.forName(telephonyManager.getClass().getName())
-                    .getDeclaredMethod("getServiceState", new Class[0]).invoke(telephonyManager, new Object[0]);
-            // try extracting from string
-            String serviceState = obj.toString();
-            boolean is5gActive = serviceState.contains("nrState=CONNECTED") ||
-                    serviceState.contains("nsaState=5") ||
-                    (serviceState.contains("EnDc=true") &&
-                            serviceState.contains("5G Allocated=true"));
-            if (is5gActive) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    private static boolean is5GConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-
-        Network activeNetwork = connectivityManager.getActiveNetwork();
-        if (activeNetwork != null) {
-            NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
-            if (networkCapabilities != null) {
-                if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
-                        networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return false;
-                    }
-
-                    int networkType = telephonyManager.getNetworkType();
-                    if (networkType == TelephonyManager.NETWORK_TYPE_NR) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
+//    public static boolean isNRConnected(TelephonyManager telephonyManager) {
+//        try {
+//            Object obj = Class.forName(telephonyManager.getClass().getName())
+//                    .getDeclaredMethod("getServiceState", new Class[0]).invoke(telephonyManager, new Object[0]);
+//            // try extracting from string
+//            String serviceState = obj.toString();
+//            boolean is5gActive = serviceState.contains("nrState=CONNECTED") ||
+//                    serviceState.contains("nsaState=5") ||
+//                    (serviceState.contains("EnDc=true") &&
+//                            serviceState.contains("5G Allocated=true"));
+//            if (is5gActive) {
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+//
+//    private static boolean is5GConnected(Context context) {
+//        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//
+//        Network activeNetwork = connectivityManager.getActiveNetwork();
+//        if (activeNetwork != null) {
+//            NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
+//            if (networkCapabilities != null) {
+//                if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) &&
+//                        networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+//
+//                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+//                        // TODO: Consider calling
+//                        //    ActivityCompat#requestPermissions
+//                        // here to request the missing permissions, and then overriding
+//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                        //                                          int[] grantResults)
+//                        // to handle the case where the user grants the permission. See the documentation
+//                        // for ActivityCompat#requestPermissions for more details.
+//                        return false;
+//                    }
+//
+//                    int networkType = telephonyManager.getNetworkType();
+//                    if (networkType == TelephonyManager.NETWORK_TYPE_NR) {
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//
+//        return false;
+//    }
 
 
     private static String getNetworkTypeString(int networkType, Context context) {
