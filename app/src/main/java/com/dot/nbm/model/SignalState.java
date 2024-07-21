@@ -12,6 +12,8 @@ public class SignalState implements Serializable, Comparable<SignalState> {
 
     }
 
+    private int simIndex = 1;
+
     private String operatorName;
 
     private int signalStrength;
@@ -40,9 +42,88 @@ public class SignalState implements Serializable, Comparable<SignalState> {
 
     private int cpid;
 
+    private int rssi;
+
+    private int rsrq;
+
+    private int csi_rsrp;
+
+    private int csi_rsrq;
+
+    private int ss_rsrp;
+
+    private int ss_rsrq;
+
+
+    private int rssnr;
+
     private String mobileCountryCode;
 
     private String mobileNetworkCode;
+
+    public int getSimIndex() {
+        return simIndex;
+    }
+
+    public void setSimIndex(int simIndex) {
+        this.simIndex = simIndex;
+    }
+
+    public int getRssnr() {
+        return rssnr;
+    }
+
+    public void setRssnr(int rssnr) {
+        this.rssnr = rssnr;
+    }
+
+    public int getRssi() {
+        return rssi;
+    }
+
+    public void setRssi(int rssi) {
+        this.rssi = rssi;
+    }
+
+    public int getRsrq() {
+        return rsrq;
+    }
+
+    public void setRsrq(int rsrq) {
+        this.rsrq = rsrq;
+    }
+
+    public int getCsi_rsrp() {
+        return csi_rsrp;
+    }
+
+    public void setCsi_rsrp(int csi_rsrp) {
+        this.csi_rsrp = csi_rsrp;
+    }
+
+    public int getCsi_rsrq() {
+        return csi_rsrq;
+    }
+
+    public void setCsi_rsrq(int csi_rsrq) {
+        this.csi_rsrq = csi_rsrq;
+    }
+
+    public int getSs_rsrp() {
+        return ss_rsrp;
+    }
+
+    public void setSs_rsrp(int ss_rsrp) {
+        this.ss_rsrp = ss_rsrp;
+    }
+
+    public int getSs_rsrq() {
+        return ss_rsrq;
+    }
+
+    public void setSs_rsrq(int ss_rsrq) {
+        this.ss_rsrq = ss_rsrq;
+    }
 
     public String getMobileCountryCode() {
         return mobileCountryCode;
@@ -176,7 +257,8 @@ public class SignalState implements Serializable, Comparable<SignalState> {
     @Override
     public String toString() {
         return "SignalState{" +
-                "operatorName='" + operatorName + '\'' +
+                "simIndex=" + simIndex +
+                ", operatorName='" + operatorName + '\'' +
                 ", signalStrength=" + signalStrength +
                 ", technology='" + technology + '\'' +
                 ", channelNo=" + channelNo +
@@ -190,6 +272,13 @@ public class SignalState implements Serializable, Comparable<SignalState> {
                 ", networkId=" + networkId +
                 ", level=" + level +
                 ", cpid=" + cpid +
+                ", rssi=" + rssi +
+                ", rsrq=" + rsrq +
+                ", csi_rsrp=" + csi_rsrp +
+                ", csi_rsrq=" + csi_rsrq +
+                ", ss_rsrp=" + ss_rsrp +
+                ", ss_rsrq=" + ss_rsrq +
+                ", rssnr=" + rssnr +
                 ", mobileCountryCode='" + mobileCountryCode + '\'' +
                 ", mobileNetworkCode='" + mobileNetworkCode + '\'' +
                 '}';
@@ -200,7 +289,7 @@ public class SignalState implements Serializable, Comparable<SignalState> {
         if (this == o) return true;
         if (!(o instanceof SignalState)) return false;
         SignalState that = (SignalState) o;
-        return getSignalStrength() == that.getSignalStrength() && getChannelNo() == that.getChannelNo() && Objects.equals(getOperatorName(), that.getOperatorName()) && Objects.equals(getTechnology(), that.getTechnology());
+        return getSimIndex() == that.getSimIndex() && getSignalStrength() == that.getSignalStrength() && getChannelNo() == that.getChannelNo() && Objects.equals(getOperatorName(), that.getOperatorName()) && Objects.equals(getTechnology(), that.getTechnology());
     }
 
     @Override
