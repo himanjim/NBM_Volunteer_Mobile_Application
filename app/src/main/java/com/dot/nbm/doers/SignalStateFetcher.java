@@ -241,7 +241,7 @@ public class SignalStateFetcher {
                     SignalState signalState = new SignalState();
                     signalState.setSimIndex(simIndex);
 //                    signalState.setOperatorName(operatorName);
-                    signalState.setOperatorName(subscriptionInfo.getDisplayName().toString());
+                    signalState.setOperatorName(subscriptionInfo.getCarrierName().toString());
                     signalState.setSignalStrength(strength);
                     signalState.setChannelNo(rfChannelNo);
                     signalState.setTechnology(technology);
