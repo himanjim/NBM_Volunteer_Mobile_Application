@@ -11,6 +11,7 @@ import android.telephony.CellInfoLte;
 import android.telephony.CellInfoNr;
 import android.telephony.CellInfoTdscdma;
 import android.telephony.CellInfoWcdma;
+import android.telephony.CellSignalStrength;
 import android.telephony.CellSignalStrengthCdma;
 import android.telephony.CellSignalStrengthGsm;
 import android.telephony.CellSignalStrengthLte;
@@ -84,8 +85,15 @@ public class SignalStateFetcher {
 
             simIndex++;
 
-            List<CellInfo> cellInfos = subTelephonyManager.getAllCellInfo();
 
+            List<CellSignalStrength> sTMCellSignalStrengths = subTelephonyManager.getSignalStrength().getCellSignalStrengths();
+
+            if (sTMCellSignalStrengths == null || sTMCellSignalStrengths.size() == 0)
+                continue;
+
+            CellSignalStrength sTMCellSignalStrength = sTMCellSignalStrengths.get(0);
+
+            List<CellInfo> cellInfos = subTelephonyManager.getAllCellInfo();
 
             if (cellInfos != null) {
                 int strength = 0;
@@ -118,12 +126,16 @@ public class SignalStateFetcher {
 
                     if (cellInfo.isRegistered()) {
 
-                        if (cellInfo instanceof CellInfoWcdma) {
+                        if (cellInfo instanceof CellInfoWcdma && sTMCellSignalStrength instanceof CellSignalStrengthWcdma) {
                             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
-                            CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
+//                            CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
+//                            level = cellSignalStrengthWcdma.getLevel();
+//                            strength = cellSignalStrengthWcdma.getDbm();
 
-                            level = cellSignalStrengthWcdma.getLevel();
-                            strength = cellSignalStrengthWcdma.getDbm();
+                            level = sTMCellSignalStrength.getLevel();
+                            strength = sTMCellSignalStrength.getDbm();
+
+
                             rfChannelNo = cellInfoWcdma.getCellIdentity().getUarfcn();
                             cellId = cellInfoWcdma.getCellIdentity().getCid();
                             locationAreaCode = cellInfoWcdma.getCellIdentity().getLac();
@@ -135,12 +147,15 @@ public class SignalStateFetcher {
                             technology = context.getString(R.string.WCDMA);
 
                         }
-                        if (cellInfo instanceof CellInfoTdscdma) {
+                        if (cellInfo instanceof CellInfoTdscdma && sTMCellSignalStrength instanceof CellSignalStrengthTdscdma) {
                             CellInfoTdscdma cellInfoTdscdma = (CellInfoTdscdma) cellInfo;
-                            CellSignalStrengthTdscdma cellSignalStrengthTdscdma = cellInfoTdscdma.getCellSignalStrength();
 
-                            level = cellSignalStrengthTdscdma.getLevel();
-                            strength = cellSignalStrengthTdscdma.getDbm();
+//                            CellSignalStrengthTdscdma cellSignalStrengthTdscdma = cellInfoTdscdma.getCellSignalStrength();
+//                            level = cellSignalStrengthTdscdma.getLevel();
+//                            strength = cellSignalStrengthTdscdma.getDbm();
+
+                            level = sTMCellSignalStrength.getLevel();
+                            strength = sTMCellSignalStrength.getDbm();
 
                             CellIdentityTdscdma cellIdentityTdscdma = cellInfoTdscdma.getCellIdentity();
                             rfChannelNo = cellIdentityTdscdma.getUarfcn();
@@ -154,15 +169,21 @@ public class SignalStateFetcher {
 //                            generation = context.getString(R.string.THREE_G);
                             technology = context.getString(R.string.TDSCDMA);
 
-                        } else if (cellInfo instanceof CellInfoGsm) {
+                        } else if (cellInfo instanceof CellInfoGsm && sTMCellSignalStrength instanceof CellSignalStrengthGsm) {
                             CellInfoGsm cellInfogsm = (CellInfoGsm) cellInfo;
-                            CellSignalStrengthGsm cellSignalStrengthGsm = cellInfogsm.getCellSignalStrength();
 
-                            level = cellSignalStrengthGsm.getLevel();
-                            strength = cellSignalStrengthGsm.getDbm();
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                rssi = cellSignalStrengthGsm.getRssi();
-                            }
+//                            CellSignalStrengthGsm cellSignalStrengthGsm = cellInfogsm.getCellSignalStrength();
+//
+//                            level = cellSignalStrengthGsm.getLevel();
+//                            strength = cellSignalStrengthGsm.getDbm();
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                                rssi = cellSignalStrengthGsm.getRssi();
+//                            }
+
+                            level = sTMCellSignalStrength.getLevel();
+                            strength = sTMCellSignalStrength.getDbm();
+                            rssi = ((CellSignalStrengthGsm) sTMCellSignalStrength).getRssi();
+
 
                             rfChannelNo = cellInfogsm.getCellIdentity().getArfcn();
                             cellId = cellInfogsm.getCellIdentity().getCid();
@@ -176,15 +197,21 @@ public class SignalStateFetcher {
                             technology = context.getString(R.string.GSM);
 
 
-                        } else if (cellInfo instanceof CellInfoLte) {
+                        } else if (cellInfo instanceof CellInfoLte && sTMCellSignalStrength instanceof CellSignalStrengthLte) {
                             CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
-                            CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
 
-                            level = cellSignalStrengthLte.getLevel();
-                            strength = cellSignalStrengthLte.getDbm();
-                            rssi = cellSignalStrengthLte.getRssi();
-                            rsrq = cellSignalStrengthLte.getRsrq();
-                            rssnr = cellSignalStrengthLte.getRssnr();
+//                            CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
+//                            level = cellSignalStrengthLte.getLevel();
+//                            strength = cellSignalStrengthLte.getDbm();
+//                            rssi = cellSignalStrengthLte.getRssi();
+//                            rsrq = cellSignalStrengthLte.getRsrq();
+//                            rssnr = cellSignalStrengthLte.getRssnr();
+
+                            level = sTMCellSignalStrength.getLevel();
+                            strength = sTMCellSignalStrength.getDbm();
+                            rssi = ((CellSignalStrengthLte) sTMCellSignalStrength).getRssi();
+                            rsrq = ((CellSignalStrengthLte) sTMCellSignalStrength).getRsrq();
+                            rssnr = ((CellSignalStrengthLte) sTMCellSignalStrength).getRssnr();
 
                             rfChannelNo = cellInfoLte.getCellIdentity().getEarfcn();
                             cellId = cellInfoLte.getCellIdentity().getCi();
@@ -197,12 +224,16 @@ public class SignalStateFetcher {
 //                            generation = context.getString(R.string.FOUR_G);
                             technology = context.getString(R.string.LTE);
 
-                        } else if (cellInfo instanceof CellInfoCdma) {
+                        } else if (cellInfo instanceof CellInfoCdma && sTMCellSignalStrength instanceof CellSignalStrengthCdma) {
                             CellInfoCdma cellInfoCdma = (CellInfoCdma) cellInfo;
-                            CellSignalStrengthCdma cellSignalStrengthCdma = cellInfoCdma.getCellSignalStrength();
 
-                            strength = cellSignalStrengthCdma.getDbm();
-                            level = cellSignalStrengthCdma.getLevel();
+//                            CellSignalStrengthCdma cellSignalStrengthCdma = cellInfoCdma.getCellSignalStrength();
+//                            strength = cellSignalStrengthCdma.getDbm();
+//                            level = cellSignalStrengthCdma.getLevel();
+
+                            strength = sTMCellSignalStrength.getDbm();
+                            level = sTMCellSignalStrength.getLevel();
+
 //                        rfChannelNo = cellInfoCdma.getCellIdentity().getNetworkId();
                             networkId = cellInfoCdma.getCellIdentity().getNetworkId();
                             baseStationIdentityCode = cellInfoCdma.getCellIdentity().getBasestationId();
@@ -212,25 +243,33 @@ public class SignalStateFetcher {
 //                            generation = context.getString(R.string.TWO_G);
                             technology = context.getString(R.string.CDMA);
 
-                        } else if (cellInfo instanceof CellInfoNr) {
+                        } else if (cellInfo instanceof CellInfoNr && sTMCellSignalStrength instanceof CellSignalStrengthNr) {
                             CellInfoNr cellInfoNr = (CellInfoNr) cellInfo;
-                            CellSignalStrengthNr cellSignalStrengthNr = (CellSignalStrengthNr) cellInfoNr.getCellSignalStrength();
+
+//                            CellSignalStrengthNr cellSignalStrengthNr = (CellSignalStrengthNr) cellInfoNr.getCellSignalStrength();
+//                            strength = cellSignalStrengthNr.getDbm();
+//                            csi_rsrq = cellSignalStrengthNr.getCsiRsrq();
+//                            csi_rsrp = cellSignalStrengthNr.getCsiRsrp();
+//                            ss_rsrq = cellSignalStrengthNr.getSsRsrq();
+//                            ss_rsrp = cellSignalStrengthNr.getSsRsrp();
+//                            level = cellSignalStrengthNr.getLevel();
+
+                            strength = sTMCellSignalStrength.getDbm();
+                            level = sTMCellSignalStrength.getLevel();
+                            csi_rsrq = ((CellSignalStrengthNr) sTMCellSignalStrength).getCsiRsrq();
+                            csi_rsrp = ((CellSignalStrengthNr) sTMCellSignalStrength).getCsiRsrp();
+                            ss_rsrq = ((CellSignalStrengthNr) sTMCellSignalStrength).getSsRsrq();
+                            ss_rsrp = ((CellSignalStrengthNr) sTMCellSignalStrength).getSsRsrp();
+
 
                             CellIdentityNr cellIdentityNr = (CellIdentityNr) cellInfoNr.getCellIdentity();
 
-                            level = cellSignalStrengthNr.getLevel();
                             rfChannelNo = cellIdentityNr.getNrarfcn();
                             cellId = cellIdentityNr.getNci();
                             physicalCellId = cellIdentityNr.getPci();
                             trackingAreaCode = cellIdentityNr.getTac();
                             mnc = cellIdentityNr.getMncString();
                             mcc = cellIdentityNr.getMccString();
-
-                            strength = cellSignalStrengthNr.getDbm();
-                            csi_rsrq = cellSignalStrengthNr.getCsiRsrq();
-                            csi_rsrp = cellSignalStrengthNr.getCsiRsrp();
-                            ss_rsrq = cellSignalStrengthNr.getSsRsrq();
-                            ss_rsrp = cellSignalStrengthNr.getSsRsrp();
 
 //                            operatorName = cellInfoNr.getCellIdentity().getOperatorAlphaLong().toString();
 //                            generation = context.getString(R.string.FIVE_G);
@@ -241,7 +280,7 @@ public class SignalStateFetcher {
                     SignalState signalState = new SignalState();
                     signalState.setSimIndex(simIndex);
 //                    signalState.setOperatorName(operatorName);
-                    signalState.setOperatorName(subscriptionInfo.getCarrierName().toString());
+                    signalState.setOperatorName(subTelephonyManager.getNetworkOperatorName());
                     signalState.setSignalStrength(strength);
                     signalState.setChannelNo(rfChannelNo);
                     signalState.setTechnology(technology);
