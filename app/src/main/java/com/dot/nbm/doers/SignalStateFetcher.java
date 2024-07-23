@@ -1,7 +1,6 @@
 package com.dot.nbm.doers;
 
 import android.content.Context;
-import android.os.Build;
 import android.telephony.CellIdentityNr;
 import android.telephony.CellIdentityTdscdma;
 import android.telephony.CellInfo;
@@ -88,7 +87,7 @@ public class SignalStateFetcher {
 
             List<CellSignalStrength> sTMCellSignalStrengths = subTelephonyManager.getSignalStrength().getCellSignalStrengths();
 
-            if (sTMCellSignalStrengths == null || sTMCellSignalStrengths.size() == 0)
+            if (sTMCellSignalStrengths.isEmpty())
                 continue;
 
             CellSignalStrength sTMCellSignalStrength = sTMCellSignalStrengths.get(0);
@@ -126,6 +125,8 @@ public class SignalStateFetcher {
 
                     if (cellInfo.isRegistered()) {
 
+                        boolean cellIsLatched = false;
+
                         if (cellInfo instanceof CellInfoWcdma && sTMCellSignalStrength instanceof CellSignalStrengthWcdma) {
                             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
 //                            CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
@@ -146,6 +147,7 @@ public class SignalStateFetcher {
 //                            generation = context.getString(R.string.THREE_G);
                             technology = context.getString(R.string.WCDMA);
 
+                            cellIsLatched = true;
                         }
                         if (cellInfo instanceof CellInfoTdscdma && sTMCellSignalStrength instanceof CellSignalStrengthTdscdma) {
                             CellInfoTdscdma cellInfoTdscdma = (CellInfoTdscdma) cellInfo;
@@ -168,6 +170,8 @@ public class SignalStateFetcher {
 //                            operatorName = cellIdentityTdscdma.getOperatorAlphaLong().toString();
 //                            generation = context.getString(R.string.THREE_G);
                             technology = context.getString(R.string.TDSCDMA);
+
+                            cellIsLatched = true;
 
                         } else if (cellInfo instanceof CellInfoGsm && sTMCellSignalStrength instanceof CellSignalStrengthGsm) {
                             CellInfoGsm cellInfogsm = (CellInfoGsm) cellInfo;
@@ -196,6 +200,7 @@ public class SignalStateFetcher {
 //                            generation = context.getString(R.string.TWO_G);
                             technology = context.getString(R.string.GSM);
 
+                            cellIsLatched = true;
 
                         } else if (cellInfo instanceof CellInfoLte && sTMCellSignalStrength instanceof CellSignalStrengthLte) {
                             CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
@@ -224,6 +229,8 @@ public class SignalStateFetcher {
 //                            generation = context.getString(R.string.FOUR_G);
                             technology = context.getString(R.string.LTE);
 
+                            cellIsLatched = true;
+
                         } else if (cellInfo instanceof CellInfoCdma && sTMCellSignalStrength instanceof CellSignalStrengthCdma) {
                             CellInfoCdma cellInfoCdma = (CellInfoCdma) cellInfo;
 
@@ -242,6 +249,8 @@ public class SignalStateFetcher {
 //                            operatorName = cellInfoCdma.getCellIdentity().getOperatorAlphaLong().toString();
 //                            generation = context.getString(R.string.TWO_G);
                             technology = context.getString(R.string.CDMA);
+
+                            cellIsLatched = true;
 
                         } else if (cellInfo instanceof CellInfoNr && sTMCellSignalStrength instanceof CellSignalStrengthNr) {
                             CellInfoNr cellInfoNr = (CellInfoNr) cellInfo;
@@ -274,40 +283,44 @@ public class SignalStateFetcher {
 //                            operatorName = cellInfoNr.getCellIdentity().getOperatorAlphaLong().toString();
 //                            generation = context.getString(R.string.FIVE_G);
                             technology = context.getString(R.string.NR);
+
+                            cellIsLatched = true;
+                        }
+
+                        if (cellIsLatched){
+                            SignalState signalState = new SignalState();
+                            signalState.setSimIndex(simIndex);
+//                    signalState.setOperatorName(operatorName);
+                            signalState.setOperatorName(subTelephonyManager.getNetworkOperatorName());
+                            signalState.setSignalStrength(strength);
+                            signalState.setChannelNo(rfChannelNo);
+                            signalState.setTechnology(technology);
+//                    signalState.setGeneration(generation);
+                            signalState.setGeneration(networkTypeString);
+
+                            signalState.setBaseStationIdentityCode(baseStationIdentityCode);
+                            signalState.setCellId(cellId);
+                            signalState.setLocationAreaCode(locationAreaCode);
+                            signalState.setNetworkId(networkId);
+                            signalState.setSystemId(systemId);
+                            signalState.setPhysicalCellId(physicalCellId);
+                            signalState.setTrackingAreaCode(trackingAreaCode);
+                            signalState.setLevel(level);
+                            signalState.setCpid(cpid);
+                            signalState.setMobileCountryCode(mcc);
+                            signalState.setMobileNetworkCode(mnc);
+
+                            signalState.setRssi(rssi);
+                            signalState.setRsrq(rsrq);
+                            signalState.setCsi_rsrp(csi_rsrp);
+                            signalState.setCsi_rsrq(csi_rsrq);
+                            signalState.setSs_rsrp(ss_rsrp);
+                            signalState.setSs_rsrq(ss_rsrq);
+                            signalState.setRssnr(rssnr);
+
+                            signalStates.add(signalState);
                         }
                     }
-
-                    SignalState signalState = new SignalState();
-                    signalState.setSimIndex(simIndex);
-//                    signalState.setOperatorName(operatorName);
-                    signalState.setOperatorName(subTelephonyManager.getNetworkOperatorName());
-                    signalState.setSignalStrength(strength);
-                    signalState.setChannelNo(rfChannelNo);
-                    signalState.setTechnology(technology);
-//                    signalState.setGeneration(generation);
-                    signalState.setGeneration(networkTypeString);
-
-                    signalState.setBaseStationIdentityCode(baseStationIdentityCode);
-                    signalState.setCellId(cellId);
-                    signalState.setLocationAreaCode(locationAreaCode);
-                    signalState.setNetworkId(networkId);
-                    signalState.setSystemId(systemId);
-                    signalState.setPhysicalCellId(physicalCellId);
-                    signalState.setTrackingAreaCode(trackingAreaCode);
-                    signalState.setLevel(level);
-                    signalState.setCpid(cpid);
-                    signalState.setMobileCountryCode(mcc);
-                    signalState.setMobileNetworkCode(mnc);
-
-                    signalState.setRssi(rssi);
-                    signalState.setRsrq(rsrq);
-                    signalState.setCsi_rsrp(csi_rsrp);
-                    signalState.setCsi_rsrq(csi_rsrq);
-                    signalState.setSs_rsrp(ss_rsrp);
-                    signalState.setSs_rsrq(ss_rsrq);
-                    signalState.setRssnr(rssnr);
-
-                    signalStates.add(signalState);
                 }
 
 
