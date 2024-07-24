@@ -46,14 +46,13 @@ public class SignalState implements Serializable, Comparable<SignalState> {
 
     private int rsrq;
 
-    private int csi_rsrp;
+    private int csiRsrp;
 
-    private int csi_rsrq;
+    private int csiRsrq;
 
-    private int ss_rsrp;
+    private int ssRsrp;
 
-    private int ss_rsrq;
-
+    private int ssRsrq;
 
     private int rssnr;
 
@@ -93,36 +92,36 @@ public class SignalState implements Serializable, Comparable<SignalState> {
         this.rsrq = rsrq;
     }
 
-    public int getCsi_rsrp() {
-        return csi_rsrp;
+    public int getCsiRsrp() {
+        return csiRsrp;
     }
 
-    public void setCsi_rsrp(int csi_rsrp) {
-        this.csi_rsrp = csi_rsrp;
+    public void setCsiRsrp(int csiRsrp) {
+        this.csiRsrp = csiRsrp;
     }
 
-    public int getCsi_rsrq() {
-        return csi_rsrq;
+    public int getCsiRsrq() {
+        return csiRsrq;
     }
 
-    public void setCsi_rsrq(int csi_rsrq) {
-        this.csi_rsrq = csi_rsrq;
+    public void setCsiRsrq(int csiRsrq) {
+        this.csiRsrq = csiRsrq;
     }
 
-    public int getSs_rsrp() {
-        return ss_rsrp;
+    public int getSsRsrp() {
+        return ssRsrp;
     }
 
-    public void setSs_rsrp(int ss_rsrp) {
-        this.ss_rsrp = ss_rsrp;
+    public void setSsRsrp(int ssRsrp) {
+        this.ssRsrp = ssRsrp;
     }
 
-    public int getSs_rsrq() {
-        return ss_rsrq;
+    public int getSsRsrq() {
+        return ssRsrq;
     }
 
-    public void setSs_rsrq(int ss_rsrq) {
-        this.ss_rsrq = ss_rsrq;
+    public void setSsRsrq(int ssRsrq) {
+        this.ssRsrq = ssRsrq;
     }
 
     public String getMobileCountryCode() {
@@ -274,10 +273,10 @@ public class SignalState implements Serializable, Comparable<SignalState> {
                 ", cpid=" + cpid +
                 ", rssi=" + rssi +
                 ", rsrq=" + rsrq +
-                ", csi_rsrp=" + csi_rsrp +
-                ", csi_rsrq=" + csi_rsrq +
-                ", ss_rsrp=" + ss_rsrp +
-                ", ss_rsrq=" + ss_rsrq +
+                ", csi_rsrp=" + csiRsrp +
+                ", csi_rsrq=" + csiRsrq +
+                ", ss_rsrp=" + ssRsrp +
+                ", ss_rsrq=" + ssRsrq +
                 ", rssnr=" + rssnr +
                 ", mobileCountryCode='" + mobileCountryCode + '\'' +
                 ", mobileNetworkCode='" + mobileNetworkCode + '\'' +

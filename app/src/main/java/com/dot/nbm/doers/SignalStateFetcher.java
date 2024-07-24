@@ -312,10 +312,10 @@ public class SignalStateFetcher {
 
                             signalState.setRssi(rssi);
                             signalState.setRsrq(rsrq);
-                            signalState.setCsi_rsrp(csi_rsrp);
-                            signalState.setCsi_rsrq(csi_rsrq);
-                            signalState.setSs_rsrp(ss_rsrp);
-                            signalState.setSs_rsrq(ss_rsrq);
+                            signalState.setCsiRsrp(csi_rsrp);
+                            signalState.setCsiRsrq(csi_rsrq);
+                            signalState.setSsRsrp(ss_rsrp);
+                            signalState.setSsRsrq(ss_rsrq);
                             signalState.setRssnr(rssnr);
 
                             signalStates.add(signalState);
